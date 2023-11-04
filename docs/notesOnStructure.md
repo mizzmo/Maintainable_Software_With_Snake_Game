@@ -1,7 +1,12 @@
 ## Initial notes on the structure of the code.
 [<-- Back to README](../README.md)\
-[Diagrams -->](diagrams.md)
+[Diagrams -->](diagrams.md)\
 
+[Main Class](#main-class---no-methods)[Food Class](#food-class---constructor-2-methods)[GameUtil Class](#gameutil-class---3-methods)
+[ImageUtil Class](#imageutil-class---constructor)[MusicPlayer Class](#musicplayer-class---constructor-2-methods)[Movable Class](#movable-interface-class---1-method)
+[MyFrame Class](#myframe-class---constructor-4-methods)[MyThread Class](#mythread-class---no-methods)[MySnake Class](#mysnake-class---constructor-8-methods)
+[SnakeObject Class](#snakeobject-abstract-class---2-methods)[Paddle Class](#paddle-class---constructor-1-method-6-unused-methods)[Play Class](#play-class---4-methods)
+[Snake Class](#snake-class---2-methods)
 ### Main Class - (No Methods)
 - All that main does is print a string.
 - It has no relations to other classes or code.
