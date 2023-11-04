@@ -5,12 +5,13 @@
 Contact: *psyts20@nottingham.ac.uk*
 ### Contents:
  - [Introduction.](#introduction)
- - [Initial Notes.](#initialNotes)
+ - [Initial Notes on Code.](#initialNotes)
+ - [Initial Notes on Structure.](docs/notesOnStructure.md)
  - [Instructions.](docs/instructions.md)
  - [Development Notes.](docs/devNotes.md)
  - [Changelog.](docs/changelog.md)
  - [Diagrams.](docs/diagrams.md)
- - [Code.](snake-v7-src)
+ - [Code.](snake-v7-src/src/example)
  
 <a name="introduction"></a>
 ### Introduction.
