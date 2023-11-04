@@ -1,6 +1,6 @@
 ## Initial notes on the structure of the code.
 [<-- Back](../README.md)\
-[Diagrams -->](diagrams.md)\
+[Diagrams -->](diagrams.md)
 ### Main Class
 - All that main does is print a string.
 - It has no relations to other classes or code.
