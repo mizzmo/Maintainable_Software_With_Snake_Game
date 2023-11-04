@@ -5,16 +5,17 @@
 Contact: *psyts20@nottingham.ac.uk*
 ### Contents:
  - [Introduction.](#introduction)
- - [Instructions.](docs/instructions.md.txt)
- - [Development Notes.](docs/devNotes.md.txt)
- - [Changelog.](docs/changelog.md.txt)
- - [Diagrams.](docs/diagrams.md.txt)
+ - [Initial Notes.](#initialNotes)
+ - [Instructions.](docs/instructions.md)
+ - [Development Notes.](docs/devNotes.md)
+ - [Changelog.](docs/changelog.md)
+ - [Diagrams.](docs/diagrams.md)
  - [Code.](snake-v7-src)
  
 <a name="introduction"></a>
 ### Introduction.
 
-
+<a name="initialNotes"></a>
 ### Initial Notes on the Code.
 - All code and assets are contained within the same directory "example".
 - There seems to be no naming conventions for files 
