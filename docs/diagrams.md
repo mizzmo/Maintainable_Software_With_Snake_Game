@@ -3,11 +3,35 @@
 - All that main does is print a string.
 - It has no relations to other classes or code.
 
+### Food Class
+- Has 3 uses in "Play" class.
+- Constructor takes no values, picks a random food image, gets height and width and sets a random position for the food to go.
+- Has method "eaten" that checks if food has been eaten and increases the score accordingly. Has one use in the "Play" class.
+- Has a method "draw" which draws an image at given coordinates. Has 2 uses in "Play" class.
+
+### GameUtil Class
+- Has uses in "ImageUtil" and "MyFrame".
+- Has method "getImage" which takes a path to an image, reads it and returns it as BufferedImage.
+- Has method "rotateImage" which takes an image and rotates it to a specified amount.
+
+### ImageUtil Class
+- Has uses in "Food", "MyFrame" and "Play" classes.
+- Only has a constructor that sets indexes to certain images.
+
+### MusicPlayer Class
+- Has uses in "Play" and "MusicPlayer" classes.
+- Extends thread.
+- Constructor takes a filename and initialises a variable with it.
+- Has method "Play" which creates a new thread and plays the music file.
+- Has method "getMusicPlay" which takes a filename and plays that file using a new "MusicPlayer" Object.
+
 ### Movable Interface Class
+- Has one use in the "MyFrame" class.
 - Movable is an interface that contains one void method, "move".
 - This method has 1 implementation in the "MyFrame" class.
 
 ### MyFrame Class
+- Has uses in "Food" and "Play" and "MyFrame".
 - Implements Movable.
 - Extends JPanel.
 - Used to create the game window.
@@ -19,9 +43,11 @@
 - There is a further abstract class inside of "MyFrame" called "SnakeObject".
 
 ### MyThread Class
+- Has 1 use in "Play".
 - "MyThread" seems to run the parent class and infinitely repaint the window every 30 miliseconds.
 
 ### MySnake Class
+- Has uses in "Food" and "Play".
 - "MySnake" extends "SnakeObject" and implements "Movable"
 - It initialises some private variables.
 - The constructor takes two values, x and y.
@@ -37,6 +63,7 @@
 - Has a method "outofBounds" which detects if you are out of bounds on the screen. This is used once in the same class.
 
 ### SnakeObject Abstract Class
+- Has uses in "Food" and "MyFrame".
 - Abstract class.
 - Declares some variables.
 - Has an abstract method "draw". Has one use in "MySnake" class and one use in the "Food" class.
