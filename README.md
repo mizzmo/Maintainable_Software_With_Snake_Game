@@ -1,7 +1,11 @@
 
 
 ## Toby Surtees - Developing Maintainable Software.
-![COMP2013 Cousework Snake Logo](assets/comp2013snakeLogo.png)\
+
+<p align="center">
+  <img src="assets/comp2013snakeLogo.png" />
+</p>
+
 Contact: *psyts20@nottingham.ac.uk*
 ### Contents:
  - [Introduction.](#introduction)

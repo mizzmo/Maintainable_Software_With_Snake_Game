@@ -3,7 +3,7 @@
 \
 \
 [<-- Initial Notes on Code](initialNotes.md)\
-[Diagrams -->](diagrams.md)\
+[Diagrams -->](diagrams.md)
 
 [|Main Class|](#main) -- [|Food Class|](#food) -- [|GameUtil Class|](#gameutil)
  -- [|ImageUtil Class|](#imageutil) -- [|MusicPlayer Class|](#musicplayer) -- [|Movable Class|](#movable)

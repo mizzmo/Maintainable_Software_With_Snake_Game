@@ -3,7 +3,7 @@
 \
 \
 [<-- Introduction](../README.md)\
-[Initial Notes on Structure -->](notesOnStructure.md)\
+[Initial Notes on Structure -->](notesOnStructure.md)
 
 <a name="initialNotes"></a>
 
