@@ -1,3 +1,10 @@
+
+[Back to README](../README.md)\
+\
+\
+[<-- Introduction](../README.md)\
+[Initial Notes on Structure -->](notesOnStructure.md)\
+
 <a name="initialNotes"></a>
 
 ## Initial Notes on the Code.

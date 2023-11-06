@@ -1,5 +1,8 @@
 ## Initial notes on the structure of the code.
-[<-- Back to README](../README.md)\
+[Back to README](../README.md)\
+\
+\
+[<-- Initial Notes on Code](initialNotes.md)\
 [Diagrams -->](diagrams.md)\
 
 [|Main Class|](#main) -- [|Food Class|](#food) -- [|GameUtil Class|](#gameutil)
