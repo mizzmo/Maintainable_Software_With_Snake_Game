@@ -5,23 +5,17 @@
 Contact: *psyts20@nottingham.ac.uk*
 ### Contents:
  - [Introduction.](#introduction)
- - [Initial Notes on Code.](#initialNotes)
+ - [Initial Notes on Code.](docs/initialNotes.md)
  - [Initial Notes on Structure.](docs/notesOnStructure.md)
+ - [Diagrams.](docs/diagrams.md)
+ - [Coding Conventions.](docs/codingConventions.md)
  - [Instructions.](docs/instructions.md)
  - [Development Notes.](docs/devNotes.md)
  - [Changelog.](docs/changelog.md)
- - [Diagrams.](docs/diagrams.md)
  - [Code.](snake-v7-src/src/example)
  
 <a name="introduction"></a>
 ### Introduction.
+Welcome to my Git Repo for COMP2013 Coursework! \
+Above you can find a contents page where all my documents are listed for your convenience.
 
-<a name="initialNotes"></a>
-### Initial Notes on the Code.
-- All code and assets are contained within the same directory "example".
-- There seems to be no naming conventions for files 
-- Random comments are left in the code.
-- Where there are comments, they dont mean anything.
-- Most code is left completely unexplained.
-- There are methods that dont do anything in the code.
-- There doesn't seem to be any obvious design pattern used here.
