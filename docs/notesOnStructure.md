@@ -10,38 +10,52 @@
  -- [|MyFrame Class|](#myframe) -- [|MyThread Class|](#mythread) -- [|MySnake Class|](#mysnake)
  -- [|SnakeObject Class|](#snakeobject) -- [|Paddle Class|](#paddle) -- [|Play Class|](#play)
  -- [|Snake Class|](#snake)
+
 <a name="main"></a>
+
 ### Main Class - (No Methods)
 - All that main does is print a string.
 - It has no relations to other classes or code.
+
 <a name="food"></a>
+
 ### Food Class - (Constructor, 2 Methods) 
 - Has 3 uses in "Play" class.
 - Constructor takes no values, picks a random food image, gets height and width and sets a random position for the food to go.
 - Has method "eaten" that checks if food has been eaten and increases the score accordingly. Has one use in the "Play" class.
 - Has a method "draw" which draws an image at given coordinates. Has 2 uses in "Play" class.
+
 <a name="gameutil"></a>
+
 ### GameUtil Class - (3 Methods)
 - Has uses in "ImageUtil" and "MyFrame".
 - Has method "getImage" which takes a path to an image, reads it and returns it as BufferedImage.
 - Has method "rotateImage" which takes an image and rotates it to a specified amount.
+
 <a name="imageutil"></a>
+
 ### ImageUtil Class - (Constructor)
 - Has uses in "Food", "MyFrame" and "Play" classes.
 - Only has a constructor that sets indexes to certain images.
+
 <a name="musicplayer"></a>
+
 ### MusicPlayer Class - (Constructor, 2 Methods)
 - Has uses in "Play" and "MusicPlayer" classes.
 - Extends thread.
 - Constructor takes a filename and initialises a variable with it.
 - Has method "Play" which creates a new thread and plays the music file.
 - Has method "getMusicPlay" which takes a filename and plays that file using a new "MusicPlayer" Object.
+
 <a name="movable"></a>
+
 ### Movable Interface Class - (1 Method)
 - Has one use in the "MyFrame" class.
 - Movable is an interface that contains one void method, "move".
 - This method has 1 implementation in the "MyFrame" class.
+
 <a name="myframe"></a>
+
 ### MyFrame Class - (Constructor, 4 Methods)
 - Has uses in "Food" and "Play" and "MyFrame".
 - Implements Movable.
@@ -53,11 +67,15 @@
 - There is a class "MyThread" inside the MyFrame Class.
 - There is another class, "MySnake" inside of "MyFrame"
 - There is a further abstract class inside of "MyFrame" called "SnakeObject".
+
 <a name="mythread"></a>
+
 ### MyThread Class - (No Methods)
 - Has 1 use in "Play".
 - "MyThread" seems to run the parent class and infinitely repaint the window every 30 miliseconds.
+
 <a name="mysnake"></a>
+
 ### MySnake Class - (Constructor, 8 Methods)
 - Has uses in "Food" and "Play".
 - "MySnake" extends "SnakeObject" and implements "Movable"
@@ -73,14 +91,18 @@
 - Has a method "eatBody". I think this method is for detecting whether the body has hit itself. This is used once in the same class.
 - Has a method "drawBody" which draws each point in the snake onto the screen. This is used once in the same class.
 - Has a method "outofBounds" which detects if you are out of bounds on the screen. This is used once in the same class.
+
 <a name="snakeobject"></a>
+
 ### SnakeObject Abstract Class - (2 Methods)
 - Has uses in "Food" and "MyFrame".
 - Abstract class.
 - Declares some variables.
 - Has an abstract method "draw". Has one use in "MySnake" class and one use in the "Food" class.
 - Has a public method "getRectangle" which returns a new Rectangle object that is initialised to a specified size. Has two uses in the "Food" class.
+
 <a name="paddle"></a>
+
 ### Paddle Class - (Constructor, 1 Method, 6 Unused Methods)
 - This class defines some variables.
 - It has a constructor that takes some inputs and assigns them. This constructor is never used.
@@ -91,7 +113,9 @@
 - Has an unused method "stop" which sets the moveAmount to 0.
 - Has an unused method "getPaddleFace" which returns "paddleFace".
 - Has an unused method "moveTo" which sets the location of "ballPoint" and "paddleFace".
+
 <a name="play"></a>
+
 ### Play Class - (4 Methods)
 - Extends "MyFrame".
 - Sets up some public variables.
@@ -99,7 +123,9 @@
 - Method "paint" draws the background and food onto the screen.
 - Method "drawScore" draws the score onto the screen. Has one use in the same class.
 - Method "main" loads the frame and plays music.
+
 <a name="snake"></a>
+
 ### Snake Class - (2 Methods)
 - Declares a serial variable with no uses.
 - Has method "move" that returns the value x with no uses.
