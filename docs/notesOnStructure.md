@@ -16,7 +16,7 @@
 ### Main Class - (No Methods)
 - All that main does is print a string.
 - It has no relations to other classes or code.
-Relationships:
+\Relationships:
 - None
 
 <a name="food"></a>
@@ -26,7 +26,7 @@ Relationships:
 - Constructor takes no values, picks a random food image, gets height and width and sets a random position for the food to go.
 - Has method "eaten" that checks if food has been eaten and increases the score accordingly. Has one use in the "Play" class.
 - Has a method "draw" which draws an image at given coordinates. Has 2 uses in "Play" class.
-Relationships:
+\Relationships:
 - Extends MyFrame.SnakeObject - "IS-A" - *Inheritance*
 - Uses ImageUtil Method - *Dependency*
 
@@ -36,7 +36,7 @@ Relationships:
 - Has uses in "ImageUtil" and "MyFrame".
 - Has method "getImage" which takes a path to an image, reads it and returns it as BufferedImage.
 - Has method "rotateImage" which takes an image and rotates it to a specified amount.
-Relationships:
+\Relationships:
 - None
 
 <a name="imageutil"></a>
@@ -44,7 +44,7 @@ Relationships:
 ### ImageUtil Class - (Constructor)
 - Has uses in "Food", "MyFrame" and "Play" classes.
 - Only has a constructor that sets indexes to certain images.
-Relationships:
+\Relationships:
 - Uses methods from GameUtil - *Dependency*
 
 <a name="musicplayer"></a>
@@ -55,7 +55,7 @@ Relationships:
 - Constructor takes a filename and initialises a variable with it.
 - Has method "Play" which creates a new thread and plays the music file.
 - Has method "getMusicPlay" which takes a filename and plays that file using a new "MusicPlayer" Object.
-Relationships:
+\Relationships:
 - Extends Thread - "IS-A" - *Inheritance* - Not applicable as this is a library.
 - Creates a Player Object - "HAS-A" - *Aggregation*
 
@@ -65,7 +65,7 @@ Relationships:
 - Has one use in the "MyFrame" class.
 - Movable is an interface that contains one void method, "move".
 - This method has 1 implementation in the "MyFrame" class.
-Relationships:
+\Relationships:
 - None
 
 <a name="myframe"></a>
@@ -80,7 +80,7 @@ Relationships:
 - There is a class "MyThread" inside the MyFrame Class.
 - There is another class, "MySnake" inside of "MyFrame"
 - There is a further abstract class inside of "MyFrame" called "SnakeObject".
-Relationships:
+\Relationships:
 - Extends JPanel - "IS-A" - *Inheritance* - Not Applicable as is a Library.
 - Implements KeyListner - "IS-A" - *Inheritance* - Not Applicable as is a Library.
 
@@ -89,7 +89,7 @@ Relationships:
 ### MyThread Class - (No Methods)
 - Has 1 use in "Play".
 - "MyThread" seems to run the parent class and infinitely repaint the window every 30 miliseconds.
-Relationships:
+\Relationships:
 - Extends Thread - "IS-A" - *Inheritance* - Not Applicable as is a Library.
 - Is a member of MyFrame - *Composition*
 
@@ -110,7 +110,7 @@ Relationships:
 - Has a method "eatBody". I think this method is for detecting whether the body has hit itself. This is used once in the same class.
 - Has a method "drawBody" which draws each point in the snake onto the screen. This is used once in the same class.
 - Has a method "outofBounds" which detects if you are out of bounds on the screen. This is used once in the same class.
-Relationships:
+\Relationships:
 - Extends SnakeObject - "IS-A" - *Inheritance*
 - Implements movable - *Realisation / Implementation*
 - Uses GameUtil Method - *Dependency*
@@ -125,7 +125,7 @@ Relationships:
 - Declares some variables.
 - Has an abstract method "draw". Has one use in "MySnake" class and one use in the "Food" class.
 - Has a public method "getRectangle" which returns a new Rectangle object that is initialised to a specified size. Has two uses in the "Food" class.
-Relationships:
+\Relationships:
 - Is a member of MyFrame - *Composition*
 
 <a name="paddle"></a>
@@ -140,7 +140,7 @@ Relationships:
 - Has an unused method "stop" which sets the moveAmount to 0.
 - Has an unused method "getPaddleFace" which returns "paddleFace".
 - Has an unused method "moveTo" which sets the location of "ballPoint" and "paddleFace".
-Relationships:
+\Relationships:
 - None
 
 <a name="play"></a>
@@ -152,7 +152,7 @@ Relationships:
 - Method "paint" draws the background and food onto the screen.
 - Method "drawScore" draws the score onto the screen. Has one use in the same class.
 - Method "main" loads the frame and plays music.
-Relationships:
+\Relationships:
 - Extends MyFrame - "IS-A" - *Inheritance*
 - Creates MySnake Object - "HAS-A" - *Aggregation*
 - Creates Food Object - "HAS-A" - *Aggregation* 
@@ -165,5 +165,5 @@ Relationships:
 - Declares a serial variable with no uses.
 - Has method "move" that returns the value x with no uses.
 - Has method "stop" with no uses. Sets moving = 0.
-Relationships:
+\Relationships:
 - None
