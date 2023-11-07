@@ -110,12 +110,12 @@ Relationships:
 - Has a method "eatBody". I think this method is for detecting whether the body has hit itself. This is used once in the same class.
 - Has a method "drawBody" which draws each point in the snake onto the screen. This is used once in the same class.
 - Has a method "outofBounds" which detects if you are out of bounds on the screen. This is used once in the same class.
-Relationships:
+<p>**Relationships:**
 - Extends SnakeObject - "IS-A" - *Inheritance*
 - Implements movable - *Realisation / Implementation*
 - Uses GameUtil Method - *Dependency*
 - Is a member of MyFrame - *Composition*
-
+</p>
 
 <a name="snakeobject"></a>
 
@@ -125,9 +125,9 @@ Relationships:
 - Declares some variables.
 - Has an abstract method "draw". Has one use in "MySnake" class and one use in the "Food" class.
 - Has a public method "getRectangle" which returns a new Rectangle object that is initialised to a specified size. Has two uses in the "Food" class.
-Relationships:
+<p>**Relationships:**
 - Is a member of MyFrame - *Composition*
-
+</p>
 <a name="paddle"></a>
 
 ### Paddle Class - (Constructor, 1 Method, 6 Unused Methods)
@@ -140,8 +140,9 @@ Relationships:
 - Has an unused method "stop" which sets the moveAmount to 0.
 - Has an unused method "getPaddleFace" which returns "paddleFace".
 - Has an unused method "moveTo" which sets the location of "ballPoint" and "paddleFace".
-Relationships:
+<p>**Relationships:**
 - None
+</p>
 
 <a name="play"></a>
 
@@ -152,18 +153,19 @@ Relationships:
 - Method "paint" draws the background and food onto the screen.
 - Method "drawScore" draws the score onto the screen. Has one use in the same class.
 - Method "main" loads the frame and plays music.
-Relationships:
+<p>**Relationships:**
 - Extends MyFrame - "IS-A" - *Inheritance*
 - Creates MySnake Object - "HAS-A" - *Aggregation*
 - Creates Food Object - "HAS-A" - *Aggregation* 
 - Uses ImageUtil Method - *Dependency*
 - Uses MusicPlayer Method - *Dependency*
-
+</p>
 <a name="snake"></a>
 
 ### Snake Class - (2 Methods)
 - Declares a serial variable with no uses.
 - Has method "move" that returns the value x with no uses.
-- Has method "stop" with no uses. Sets moving = 0.\
-Relationships:
+- Has method "stop" with no uses. Sets moving = 0.
+<p>**Relationships:**
 - None
+</p>
