@@ -70,22 +70,4 @@ public class Play extends MyFrame
 		MusicPlayer.getMusicPlay("src/example/frogger.mp3");
 
 	}
-/*	
-	public static void main(String[] args)
-	{
-		JFrame frame = new JFrame();
-		// frame.setSize(400,600);
-		frame.setBounds(450, 200, 920, 600);
-		// frame.setResizable(false);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-		SnakePanel panel = new SnakePanel();
-		frame.add(panel);
-
-		frame.setVisible(true);
-
-		// Play the background music.
-		MusicPlayer.getMusicPlay("resource\\music\\background.mp3");
-	} 
-*/
 }
