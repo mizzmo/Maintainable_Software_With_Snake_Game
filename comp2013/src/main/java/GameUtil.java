@@ -4,26 +4,21 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.net.URL;
 
 import javax.imageio.ImageIO;
 
 public class GameUtil
 {
-	public static Image getImage(String imagePath)
-	{
-		URL u = GameUtil.class.getClassLoader().getResource(imagePath);
-		BufferedImage i = null;
-		try
-		{
-			i = ImageIO.read(u);
-		} catch (Exception e)
-		{
-			System.err.println("VILLA : FINN EKKI TILTEKNA MYNDIN !\n");
-			e.printStackTrace();
+	public static BufferedImage getImage(String imagePath) {
+		try {
+			return ImageIO.read(GameUtil.class.getResource(imagePath));
+		} catch (IOException e) {
+			System.err.println("\nError: Image URL Not Found or is NULL.\n");
+			e.printStackTrace(); // Handle the exception according to your needs
+			return null;
 		}
-
-		return i;
 	}
 
 	public static Image rotateImage(final BufferedImage bufferedImage, final int degree)
