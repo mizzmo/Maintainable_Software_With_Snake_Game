@@ -1,7 +1,7 @@
 [Back to README](../README.md)\
 \
 \
-[<-- Diagrams](devNotes.md)\
+[<-- Development Notes](devNotes.md)
 
 
 
