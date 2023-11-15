@@ -1,7 +1,7 @@
 
 
 ## Toby Surtees - Developing Maintainable Software.
-![COMP2013 Cousework Snake Logo](assets/comp2013snakeLogo.png)\
+![COMP2013 Cousework Snake Logo](example.assets/comp2013snakeLogo.png)\
 Contact: *psyts20@nottingham.ac.uk*
 ### Contents:
  - [Introduction.](#introduction)
@@ -12,7 +12,7 @@ Contact: *psyts20@nottingham.ac.uk*
  - [Instructions.](docs/instructions.md)
  - [Development Notes.](docs/devNotes.md)
  - [Changelog.](docs/changelog.md)
- - [Code.](snake-v7-src/src/example)
+ - [Code.](comp2013/src/main/java/)
  
 <a name="introduction"></a>
 ### Introduction.

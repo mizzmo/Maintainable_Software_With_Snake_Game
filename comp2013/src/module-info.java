@@ -1,5 +1,5 @@
 module comp2013 {
-    opens example;
+    opens main.java;
     requires java.desktop;
     requires jlayer;
 }
