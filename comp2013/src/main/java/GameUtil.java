@@ -1,4 +1,4 @@
-package example;
+package main.java;
 
 import java.awt.Graphics2D;
 import java.awt.Image;

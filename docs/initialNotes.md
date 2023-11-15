@@ -8,7 +8,7 @@
 <a name="initialNotes"></a>
 
 ## Questions To Answer.
-- **Q: Where are the images/assets stored?**
+- **Q: Where are the images/main.resources stored?**
 -   A: All Assets are stored in the same directory as the code.  
 - **Q: How does the program choose which fruit to display?**
 -   A: In the Food Class, a fruit image is randomly chosen in the constructor using the "Random" libaray.  
@@ -30,7 +30,7 @@
 -   A: The graphics library is used to draw images to the screen.
 
 ## Initial Notes on the Code.
-- All code and assets are contained within the same directory.
+- All code and main.resources are contained within the same directory.
 - There seems to be no naming conventions for files 
 - Random comments are left in the code.
 - Where there are comments, they dont mean anything.
@@ -43,7 +43,7 @@
 - Duplicated methods resulting in excessive code.
 
 ## Proposed Immidiate Changes.
-- Split out the code and assets into seperate folders.
+- Split out the code and main.resources into seperate folders.
 - Refactor code to account for this change.
 - Establish new naming and coding conventions to be implemented into this code.
 - Remove unneeded files and code snippets. (*Unused Files Etc.*)

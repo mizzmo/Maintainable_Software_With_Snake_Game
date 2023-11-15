@@ -1,4 +1,4 @@
-package example;
+package main.java;
 
 import java.awt.Color;
 import java.awt.Font;

@@ -1,4 +1,4 @@
-package example;
+package main.java;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -6,6 +6,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
+import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class MyFrame extends JPanel implements KeyListener
 
 	public MyFrame()
 	{
-		jFrame.setIconImage(Toolkit.getDefaultToolkit().getImage(MyFrame.class.getResource("snake-logo.png")));
+		jFrame.setIconImage(Toolkit.getDefaultToolkit().getImage(MyFrame.class.getResource("main/resources/images/snake-logo.png")));
 	}
 
 	public void loadFrame()
