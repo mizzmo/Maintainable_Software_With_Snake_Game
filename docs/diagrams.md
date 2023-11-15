@@ -8,4 +8,4 @@
 ## Class Diagram
 ### Initial Structure of Program
 
-![Initial Class Diagram](../example.assets/COMP2013cwClass.png)
+![Initial Class Diagram](../assets/COMP2013cwClass.png)
