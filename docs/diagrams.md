@@ -9,3 +9,7 @@
 ### Initial Structure of Program
 
 ![Initial Class Diagram](../assets/COMP2013cwClass.png)
+
+### IntelliJ Automatic Class Diagram
+
+![IntelliJ Class Diagram](../assets/generatedClassDiagram.png)
