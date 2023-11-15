@@ -1,3 +1,10 @@
+[Back to README](../README.md)\
+\
+\
+[<-- Diagrams](devNotes.md)\
+
+
+
 ## Changelog
 ### 9/11/23
 - Removed Unused Files / Classes.
