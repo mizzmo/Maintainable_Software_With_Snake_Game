@@ -9,6 +9,8 @@
 ### 9/11/23
 - Removed Unused Files / Classes.
 - Added JavaDoc to Project.
+- Removed Commented Out Code.
+- Reworked some code comments.
 ### 15/11/23 
 - Renamed some folders.
 - Rearranged Files. Introduced resources and java folder.
