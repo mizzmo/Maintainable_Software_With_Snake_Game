@@ -17,3 +17,5 @@
 - Moved Classes to java folder.
 - Moved Images to resources/images folder. Music to resources/music folder.
 - Reworked getImage method in GameUtil.
+- Added module.info
+- Added gitignore.
