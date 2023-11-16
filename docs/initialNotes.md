@@ -54,4 +54,13 @@
 - Either remove the interface, or improve it to house more methods.
 - Remove repeated methods, adapt instead to include more functionality.
 - Remove unused variables.
+- Implement the use of Maven.
+- Decide on some new design patterns to use that would benefit the code. 
+- Implement a main menu screen.
+- Fix the out of bounds issue with the snake.
+- Fix the scoring issue with the snake.
+- Fix issue with the end image not being to scale.
+- Implement a pause menu to the game.
+- Implement a proper way to exit or restart the game while playing.
+- Implement new features like a high score system.
 
