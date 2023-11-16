@@ -14,3 +14,4 @@
 - Rearranged Files. Introduced resources and java folder.
 - Moved Classes to java folder.
 - Moved Images to resources/images folder. Music to resources/music folder.
+- Reworked getImage method in GameUtil.
