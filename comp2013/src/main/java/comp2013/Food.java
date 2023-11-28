@@ -1,4 +1,4 @@
-package main.java;
+package comp2013;
 
 import java.awt.Graphics;
 import java.util.Random;

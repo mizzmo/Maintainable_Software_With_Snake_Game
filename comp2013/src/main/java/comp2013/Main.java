@@ -1,4 +1,4 @@
-package main.java;
+package comp2013;
 
 public class Main {
     public static void main(String[] args) {
