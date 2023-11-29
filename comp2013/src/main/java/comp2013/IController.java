@@ -9,24 +9,6 @@ public interface IController {
      * @param controller the controller to use.
      */
     void initialise( int width, int height, IView view, IController controller );
-
-    /**
-     * Check if the game is over or not.
-     * @return true: Game has finished, False: Game is in progress.
-     */
-    boolean hasFinished();
-
-    /**
-     * Set the game to be finished
-     * @param finished stores if the game is over.
-     */
-    void setFinished(boolean finished);
-
-    /**
-     * Restart the game from the beginning.
-     */
-    void restart();
-
     /**
      * Get the score of the game.
      * @return Value of the current score.
@@ -78,4 +60,22 @@ public interface IController {
      * @param width Width of the screen in pixels
      */
     void setWidth(int width);
+    /**
+     * Check if the game is over or not.
+     * @return true: Game has finished, False: Game is in progress.
+     */
+    boolean hasFinished();
+
+    /**
+     * Set the game to be finished
+     * @param finished stores if the game is over.
+     */
+    void setFinished(boolean finished);
+
+    /**
+     * Restart the game from the beginning.
+     */
+    void restart();
+
+
 }
