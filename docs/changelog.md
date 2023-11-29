@@ -26,3 +26,9 @@
 - Reorganised class files.
 - Changed some file locations in code to fit with the new Maven Build Method.
 - Added some new issues to Git.
+### 29/11/23
+- Wrote up plan for MVC in DevNotes.
+- Added Interface Classes for MVC.
+- Implemented Methods for MVC interfaces.
+- Implemented Constants in IController Interface.
+- Added Class files for MVC.
