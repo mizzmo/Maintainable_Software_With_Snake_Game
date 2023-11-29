@@ -19,3 +19,10 @@
 - Reworked getImage method in GameUtil.
 - Added module.info
 - Added gitignore.
+### 28/11/23
+- Reworked Project into a Maven Project.
+- Added Dependencies to the pom file.
+- Reworked module-info file.
+- Reorganised class files.
+- Changed some file locations in code to fit with the new Maven Build Method.
+- Added some new issues to Git.
