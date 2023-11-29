@@ -1,7 +1,7 @@
 [Back to README](../README.md)\
 \
 \
-[<-- Instructions](instructions.md)
+[<-- Instructions](instructions.md)\
 [ChangeLog -->](changelog.md)
 
 ### Converting to MVC Design Pattern.
@@ -13,8 +13,10 @@ View handles layout and display.
 Controller routes commands to the model and view parts.
 - Contains logic that updates the model and or view in response to input from users.
 <br>
+
 Need to seperate out the different elements of the code.
-Implement some interfaces that layout the functions that i will need for each of the MVC elements.
+Implement some interfaces that layout the functions that I will need for each of the MVC elements.
+<br>
 
 What should go in:
 #### Model
