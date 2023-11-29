@@ -45,4 +45,11 @@ public interface IView {
      * Refreshes the screen.
      */
     void refreshDisplay();
+
+    /**
+     * Initialise the screen to play the game.
+     * @param height Height of the screen in Pixels.
+     * @param width Width of the screen in Pixels.
+     */
+    void initialiseDisplay(int height, int width);
 }

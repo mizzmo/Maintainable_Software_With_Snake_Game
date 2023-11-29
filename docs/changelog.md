@@ -32,3 +32,4 @@
 - Implemented Methods for MVC interfaces.
 - Implemented Constants in IController Interface.
 - Added Class files for MVC.
+- Removed Redundant Main Class.
