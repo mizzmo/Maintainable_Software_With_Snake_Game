@@ -26,6 +26,7 @@ What should go in:
 - setScore to set the score of the game.
 - getLength to get the length of the snake.
 - setLength to set the length of the snake.
+- incrementLength to add one to the length of the snake.
 - getHeight to get the dimension of the screen.
 - getWidth to get the dimension of the screen.
 - setHeight to set the dimension of the screen.
