@@ -34,4 +34,8 @@
 - Added Class files for MVC.
 - Removed Redundant Main Class.
 ### 30/11/23
-- 
+- Implemented Getters and Setters in the Model.
+- Added some private variables in Model.
+- Impmemented part of Initialise method in Model.
+- Started to implement InitialiseDisplay method in view.
+- Changed variable names so that they follow the coding convetntions. 

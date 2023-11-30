@@ -98,7 +98,7 @@ public class SnakeView implements IView{
         //Set the size of the frame.
         model.setHeight(height);
         model.setWidth(width);
-        
+
         m_JFrame.setVisible(true);
     }
 }
