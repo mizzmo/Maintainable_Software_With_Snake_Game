@@ -3,12 +3,12 @@ package comp2013;
 public interface IModel {
     /**
      * Initialise the game to a specified size, and store references to the view and controller.
-     * @param width Width, in pixels.
-     * @param height Height, in pixels.
-     * @param view the view to use.
-     * @param controller the controller to use.
+     * @param width Width of screen in pixels.
+     * @param height Height of screen in pixels.
      */
-    void initialise( int width, int height, IView view, IController controller );
+    void initialise(int width, int height);
+
+
     /**
      * Get the score of the game.
      * @return Value of the current score.
@@ -17,9 +17,9 @@ public interface IModel {
 
     /**
      * Set the score of the game
-     * @param score Value of the current score.
+     * @param m_Score Value of the current score.
      */
-    void setScore(int score);
+    void setScore(int m_Score);
 
     /**
      * Get the current length of the snake in play.
@@ -29,9 +29,9 @@ public interface IModel {
 
     /**
      * Set the length of the snake to a specific value.
-     * @param length
+     * @param m_Length
      */
-    void setLength(int length);
+    void setLength(int m_Length);
 
     /**
      * Adds one to the length of the snake.
@@ -51,15 +51,15 @@ public interface IModel {
 
     /**
      * Set the height of the screen
-     * @param height Height of the screen in Pixels.
+     * @param m_Height Height of the screen in Pixels.
      */
-    void setHeight(int height);
+    void setHeight(int m_Height);
 
     /**
      * Set the width of the screen in Pixels
-     * @param width Width of the screen in pixels
+     * @param m_Width Width of the screen in pixels
      */
-    void setWidth(int width);
+    void setWidth(int m_Width);
     /**
      * Check if the game is over or not.
      * @return true: Game has finished, False: Game is in progress.
@@ -68,9 +68,9 @@ public interface IModel {
 
     /**
      * Set the game to be finished
-     * @param finished stores if the game is over.
+     * @param m_Finished stores if the game is over.
      */
-    void setFinished(boolean finished);
+    void setFinished(boolean m_Finished);
 
     /**
      * Restart the game from the beginning.
