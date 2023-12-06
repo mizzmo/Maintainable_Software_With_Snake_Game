@@ -1,7 +1,15 @@
 package comp2013;
 
 public class SnakeController implements IController{
-     // Checks if the snake is moving.
+
+
+    SnakeModel model;
+    SnakeView view;
+    SnakeController(SnakeModel model, SnakeView view){
+        this.model = model;
+        this.view = view;
+    }
+    // Checks if the snake is moving.
     @Override
     public boolean getSnakeMoving() {
         return false;

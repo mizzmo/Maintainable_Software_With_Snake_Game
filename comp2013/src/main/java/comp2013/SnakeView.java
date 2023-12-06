@@ -6,9 +6,13 @@ import java.awt.*;
 public class SnakeView implements IView{
     // Create a new JFrame as a Class Variable
     public static JFrame m_JFrame = new JFrame();
-    // Store references to the controller and model.
-    IModel model = new SnakeModel();
-    IController controller = new SnakeController();
+    // Store references to the controller
+    SnakeController controller;
+
+    // Initialised Constructor
+    SnakeView(SnakeController controller){
+        this.controller = controller;
+    }
 
     // Gets the current url of the song playing
     @Override
@@ -66,10 +70,9 @@ public class SnakeView implements IView{
         m_JFrame = new JFrame("Snake!"); // Set the title and establish a new JFrame object.
         // Set the icon of the frame.
         m_JFrame.setIconImage(Toolkit.getDefaultToolkit().getImage(MyFrame.class.getResource("/images/snake-logo.png")));
-        //Set the size of the frame.
-        model.setHeight(height);
-        model.setWidth(width);
-
+        m_JFrame.setSize(width, height);
+        m_JFrame.setLocationRelativeTo(null);
         m_JFrame.setVisible(true);
     }
+
 }

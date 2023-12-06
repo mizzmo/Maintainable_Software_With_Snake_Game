@@ -2,8 +2,6 @@ package comp2013;
 
 public class SnakeModel implements IModel {
 
-    // Stores a reference to the view.
-    SnakeView m_View;
     // Stores a reference to the controller.
     SnakeController m_Controller;
     // Store the width and height of the screen in pixels.
@@ -15,12 +13,10 @@ public class SnakeModel implements IModel {
     private boolean m_Finished;
 
     // Initialise the model.
-    @Override
-    public void initialise(int width, int height) {
+    SnakeModel(int width, int height, SnakeController controller) {
         this.m_Height = height;
         this.m_Width = width;
-        this.m_View = new SnakeView();
-        this.m_Controller = new SnakeController();
+        this.m_Controller = controller;
         this.m_Score = 0;
         this.m_Length = 0;
         this.m_Finished = false;
@@ -82,8 +78,6 @@ public class SnakeModel implements IModel {
     // Set the height of the screen
     @Override
     public void setHeight(int m_Height) {
-        // Update the size of the screen.
-        SnakeView.m_JFrame.setSize(this.m_Width, m_Height);
         // Update the value stored in model.
         this.m_Height = m_Height;
     }
@@ -91,8 +85,6 @@ public class SnakeModel implements IModel {
     //Set the width of the screen in Pixels
     @Override
     public void setWidth(int m_Width) {
-        // Update the size of the screen.
-        SnakeView.m_JFrame.setSize(m_Width, this.m_Height);
         // Update the value stored in model.
         this.m_Width = m_Width;
     }

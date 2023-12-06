@@ -35,6 +35,7 @@ public interface IController {
      * @return True if snake is out of bounds, False if not.
      */
     boolean getOutOfBounds();
+
     /**
      * Move the snake in a specified direction
      * @param direction Direction to move the snake.

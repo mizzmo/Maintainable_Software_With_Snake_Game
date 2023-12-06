@@ -46,3 +46,6 @@
 - Added two methods to the model interface; getAlive and setAlive, to get and set the liveliness status of the snake, to be used for things like ending the game when the snake dies.
 - Added a new variable to SnakeModel, m_Alive.
 - Implemented methods in SnakeModel, incrementLength, getAlive, setAlive.
+- Reworked SnakeView initialiseDisplay to respect MVC, view now has no interaction with model.
+- Added constructors to View, Controller and Model.
+- Added a new Class, SnakeMain, that intialised all of the MVC.

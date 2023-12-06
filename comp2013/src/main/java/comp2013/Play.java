@@ -68,8 +68,8 @@ public class Play extends MyFrame
 	{
 		new Play().loadFrame();
 		MusicPlayer.getMusicPlay("/sound/frogger.mp3");
-		SnakeView view = new SnakeView();
-		view.initialiseDisplay(500, 700);
+		//SnakeView view = new SnakeView(500, 700);
+		//view.initialiseDisplay(500, 700);
 
 	}
 }

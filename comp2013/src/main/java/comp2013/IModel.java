@@ -2,13 +2,6 @@ package comp2013;
 
 public interface IModel {
     /**
-     * Initialise the game to a specified size, and store references to the view and controller.
-     * @param width Width of screen in pixels.
-     * @param height Height of screen in pixels.
-     */
-    void initialise(int width, int height);
-
-    /**
      * Gets whether the snake is still alive or not
      * @return Alive Status: 1 is alive, 0 is dead.
      */
