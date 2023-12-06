@@ -39,3 +39,6 @@
 - Impmemented part of Initialise method in Model.
 - Started to implement InitialiseDisplay method in view.
 - Changed variable names so that they follow the coding convetntions. 
+
+### 6/12/23
+- Changed comments on SnakeView from JavaDoc to Regular Comments, as JavaDoc is inherited from the Interface Class.
