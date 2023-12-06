@@ -1,24 +1,31 @@
 package comp2013;
 
+import javafx.application.Application;
+import javafx.stage.Stage;
+
 import javax.swing.text.View;
 
-public class SnakeMain {
-    private static SnakeModel Model;
-    private static SnakeView View;
-    private static SnakeController Controller;
+public class SnakeMain extends Application {
+    static SnakeController M_Controller;
+
+    static SnakeModel M_Model;
     // Initialise the Model, View and Controller.
-    static void initialise(){
-        // Initialise the model.
-        Model = new SnakeModel(700, 500, Controller);
-        // Initialise the view
-        View = new SnakeView(Controller);
+    private static void initialise() {
+        M_Model = new SnakeModel(700, 500);
         // Initialise the controller.
-        Controller = new SnakeController(Model, View);
-        // Create the display.
-        View.initialiseDisplay(Model.getHeight(), Model.getWidth());
+        M_Controller = new SnakeController(M_Model);
 
     }
     public static void main(String[] args) {
+        // Initialise the game.
         initialise();
+        // Launch the JavaFX.
+        launch(SnakeView.class, args);
+    }
+    //This method is only needed to satisfy the Application Class.
+    // The actual start method is in the SnakeView class
+    @Override
+    public void start(Stage stage) throws Exception {
+
     }
 }

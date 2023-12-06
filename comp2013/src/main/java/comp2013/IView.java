@@ -2,6 +2,11 @@ package comp2013;
 
 public interface IView {
     /**
+     * Sets the controller to use.
+     * @param controller Controller to use.
+     */
+    void setController(SnakeController controller);
+    /**
      * Gets the current url of the song playing
      * @return URL of the currently playing song.
      */
@@ -46,10 +51,4 @@ public interface IView {
      */
     void refreshDisplay();
 
-    /**
-     * Initialise the screen to play the game.
-     * @param height Height of the screen in Pixels.
-     * @param width Width of the screen in Pixels.
-     */
-    void initialiseDisplay(int height, int width);
 }

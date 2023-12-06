@@ -13,14 +13,17 @@ public class SnakeModel implements IModel {
     private boolean m_Finished;
 
     // Initialise the model.
-    SnakeModel(int width, int height, SnakeController controller) {
+    SnakeModel(int width, int height) {
         this.m_Height = height;
         this.m_Width = width;
-        this.m_Controller = controller;
         this.m_Score = 0;
         this.m_Length = 0;
         this.m_Finished = false;
         this.m_Alive = 1;
+    }
+    // Set the controller used in the Model.
+    public void setController(SnakeController controller) {
+        this.m_Controller = controller;
     }
     // Get the life status of the snake.
     @Override
@@ -108,5 +111,6 @@ public class SnakeModel implements IModel {
     public void restart() {
 
     }
+
 
 }
