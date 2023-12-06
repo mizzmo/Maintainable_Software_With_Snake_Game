@@ -42,3 +42,7 @@
 
 ### 6/12/23
 - Changed comments on SnakeView from JavaDoc to Regular Comments, as JavaDoc is inherited from the Interface Class.
+- Changed comments on SnakeController from JavaDoc to Regular Comments, see previous.
+- Added two methods to the model interface; getAlive and setAlive, to get and set the liveliness status of the snake, to be used for things like ending the game when the snake dies.
+- Added a new variable to SnakeModel, m_Alive.
+- Implemented methods in SnakeModel, incrementLength, getAlive, setAlive.

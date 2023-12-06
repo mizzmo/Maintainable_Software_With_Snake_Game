@@ -9,7 +9,8 @@ public class SnakeModel implements IModel {
     // Store the width and height of the screen in pixels.
     // Store the score of the game.
     // Store the length of the snake.
-    private int m_Width, m_Height, m_Score, m_Length;
+    // Store the alive status of the snake.
+    private int m_Width, m_Height, m_Score, m_Length, m_Alive;
     // Stores status on whether game is finished.
     private boolean m_Finished;
 
@@ -23,7 +24,14 @@ public class SnakeModel implements IModel {
         this.m_Score = 0;
         this.m_Length = 0;
         this.m_Finished = false;
+        this.m_Alive = 1;
     }
+    // Get the life status of the snake.
+    @Override
+    public int getAlive() { return this.m_Alive; }
+    // Set the life status of the snake.
+    @Override
+    public void setAlive(int status) { this.m_Alive = status;}
 
     //Get the score of the game.
     @Override
@@ -53,7 +61,8 @@ public class SnakeModel implements IModel {
     //Adds one to the length of the snake.
     @Override
     public void incrementLength() {
-
+        // Add one to the length of the snake.
+        this.m_Length++;
     }
 
 

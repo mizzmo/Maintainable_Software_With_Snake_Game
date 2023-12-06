@@ -8,7 +8,17 @@ public interface IModel {
      */
     void initialise(int width, int height);
 
+    /**
+     * Gets whether the snake is still alive or not
+     * @return Alive Status: 1 is alive, 0 is dead.
+     */
+    int getAlive();
 
+    /**
+     * Sets life status of the snake.
+     * @param status Value for if the snake is alive or dead. 1 is alive, 0 is dead.
+     */
+    void setAlive(int status);
     /**
      * Get the score of the game.
      * @return Value of the current score.
