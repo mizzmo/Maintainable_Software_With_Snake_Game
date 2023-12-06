@@ -7,12 +7,14 @@ public class SnakeController implements IController{
     // This is because JavaFX creates its own instance of view before the controller
     //      can be initialised, so in order to give it a controller, it needs to be
     //      done like this.
-    private static SnakeController m_Instance;
-    SnakeController(SnakeModel model){
+    public static SnakeController m_Instance;
+    public SnakeController(){
 
         m_Instance = this;
-        this.m_Model = model;
+        this.m_Model = SnakeModel.getInstance();
         m_Model.setController(this);
+        this.m_View = SnakeView.getInstance();
+        m_View.setController(this);
 
         System.out.printf("Im in the Controller!\n");
     }

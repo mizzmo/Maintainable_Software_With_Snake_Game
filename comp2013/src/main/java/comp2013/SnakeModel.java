@@ -11,15 +11,25 @@ public class SnakeModel implements IModel {
     private int m_Width, m_Height, m_Score, m_Length, m_Alive;
     // Stores status on whether game is finished.
     private boolean m_Finished;
+    // Gets and instance of the Model
+    private static SnakeModel m_Instance;
 
     // Initialise the model.
     SnakeModel(int width, int height) {
+        m_Instance = this;
         this.m_Height = height;
         this.m_Width = width;
         this.m_Score = 0;
         this.m_Length = 0;
         this.m_Finished = false;
         this.m_Alive = 1;
+    }
+    /**
+     * Returns an instance of the Model.
+     * @return SnakeModel Instance
+     */
+    public static SnakeModel getInstance() {
+        return m_Instance;
     }
     // Set the controller used in the Model.
     public void setController(SnakeController controller) {

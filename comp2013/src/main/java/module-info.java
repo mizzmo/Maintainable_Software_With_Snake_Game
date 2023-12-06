@@ -4,4 +4,5 @@ module comp2013 {
     requires jlayer;
     requires javafx.graphics;
     requires javafx.controls;
+    requires javafx.fxml;
 }

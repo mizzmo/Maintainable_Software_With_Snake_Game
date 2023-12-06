@@ -13,7 +13,7 @@ public class SnakeMain extends Application {
     private static void initialise() {
         M_Model = new SnakeModel(700, 500);
         // Initialise the controller.
-        M_Controller = new SnakeController(M_Model);
+        //M_Controller = new SnakeController();
 
     }
     public static void main(String[] args) {

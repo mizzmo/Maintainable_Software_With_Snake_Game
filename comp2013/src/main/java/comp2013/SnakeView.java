@@ -1,14 +1,14 @@
 package comp2013;
 
 import javafx.application.Application;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
+import javafx.fxml.FXMLLoader;
 
-import javax.swing.*;
-import java.awt.*;
+import java.net.URL;
 
 public class SnakeView extends Application implements IView {
     // Store references to the controller
@@ -76,19 +76,16 @@ public class SnakeView extends Application implements IView {
     }
 
     @Override
-    public void start(Stage primaryStage) {
-        if (m_Controller == null) {
-            // Handle the case where the controller is not set.
-            System.err.println("Controller is not set in SnakeView.");
-            return;
-        }
+    public void start(Stage primaryStage) throws Exception {
+        URL fxmlURL = getClass().getResource("/SnakeFXML.fxml");
+        Parent root = FXMLLoader.load(fxmlURL);
+
         primaryStage.setTitle("Snake!");
         // Set the icon of the window.
         Image icon = new Image(getClass().getResource("/images/snake-logo.png").toExternalForm());
         primaryStage.getIcons().add(icon);
-        // Create a new Layout
-        StackPane layout = new StackPane();
-        Scene scene = new Scene(layout, m_Controller.m_Model.getWidth(), m_Controller.m_Model.getHeight());
+
+        Scene scene = new Scene(root, m_Controller.m_Model.getWidth(), m_Controller.m_Model.getHeight());
 
         primaryStage.setScene(scene);
         primaryStage.show();

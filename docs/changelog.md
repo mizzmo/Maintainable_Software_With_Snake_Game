@@ -49,3 +49,11 @@
 - Reworked SnakeView initialiseDisplay to respect MVC, view now has no interaction with model.
 - Added constructors to View, Controller and Model.
 - Added a new Class, SnakeMain, that intialised all of the MVC.
+- Started to convert the program to JavaFX. 
+- Set up JavaFX.
+- Fixed an issue where the controller was not initialised in the View beacuse of a issue with how JavaFX handles its instance of View.
+- Added an Icon to the JavaFx.
+- Implemented FXML.
+- Updated Maven POM with dependencies.
+- Updated module-info.
+- Linked FXML to the Controller and View.
