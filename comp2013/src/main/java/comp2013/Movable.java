@@ -13,10 +13,6 @@ import javafx.scene.image.Image;
 public interface Movable
 {
 	public int m_Direction = 0;
-	/**
-	 *  Used to move the snake
-	 */
-	void moveSnake();
 
 	/**
 	 * Increase the speed of the snake.
@@ -37,4 +33,16 @@ public interface Movable
 	 * @param newDirection The direction that you want the snake to go.
 	 */
 	void changeDirection(int newDirection);
+
+	/**
+	 * Set the direction of the snake.
+	 * @param direction Direction that the snake is moving.
+	 */
+	void setDirection(int direction);
+
+	/**
+	 * Get the direction of the snake.
+	 * @return Integer that represents the direction of the snake.
+	 */
+	int getDirection();
 }

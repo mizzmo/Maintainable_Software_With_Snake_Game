@@ -8,6 +8,9 @@ public class SnakeObject implements Movable {
     public int m_SnakeSpeed;
     // Keeps track of which direction the snake is moving.
     public int m_Direction;
+    // Constants that define direction.
+    public static final int UP = 0, DOWN = 1, LEFT = 2, RIGHT = 3;
+
     // Linked list containing all of the snake body points.
     public List<SnakeBody> m_SnakeBody = new LinkedList<>();
 
@@ -19,9 +22,15 @@ public class SnakeObject implements Movable {
     }
 
     @Override
-    public void moveSnake() {
-
+    public void setDirection(int direction) {
+        // Checks that the direction is valid.
+        if(direction == UP || direction == DOWN || direction == LEFT || direction == RIGHT) {
+            this.m_Direction = direction;
+        }
     }
+
+    @Override
+    public int getDirection(){ return this.m_Direction; }
 
     //Increase the speed of the snake.
     @Override

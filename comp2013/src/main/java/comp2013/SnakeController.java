@@ -102,54 +102,43 @@ public class SnakeController implements IController {
         // Decides what to do when each key is pressed.
         switch (code)
         {
-            case KeyEvent.VK_UP:
-                if (!down)
+            // If Up Arrow or W is pressed.
+            case UP:
+            case W:
+                // Stops the snake turning in on itself.
+                if (m_Snake.getDirection() != SnakeObject.UP)
                 {
-                    up = true;
-                    down = false;
-                    left = false;
-                    right = false;
-
-                    newImgSnakeHead = (BufferedImage) GameUtil.rotateImage(IMG_SNAKE_HEAD, -90);
+                    m_Snake.setDirection(SnakeObject.RIGHT);
+                    // Do something to change the direction of the snake.
+                    //newImgSnakeHead = (BufferedImage) GameUtil.rotateImage(IMG_SNAKE_HEAD, -90);
                 }
                 break;
-
-            case KeyEvent.VK_DOWN:
-                if (!up)
+            // If Down Arrow or S is pressed.
+            case DOWN:
+            case S:
+                if (m_Snake.getDirection() != SnakeObject.UP)
                 {
-                    up = false;
-                    down = true;
-                    left = false;
-                    right = false;
-
-                    newImgSnakeHead = (BufferedImage) GameUtil.rotateImage(IMG_SNAKE_HEAD, 90);
+                    // Set the new direction.
+                    m_Snake.setDirection(SnakeObject.DOWN);
+                   //newImgSnakeHead = (BufferedImage) GameUtil.rotateImage(IMG_SNAKE_HEAD, 90);
                 }
                 break;
-
-            case KeyEvent.VK_LEFT:
-                if (!right)
+            // If Left Arrow or A is pressed.
+            case LEFT:
+            case A:
+                if (m_Snake.getDirection() != SnakeObject.RIGHT)
                 {
-                    up = false;
-                    down = false;
-                    left = true;
-                    right = false;
-
-                    newImgSnakeHead = (BufferedImage) GameUtil.rotateImage(IMG_SNAKE_HEAD, -180);
-
+                    m_Snake.setDirection(SnakeObject.LEFT);
                 }
                 break;
-
-            case KeyEvent.VK_RIGHT:
-                if (!left)
+            // If Right Arrow or D is pressed.
+            case RIGHT:
+            case D:
+                if (m_Snake.getDirection() != SnakeObject.LEFT)
                 {
-                    up = false;
-                    down = false;
-                    left = false;
-                    right = true;
-
-                    newImgSnakeHead = IMG_SNAKE_HEAD;
+                    m_Snake.setDirection(SnakeObject.RIGHT);
                 }
-
+                break;
             default:
                 break;
         }

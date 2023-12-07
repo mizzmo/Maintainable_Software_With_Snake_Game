@@ -137,7 +137,7 @@ public class SnakeView extends Application implements IView {
         // Build the initial snake.
         this.buildSnake(m_Controller.m_Model.getLength());
 
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(100), event -> refreshSnake()));
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(30), event -> refreshSnake()));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
 
