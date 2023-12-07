@@ -1,5 +1,7 @@
 package comp2013;
 
+import javafx.scene.input.KeyCode;
+
 public interface IController {
     /**
      * Move the snake Left.
@@ -34,7 +36,7 @@ public interface IController {
      * Check if the snake is out of bounds.
      * @return True if snake is out of bounds, False if not.
      */
-    boolean getOutOfBounds();
+    void checkOutOfBounds();
 
     /**
      * Move the snake in a specified direction
@@ -42,4 +44,17 @@ public interface IController {
      */
     void moveSnake(int direction);
 
+    /**
+     * Adds a segment to the snake.
+     * @param x X coordinate of the segment.
+     * @param y Y coordinate of the segment
+     * @param newSegment If true, increment length, else length stays the same.
+     */
+    void addSegment(int x, int y, boolean newSegment);
+
+    /**
+     * Decides what happens when a key is pressed.
+     * @param code  The code for the key that was pressed.
+     */
+    void handleKeyPress(KeyCode code);
 }

@@ -98,7 +98,7 @@ public class MyFrame extends JPanel implements KeyListener
 
 	}
 
-	public static class MySnake extends SnakeObject implements Movable
+	public static class MySnake extends SnakeObject
 	{
 		// Leikjabreytan.
 		private int speed_XY;

@@ -65,3 +65,9 @@
 - Create a new Class SnakeObject, from the SnakeObject class in MyFrame.
 - Rename interface Movable.
 - Add new functions to interface Movable.
+- Create a new class SnakeBody that stores information about the snake body parts.
+- Added a new method buildSnake in SnakeView that builds the initial snake.
+- Added a new method in Controller addSegment that appends a new segment to the list in SnakeObject.
+- Add new method to IController handleKeyPress.
+- Add method to View, refreshSnake, which rebuilds the entire snake to the new loaction.
+- Added constants for WSAD and Arrow Key, Key codes

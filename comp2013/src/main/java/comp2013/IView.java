@@ -1,5 +1,7 @@
 package comp2013;
 
+import javafx.scene.canvas.Canvas;
+
 public interface IView {
     /**
      * Sets the controller to use.
@@ -47,8 +49,14 @@ public interface IView {
      void drawBody(int length);
 
     /**
-     * Refreshes the screen.
+     * Draw the snake again from its new coordinates.
      */
-    void refreshDisplay();
+    void refreshSnake();
+
+    /**
+     * Build the snake at the beginning of the game.
+     * @param length Length of the snake to build.
+     */
+    void buildSnake(int length);
 
 }

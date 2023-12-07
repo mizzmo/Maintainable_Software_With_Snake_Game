@@ -1,21 +1,42 @@
 package comp2013;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.WindowEvent;
+import javafx.util.Duration;
+
+import java.util.List;
 
 public class SnakeView extends Application implements IView {
     // Store references to the controller
     SnakeController m_Controller;
 
+    public Canvas m_SnakeCanvas;
+
+    private Image M_SnakeHeadImg;
+
+    private Image M_SnakeBodyImg;
+
     private static SnakeView m_Instance;
     public SnakeView() {
+        // Constructor gets the instance of controller.
         m_Controller = SnakeController.getInstance();
+        // Set the controllers view to be this.
+        m_Controller.setView(this);
     }
 
     public static SnakeView getInstance() {
@@ -70,22 +91,24 @@ public class SnakeView extends Application implements IView {
 
      // Refreshes the screen.
     @Override
-    public void refreshDisplay() {
+    public void refreshSnake() {
+        // Get the list of snake body parts
+        List<SnakeBody> snakeBody = m_Controller.m_Snake.m_SnakeBody;
+        GraphicsContext gc = m_SnakeCanvas.getGraphicsContext2D();
 
+        // Clear the canvas by filling it with a transparent color
+        gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
+        // Draw the head at its new coordinates.
+        gc.drawImage(M_SnakeHeadImg, snakeBody.getFirst().getX(), snakeBody.getFirst().getY());
+        // Draw the rest of the body.
+        for(int i = 1; i < m_Controller.m_Model.getLength(); i++){
+          // Draws the body at the new location
+            gc.drawImage(M_SnakeBodyImg, snakeBody.get(i).getX(), snakeBody.get(i).getY());
+        }
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-
-        //m_Controller = SnakeController.getInstance();
-
-        // Load the correct FXML.
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/SnakeFXML.fxml"));
-        Parent root = loader.load();
-        // Get the instance of controller and set it.
-        m_Controller = loader.getController();
-        // Set the view in Controller to this view.
-        m_Controller.setView(this);
         // Set title of screen.
         primaryStage.setTitle("Snake!");
         // Set the icon of the window.
@@ -96,13 +119,81 @@ public class SnakeView extends Application implements IView {
         primaryStage.setOnCloseRequest(event -> {
             Platform.exit();});
 
-        new SnakeThread().start();
+        //new SnakeThread().start();
 
-        Scene scene = new Scene(root, m_Controller.m_Model.getWidth(), m_Controller.m_Model.getHeight());
+        StackPane snakePane = new StackPane();
+        Scene scene = new Scene(snakePane, m_Controller.m_Model.getWidth(), m_Controller.m_Model.getHeight());
+        // Add an image view to the pane
+        ImageView imageView = new ImageView();
+        // Set the background of the image.
+        this.setBackgroundImage(imageView);
+        // Add the background to the pane.
+        snakePane.getChildren().add(imageView);
 
+        // Create a canvas that will be used to draw on the snake.
+        m_SnakeCanvas = new Canvas(m_Controller.m_Model.getWidth(), m_Controller.m_Model.getHeight());
+        snakePane.getChildren().add(m_SnakeCanvas);
+
+        // Build the initial snake.
+        this.buildSnake(m_Controller.m_Model.getLength());
+
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(100), event -> refreshSnake()));
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
+
+        scene.setOnKeyPressed(event -> m_Controller.handleKeyPress(event.getCode()));
+
+        // Set the scene and show the page.
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
+    public void buildSnake(int length){
+        // Get the center of the screen.
+        int canvasCenterHorizontal = m_Controller.m_Model.getWidth() / 2;
+        int canvasCenterVertical = m_Controller.m_Model.getHeight() / 2;
+        // Stores reference to currently used snake part.
+        List<SnakeBody> snakeBody;
+        // Stores reference to currently used snake head.
+        SnakeBody snakeHead;
+        // Coordinate value to add onto the coordinates
+        int horizontalAdd = 25;
+        int verticalAdd = 25;
+        // Get the image of the snake head.
+        M_SnakeHeadImg = new Image(getClass().getResourceAsStream("/images/snake-head-right.png"));
+        M_SnakeBodyImg = new Image(getClass().getResourceAsStream("/images/snake-body.png"));
+
+        // Just build the head.
+
+        GraphicsContext gc = m_SnakeCanvas.getGraphicsContext2D();
+        gc.drawImage(M_SnakeHeadImg, canvasCenterHorizontal, canvasCenterVertical);
+
+        snakeBody = m_Controller.m_Snake.m_SnakeBody;
+        // Get the head of the snake.
+        snakeHead = snakeBody.getFirst();
+        //Set the cooridnates of the head.
+        snakeHead.setX(canvasCenterHorizontal);
+        snakeHead.setY(canvasCenterVertical);
+
+
+        // If the snake has body parts draw them.
+        // This means you can start the game with body parts.
+        if(length > 0)
+        {
+
+            for(int i = 1; i < length; i++)
+            {
+                // Draws the body and takes away the last horizontal coordinate + a constant, creates a line of circles.
+                gc.drawImage(M_SnakeBodyImg, canvasCenterHorizontal-horizontalAdd, canvasCenterVertical);
+                // Update and add a new segment of the snake.
+                m_Controller.addSegment(canvasCenterHorizontal-horizontalAdd, canvasCenterVertical, false);
+                horizontalAdd += 25;
+            }
+        }
+    }
+    public void setBackgroundImage(ImageView imageView){
+        Image background = new Image(getClass().getResourceAsStream("/images/UI-Background.png"));
+        imageView.setImage(background);
+    }
 
 }

@@ -1,12 +1,21 @@
 package comp2013;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class SnakeObject implements Movable {
     // Keeps track of how fast the snake is moving.
     public int m_SnakeSpeed;
     // Keeps track of which direction the snake is moving.
     public int m_Direction;
-    public SnakeObject(){
+    // Linked list containing all of the snake body points.
+    public List<SnakeBody> m_SnakeBody = new LinkedList<>();
+
+    public SnakeObject(int x, int y){
         this.m_SnakeSpeed = 5;
+        // Create the head of the snake and store it in the linked list.
+        SnakeBody snakeHead = new SnakeBody(x, y);
+        m_SnakeBody.addFirst(snakeHead);
     }
 
     @Override
