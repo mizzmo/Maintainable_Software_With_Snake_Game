@@ -62,3 +62,6 @@
 - Fixed issue with controller.
 - Added image to screen.
 - Added Score Label to Screen.
+- Create a new Class SnakeObject, from the SnakeObject class in MyFrame.
+- Rename interface Movable.
+- Add new functions to interface Movable.
