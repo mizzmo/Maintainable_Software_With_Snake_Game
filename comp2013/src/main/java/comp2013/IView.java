@@ -1,6 +1,7 @@
 package comp2013;
 
 import javafx.scene.canvas.Canvas;
+import javafx.scene.image.ImageView;
 
 public interface IView {
     /**
@@ -58,5 +59,16 @@ public interface IView {
      * @param length Length of the snake to build.
      */
     void buildSnake(int length);
+
+    /**
+     * Sets the background image of the game.
+     * @param imageView ImageView that holds the image.
+     */
+    public void setBackgroundImage(ImageView imageView);
+
+    /**
+     * Swaps the snake-head image depending on the direction of travel
+     */
+    public void changeHeadDirection();
 
 }

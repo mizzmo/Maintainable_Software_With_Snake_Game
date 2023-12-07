@@ -52,26 +52,18 @@ public class SnakeController implements IController {
     public static SnakeController getInstance() {
         return m_Instance;
     }
-    // Checks if the snake is moving.
-    @Override
-    public boolean getSnakeMoving() {
-        return false;
-    }
-
 
     // Checks if the snake has hit itself
     @Override
-    public boolean getSelfCollide() {
+    public void checkSelfCollide() {
         // For every point in the body.
-        for (SnakeBody bodyPoint1 : m_Snake.m_SnakeBody)
-        {
+        for (SnakeBody bodyPoint1 : m_Snake.m_SnakeBody) {
             // For every other point in the body
-            for (SnakeBody bodyPoint2 : m_Snake.m_SnakeBody)
-            {
+            for (SnakeBody bodyPoint2 : m_Snake.m_SnakeBody) {
                 // If the points are in the same place, and are not the same point.
-                if (bodyPoint1.getY() == (bodyPoint2.getY()) && bodyPoint1.getX() == (bodyPoint2.getX()) && bodyPoint1 != bodyPoint2)
-                {
+                if (bodyPoint1.getY() == (bodyPoint2.getY()) && bodyPoint1.getX() == (bodyPoint2.getX()) && bodyPoint1 != bodyPoint2) {
                     m_Model.setAlive(0);
+                    System.out.println("Snake has hit itself");
                 }
             }
         }
@@ -89,13 +81,24 @@ public class SnakeController implements IController {
         {
             // Set the snake to be dead if found to be out of bounds
             m_Model.setAlive(0);
+            System.out.println("Snake is out of bounds");
         }
     }
 
      // Move the snake in a specified direction
     @Override
-    public void moveSnake(int direction) {
-
+    public void moveSnake() {
+        // Check that the snake is still alive.
+        this.checkOutOfBounds();
+        this.checkSelfCollide();
+        // If the snake is still alive.
+        if(m_Model.getAlive() == 1)
+        {
+            // Changes the direction the snakes head is facing.
+            m_View.changeHeadDirection();
+        }
+        // Otherwise the game is over, handle this.
+        else{this.handleGameOver();}
     }
 
     // Add a new segment to the snake.
@@ -121,7 +124,8 @@ public class SnakeController implements IController {
                 if (m_Snake.getDirection() != SnakeObject.UP)
                 {
                     m_Snake.setDirection(SnakeObject.RIGHT);
-                    // Do something to change the direction of the snake.
+                    // Change the direction of the snake.
+                    this.moveSnake();
                     //newImgSnakeHead = (BufferedImage) GameUtil.rotateImage(IMG_SNAKE_HEAD, -90);
                 }
                 break;
@@ -132,7 +136,7 @@ public class SnakeController implements IController {
                 {
                     // Set the new direction.
                     m_Snake.setDirection(SnakeObject.DOWN);
-                   //newImgSnakeHead = (BufferedImage) GameUtil.rotateImage(IMG_SNAKE_HEAD, 90);
+                    this.moveSnake();
                 }
                 break;
             // If Left Arrow or A is pressed.
@@ -141,6 +145,7 @@ public class SnakeController implements IController {
                 if (m_Snake.getDirection() != SnakeObject.RIGHT)
                 {
                     m_Snake.setDirection(SnakeObject.LEFT);
+                    this.moveSnake();
                 }
                 break;
             // If Right Arrow or D is pressed.
@@ -149,11 +154,17 @@ public class SnakeController implements IController {
                 if (m_Snake.getDirection() != SnakeObject.LEFT)
                 {
                     m_Snake.setDirection(SnakeObject.RIGHT);
+                    this.moveSnake();
                 }
                 break;
             default:
                 break;
         }
+    }
+    // Handles what happens when the game is over.
+    @Override
+    public void handleGameOver() {
+        return;
     }
 
 

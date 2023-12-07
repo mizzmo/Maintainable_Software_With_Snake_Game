@@ -13,6 +13,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import javafx.fxml.FXMLLoader;
@@ -98,7 +100,7 @@ public class SnakeView extends Application implements IView {
 
         // Clear the canvas by filling it with a transparent color
         gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
-        // Draw the head at its new coordinates.
+        // Draw the head at its new coordinates and rotation.
         gc.drawImage(M_SnakeHeadImg, snakeBody.getFirst().getX(), snakeBody.getFirst().getY());
         // Draw the rest of the body.
         for(int i = 1; i < m_Controller.m_Model.getLength(); i++){
@@ -118,8 +120,6 @@ public class SnakeView extends Application implements IView {
         // Set the event handler for the window-closing event
         primaryStage.setOnCloseRequest(event -> {
             Platform.exit();});
-
-        //new SnakeThread().start();
 
         StackPane snakePane = new StackPane();
         Scene scene = new Scene(snakePane, m_Controller.m_Model.getWidth(), m_Controller.m_Model.getHeight());
@@ -147,7 +147,7 @@ public class SnakeView extends Application implements IView {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-
+    @Override
     public void buildSnake(int length){
         // Get the center of the screen.
         int canvasCenterHorizontal = m_Controller.m_Model.getWidth() / 2;
@@ -164,7 +164,6 @@ public class SnakeView extends Application implements IView {
         M_SnakeBodyImg = new Image(getClass().getResourceAsStream("/images/snake-body.png"));
 
         // Just build the head.
-
         GraphicsContext gc = m_SnakeCanvas.getGraphicsContext2D();
         gc.drawImage(M_SnakeHeadImg, canvasCenterHorizontal, canvasCenterVertical);
 
@@ -191,9 +190,31 @@ public class SnakeView extends Application implements IView {
             }
         }
     }
+    @Override
     public void setBackgroundImage(ImageView imageView){
         Image background = new Image(getClass().getResourceAsStream("/images/UI-Background.png"));
         imageView.setImage(background);
     }
+
+    @Override
+    public void changeHeadDirection(){
+        // Finds out which way the snake is facing and sets the image accordingly.
+        switch (m_Controller.m_Snake.getDirection()) {
+            case 0: {
+                M_SnakeHeadImg = new Image(getClass().getResourceAsStream("/images/snake-head-up.png"));
+            }
+            case 1: {
+                M_SnakeHeadImg = new Image(getClass().getResourceAsStream("/images/snake-head-down.png"));
+            }
+            case 2: {
+                M_SnakeHeadImg = new Image(getClass().getResourceAsStream("/images/snake-head-left.png"));
+            }
+            case 3: {
+                M_SnakeHeadImg = new Image(getClass().getResourceAsStream("/images/snake-head-right.png"));
+            }
+        }
+    }
+
+
 
 }

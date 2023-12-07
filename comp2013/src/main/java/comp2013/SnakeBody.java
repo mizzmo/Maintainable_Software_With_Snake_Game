@@ -3,7 +3,7 @@ package comp2013;
 /**
  * Class that contains information about a snake body point.
  */
-public class SnakeBody {
+public class SnakeBody{
     private int M_X;
     private int M_Y;
 

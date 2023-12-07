@@ -21,16 +21,10 @@ public interface IController {
     static final int DOWN = 3;
 
     /**
-     * Checks if the snake is moving.
-     * @return True if it is moving, False if it is not.
-     */
-    boolean getSnakeMoving();
-
-    /**
      * Checks if the snake has hit itself
      * @return True if it has hit itself, False if not.
      */
-    boolean getSelfCollide();
+    void checkSelfCollide();
 
     /**
      * Check if the snake is out of bounds.
@@ -40,9 +34,10 @@ public interface IController {
 
     /**
      * Move the snake in a specified direction
-     * @param direction Direction to move the snake.
+     * Only works if the snake is still alive.
+     * If not, calls the function to end the game.
      */
-    void moveSnake(int direction);
+    void moveSnake();
 
     /**
      * Adds a segment to the snake.
@@ -57,4 +52,9 @@ public interface IController {
      * @param code  The code for the key that was pressed.
      */
     void handleKeyPress(KeyCode code);
+
+    /**
+     * Handles what happens when the game ends.
+     */
+    void handleGameOver();
 }
