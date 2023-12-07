@@ -73,3 +73,4 @@
 - Added constants for WSAD and Arrow Key, Key codes
 - Added method handleKeyPress to Controller to handle what happens when a key is pressed.
 - Added code to view to start the infinite loop that refreshes the screen.
+- Reimplemented getSelfCollide in Controller.

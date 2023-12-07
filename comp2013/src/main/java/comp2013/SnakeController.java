@@ -60,11 +60,23 @@ public class SnakeController implements IController {
 
 
     // Checks if the snake has hit itself
-
     @Override
     public boolean getSelfCollide() {
-        return false;
+        // For every point in the body.
+        for (SnakeBody bodyPoint1 : m_Snake.m_SnakeBody)
+        {
+            // For every other point in the body
+            for (SnakeBody bodyPoint2 : m_Snake.m_SnakeBody)
+            {
+                // If the points are in the same place, and are not the same point.
+                if (bodyPoint1.getY() == (bodyPoint2.getY()) && bodyPoint1.getX() == (bodyPoint2.getX()) && bodyPoint1 != bodyPoint2)
+                {
+                    m_Model.setAlive(0);
+                }
+            }
+        }
     }
+
 
     // Check if the snake is out of bounds.
     @Override
