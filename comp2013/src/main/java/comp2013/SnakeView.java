@@ -97,7 +97,6 @@ public class SnakeView extends Application implements IView {
         // Get the list of snake body parts
         List<SnakeBody> snakeBody = m_Controller.m_Snake.m_SnakeBody;
         GraphicsContext gc = m_SnakeCanvas.getGraphicsContext2D();
-
         // Clear the canvas by filling it with a transparent color
         gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
         // Draw the head at its new coordinates and rotation.
@@ -160,7 +159,8 @@ public class SnakeView extends Application implements IView {
         int horizontalAdd = 25;
         int verticalAdd = 25;
         // Get the image of the snake head.
-        M_SnakeHeadImg = new Image(getClass().getResourceAsStream("/images/snake-head-right.png"));
+        this.changeHeadDirection();
+        //M_SnakeHeadImg = new Image(getClass().getResourceAsStream("/images/snake-head-right.png"));
         M_SnakeBodyImg = new Image(getClass().getResourceAsStream("/images/snake-body.png"));
 
         // Just build the head.
@@ -200,18 +200,24 @@ public class SnakeView extends Application implements IView {
     public void changeHeadDirection(){
         // Finds out which way the snake is facing and sets the image accordingly.
         switch (m_Controller.m_Snake.getDirection()) {
-            case 0: {
+            case SnakeObject.UP: {
                 M_SnakeHeadImg = new Image(getClass().getResourceAsStream("/images/snake-head-up.png"));
             }
-            case 1: {
+            break;
+            case SnakeObject.DOWN: {
                 M_SnakeHeadImg = new Image(getClass().getResourceAsStream("/images/snake-head-down.png"));
             }
-            case 2: {
+            break;
+            case SnakeObject.LEFT: {
                 M_SnakeHeadImg = new Image(getClass().getResourceAsStream("/images/snake-head-left.png"));
             }
-            case 3: {
+            break;
+            case SnakeObject.RIGHT: {
                 M_SnakeHeadImg = new Image(getClass().getResourceAsStream("/images/snake-head-right.png"));
             }
+            break;
+            default:
+                break;
         }
     }
 

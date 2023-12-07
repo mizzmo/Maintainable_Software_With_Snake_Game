@@ -79,3 +79,5 @@
 - Added handleGameover function to Controller.
 - Added 3 new Images, snake-head-"left", "up", "down".
 - Added method to change the direction the image is facing.
+- Update moveSnake to add snake rotation functionality from view.
+- Fixed bug with controller not being set view correctly.

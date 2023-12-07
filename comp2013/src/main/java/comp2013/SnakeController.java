@@ -36,6 +36,8 @@ public class SnakeController implements IController {
         m_Snake = new SnakeObject(m_Model.getLength()/2, m_Model.getWidth()/2);
         // Tells the model that the snake is alive.
         m_Model.setAlive(1);
+        // Sets initial direction to RIGHT
+        m_Snake.setDirection(SnakeObject.RIGHT);
         m_Model.setLength(5);
     }
     /**
@@ -44,7 +46,7 @@ public class SnakeController implements IController {
      */
     // I have had to do this as FXML creates its own instance of Controller,
     //  before the view is created, so I have to set it after the fact from within view.
-    public void setView(SnakeView view){ this.m_View = SnakeView.getInstance(); }
+    public void setView(SnakeView view){ this.m_View = view; }
     /**
      * Returns an instance of the Controller.
      * @return SnakeController Instance
@@ -121,9 +123,9 @@ public class SnakeController implements IController {
             case UP:
             case W:
                 // Stops the snake turning in on itself.
-                if (m_Snake.getDirection() != SnakeObject.UP)
+                if (m_Snake.getDirection() != SnakeObject.DOWN)
                 {
-                    m_Snake.setDirection(SnakeObject.RIGHT);
+                    m_Snake.setDirection(SnakeObject.UP);
                     // Change the direction of the snake.
                     this.moveSnake();
                     //newImgSnakeHead = (BufferedImage) GameUtil.rotateImage(IMG_SNAKE_HEAD, -90);
