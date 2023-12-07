@@ -98,7 +98,7 @@ public class MyFrame extends JPanel implements KeyListener
 
 	}
 
-	public static class MySnake extends SnakeObject implements movable
+	public static class MySnake extends SnakeObject implements Movable
 	{
 		// Leikjabreytan.
 		private int speed_XY;
@@ -202,7 +202,7 @@ public class MyFrame extends JPanel implements KeyListener
 		}
 
 
-		public void move()
+		public void moveSnake()
 		{
 			// láta kvikindið hreyfa sig
 			if (up)
@@ -236,7 +236,7 @@ public class MyFrame extends JPanel implements KeyListener
 			g.drawImage(newImgSnakeHead, x, y, null);
 			drawBody(g);
 
-			move();
+			moveSnake();
 		}
 
 		public void eatBody()

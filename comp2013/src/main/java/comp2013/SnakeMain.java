@@ -6,15 +6,12 @@ import javafx.stage.Stage;
 import javax.swing.text.View;
 
 public class SnakeMain extends Application {
-    static SnakeController M_Controller;
-
     static SnakeModel M_Model;
+
+
     // Initialise the Model, View and Controller.
     private static void initialise() {
         M_Model = new SnakeModel(700, 500);
-        // Initialise the controller.
-        //M_Controller = new SnakeController();
-
     }
     public static void main(String[] args) {
         // Initialise the game.

@@ -1,14 +1,13 @@
 package comp2013;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import javafx.fxml.FXMLLoader;
-
-import java.net.URL;
+import javafx.stage.WindowEvent;
 
 public class SnakeView extends Application implements IView {
     // Store references to the controller
@@ -77,17 +76,33 @@ public class SnakeView extends Application implements IView {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        URL fxmlURL = getClass().getResource("/SnakeFXML.fxml");
-        Parent root = FXMLLoader.load(fxmlURL);
 
+        //m_Controller = SnakeController.getInstance();
+
+        // Load the correct FXML.
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/SnakeFXML.fxml"));
+        Parent root = loader.load();
+        // Get the instance of controller and set it.
+        m_Controller = loader.getController();
+        // Set the view in Controller to this view.
+        m_Controller.setView(this);
+        // Set title of screen.
         primaryStage.setTitle("Snake!");
         // Set the icon of the window.
         Image icon = new Image(getClass().getResource("/images/snake-logo.png").toExternalForm());
         primaryStage.getIcons().add(icon);
+
+        // Set the event handler for the window-closing event
+        primaryStage.setOnCloseRequest(event -> {
+            Platform.exit();});
+
+        new SnakeThread().start();
 
         Scene scene = new Scene(root, m_Controller.m_Model.getWidth(), m_Controller.m_Model.getHeight());
 
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+
+
 }

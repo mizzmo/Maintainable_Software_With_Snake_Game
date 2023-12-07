@@ -48,7 +48,6 @@ public class SnakeModel implements IModel {
         return this.m_Score;
     }
 
-
     //Set the score of the game
     @Override
     public void setScore(int score) {

@@ -1,5 +1,7 @@
 package comp2013;
 
+import javafx.scene.image.Image;
+
 /**
  * 
  * @Project Snakee
@@ -8,7 +10,10 @@ package comp2013;
  * @version Ekki viss
  */ 
 
-public interface movable
+public interface Movable
 {
-	void move();
+	/**
+	 *  Used to move the snake
+	 */
+	void moveSnake();
 }

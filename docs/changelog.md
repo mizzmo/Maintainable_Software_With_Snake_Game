@@ -57,3 +57,8 @@
 - Updated Maven POM with dependencies.
 - Updated module-info.
 - Linked FXML to the Controller and View.
+
+### 7/12/23
+- Fixed issue with controller.
+- Added image to screen.
+- Added Score Label to Screen.
