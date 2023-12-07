@@ -15,6 +15,12 @@ public interface Movable
 	public int m_Direction = 0;
 
 	/**
+	 * Returns the previous direction the snake was moving.
+	 * @return Value of the previous direction.
+	 */
+	int getPreviousDirection();
+
+	/**
 	 * Increase the speed of the snake.
 	 */
 	void increaseSpeed();
@@ -24,15 +30,6 @@ public interface Movable
 	 */
 	void reduceSpeed();
 
-	/**
-	 * Change the snakes direction.
-	 * 0 : UP
-	 * 1 : DOWN
-	 * 2 : LEFT
-	 * 3 : RIGHT
-	 * @param newDirection The direction that you want the snake to go.
-	 */
-	void changeDirection(int newDirection);
 
 	/**
 	 * Set the direction of the snake.

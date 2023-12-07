@@ -78,33 +78,24 @@ public class SnakeView extends Application implements IView {
         return 0;
     }
 
-
-    // Load the current game frame.
-    @Override
-    public void loadFrame() {
-
-    }
-
-    //Draws the body of the snake for a specified length.
-    @Override
-    public void drawBody(int length) {
-
-    }
-
      // Refreshes the screen.
     @Override
     public void refreshSnake() {
         // Get the list of snake body parts
         List<SnakeBody> snakeBody = m_Controller.m_Snake.m_SnakeBody;
+        // Move the snake constantly.
+        //m_Controller.moveSnake();
+
         GraphicsContext gc = m_SnakeCanvas.getGraphicsContext2D();
         // Clear the canvas by filling it with a transparent color
         gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
         // Draw the head at its new coordinates and rotation.
         gc.drawImage(M_SnakeHeadImg, snakeBody.getFirst().getX(), snakeBody.getFirst().getY());
         // Draw the rest of the body.
-        for(int i = 1; i < m_Controller.m_Model.getLength(); i++){
-          // Draws the body at the new location
+        for (int i = 1; i < m_Controller.m_Model.getLength(); i++) {
+            // Draws the body at the new location
             gc.drawImage(M_SnakeBodyImg, snakeBody.get(i).getX(), snakeBody.get(i).getY());
+
         }
     }
 
@@ -136,7 +127,9 @@ public class SnakeView extends Application implements IView {
         // Build the initial snake.
         this.buildSnake(m_Controller.m_Model.getLength());
 
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(30), event -> refreshSnake()));
+        this.initialiseSnakeMovementTimeline();
+
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis((double) 1000 / 60), event -> refreshSnake()));
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
 
@@ -145,6 +138,13 @@ public class SnakeView extends Application implements IView {
         // Set the scene and show the page.
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+    // Creates a seperate timeline that controls how fast the snake moves.
+    private void initialiseSnakeMovementTimeline() {
+        int speedInterval = ((int)((float)(-1 * m_Controller.m_Snake.m_SnakeSpeed)) + 225);
+        Timeline snakeMovementTimeline = new Timeline(new KeyFrame(Duration.millis(speedInterval), event -> m_Controller.moveSnake()));
+        snakeMovementTimeline.setCycleCount(Animation.INDEFINITE);
+        snakeMovementTimeline.play();
     }
     @Override
     public void buildSnake(int length){
@@ -158,9 +158,9 @@ public class SnakeView extends Application implements IView {
         // Coordinate value to add onto the coordinates
         int horizontalAdd = 25;
         int verticalAdd = 25;
+
         // Get the image of the snake head.
         this.changeHeadDirection();
-        //M_SnakeHeadImg = new Image(getClass().getResourceAsStream("/images/snake-head-right.png"));
         M_SnakeBodyImg = new Image(getClass().getResourceAsStream("/images/snake-body.png"));
 
         // Just build the head.

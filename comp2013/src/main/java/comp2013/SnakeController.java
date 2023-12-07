@@ -66,6 +66,7 @@ public class SnakeController implements IController {
                 if (bodyPoint1.getY() == (bodyPoint2.getY()) && bodyPoint1.getX() == (bodyPoint2.getX()) && bodyPoint1 != bodyPoint2) {
                     m_Model.setAlive(0);
                     System.out.println("Snake has hit itself");
+                    this.handleGameOver();
                 }
             }
         }
@@ -84,20 +85,58 @@ public class SnakeController implements IController {
             // Set the snake to be dead if found to be out of bounds
             m_Model.setAlive(0);
             System.out.println("Snake is out of bounds");
+            this.handleGameOver();
         }
     }
 
      // Move the snake in a specified direction
     @Override
     public void moveSnake() {
+        // Determines what to add or take from the direction of the snake.
+        float speedMultiplierY = 0;
+        float speedMultiplierX = 0;
+        // Stores the previous coordinate.
+        int prevX = 50, prevY = 50;
+        // Changes the direction the snakes head is facing.
+        m_View.changeHeadDirection();
         // Check that the snake is still alive.
         this.checkOutOfBounds();
         this.checkSelfCollide();
         // If the snake is still alive.
         if(m_Model.getAlive() == 1)
         {
-            // Changes the direction the snakes head is facing.
-            m_View.changeHeadDirection();
+            if (m_Snake.getDirection() == SnakeObject.UP)
+            {
+                speedMultiplierY = m_Snake.m_SnakeSpeed * -1;
+            } else if (m_Snake.getDirection() == SnakeObject.DOWN)
+            {
+                speedMultiplierY = m_Snake.m_SnakeSpeed;
+            } else if (m_Snake.getDirection() == SnakeObject.LEFT)
+            {
+                speedMultiplierX = m_Snake.m_SnakeSpeed * -1 ;
+            } else if (m_Snake.getDirection() == SnakeObject.RIGHT)
+            {
+                speedMultiplierX = m_Snake.m_SnakeSpeed;
+            }
+            // For every part in the body
+            for (int i = m_Model.getLength() - 1; i > 0; i--) {
+
+
+                SnakeBody currentPart = m_Snake.m_SnakeBody.get(i);
+                SnakeBody previousPart = m_Snake.m_SnakeBody.get(i - 1);
+
+                // Set the current part's position to the position of the part in front of it.
+                currentPart.setX(previousPart.getX());
+                currentPart.setY(previousPart.getY());
+            }
+            // Update the head's position based on the direction.
+            SnakeBody head = m_Snake.m_SnakeBody.getFirst();
+            head.setX((int) (head.getX() + speedMultiplierX));
+            head.setY((int) (head.getY() + speedMultiplierY));
+            // Checks if the snake has hit itself before updating the image.
+            this.checkOutOfBounds();
+            this.checkSelfCollide();
+
         }
         // Otherwise the game is over, handle this.
         else{this.handleGameOver();}
@@ -125,10 +164,8 @@ public class SnakeController implements IController {
                 // Stops the snake turning in on itself.
                 if (m_Snake.getDirection() != SnakeObject.DOWN)
                 {
+                    // Set the new direction.
                     m_Snake.setDirection(SnakeObject.UP);
-                    // Change the direction of the snake.
-                    this.moveSnake();
-                    //newImgSnakeHead = (BufferedImage) GameUtil.rotateImage(IMG_SNAKE_HEAD, -90);
                 }
                 break;
             // If Down Arrow or S is pressed.
@@ -136,9 +173,7 @@ public class SnakeController implements IController {
             case S:
                 if (m_Snake.getDirection() != SnakeObject.UP)
                 {
-                    // Set the new direction.
                     m_Snake.setDirection(SnakeObject.DOWN);
-                    this.moveSnake();
                 }
                 break;
             // If Left Arrow or A is pressed.
@@ -147,7 +182,6 @@ public class SnakeController implements IController {
                 if (m_Snake.getDirection() != SnakeObject.RIGHT)
                 {
                     m_Snake.setDirection(SnakeObject.LEFT);
-                    this.moveSnake();
                 }
                 break;
             // If Right Arrow or D is pressed.
@@ -156,7 +190,6 @@ public class SnakeController implements IController {
                 if (m_Snake.getDirection() != SnakeObject.LEFT)
                 {
                     m_Snake.setDirection(SnakeObject.RIGHT);
-                    this.moveSnake();
                 }
                 break;
             default:
