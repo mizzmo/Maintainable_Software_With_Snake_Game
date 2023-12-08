@@ -65,7 +65,7 @@ public class SnakeFood
 	public void newFruit(){
 		// Carries out the same as the constructor, but can be called by other functions.
 		this.M_Image = ImageUtil.getImage(String.valueOf(new Random().nextInt(10)));
-		this.m_Eaten = true;
+		this.m_Eaten = false;
 		this.M_Width = M_Image.getWidth();
 		this.M_Height = M_Image.getHeight();
 		this.M_X = (int) (Math.random() * (870 - M_Width - 10));

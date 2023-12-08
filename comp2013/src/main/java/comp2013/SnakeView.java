@@ -5,11 +5,13 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.geometry.HPos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
@@ -112,28 +114,54 @@ public class SnakeView extends Application implements IView {
             Platform.exit();});
 
         StackPane snakePane = new StackPane();
-        Scene scene = new Scene(snakePane, m_Controller.m_Model.getWidth(), m_Controller.m_Model.getHeight());
+
+        Scene scene = new Scene(snakePane, m_Controller.m_Model.getWidth(),
+                m_Controller.m_Model.getHeight());
+
+        // Load the CSS file
+        scene.getStylesheets().add(getClass().getResource
+                ("/SnakeStyle.css").toExternalForm());
+
         // Add an image view to the pane
         ImageView imageView = new ImageView();
+
         // Set the background of the image.
         this.setBackgroundImage(imageView);
         // Add the background to the pane.
         snakePane.getChildren().add(imageView);
 
         // Create a canvas that will be used to draw on the snake.
-        m_SnakeCanvas = new Canvas(m_Controller.m_Model.getWidth(), m_Controller.m_Model.getHeight());
+        m_SnakeCanvas = new Canvas(m_Controller.m_Model.getWidth(),
+                m_Controller.m_Model.getHeight());
+
         snakePane.getChildren().add(m_SnakeCanvas);
 
+        GridPane gridPane = new GridPane();
+        // Setting preferred width and height
+        gridPane.setPrefWidth(m_Controller.m_Model.getWidth()); // Set preferred width
+        gridPane.setPrefHeight(m_Controller.m_Model.getHeight()); // Set preferred height
+
+
         Label scoreLabel = new Label("This is the Score.");
+
+        // Apply the CSS style to the Label
+        scoreLabel.getStyleClass().add("label-with-padding");
+
+        // Set alignment of the label within the StackPane
+        StackPane.setAlignment(scoreLabel, javafx.geometry.Pos.TOP_CENTER);
+
+        // Add the label to the StackPane
         snakePane.getChildren().add(scoreLabel);
 
         // Build the initial snake.
         this.buildSnake(m_Controller.m_Model.getLength());
 
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis((double) 200), event -> {
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis((double) 200),
+            event -> {
             refreshSnake();
             m_Controller.moveSnake();
         }));
+
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
 
@@ -183,14 +211,17 @@ public class SnakeView extends Application implements IView {
                 // Draws the body and takes away the last horizontal coordinate + a constant, creates a line of circles.
                 gc.drawImage(M_SnakeBodyImg, canvasCenterHorizontal-horizontalAdd, canvasCenterVertical);
                 // Update and add a new segment of the snake.
-                m_Controller.addSegment(canvasCenterHorizontal-horizontalAdd, canvasCenterVertical, false);
+                m_Controller.addSegment(canvasCenterHorizontal-horizontalAdd,
+                        canvasCenterVertical, false);
                 horizontalAdd += 25;
             }
         }
     }
     @Override
     public void setBackgroundImage(ImageView imageView){
-        Image background = new Image(getClass().getResourceAsStream("/images/UI-Background.png"));
+        Image background = new Image
+                (getClass().getResourceAsStream("/images/UI-Background.png"));
+
         imageView.setImage(background);
     }
 
@@ -208,7 +239,7 @@ public class SnakeView extends Application implements IView {
             }
             break;
             case SnakeObject.DOWN: {
-                M_SnakeHeadImg = ImageUtil.getImage("snakeHeaDown");
+                M_SnakeHeadImg = ImageUtil.getImage("snakeHeadDown");
             }
             break;
             case SnakeObject.LEFT: {

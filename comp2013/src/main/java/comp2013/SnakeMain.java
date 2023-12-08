@@ -10,7 +10,7 @@ public class SnakeMain extends Application {
      static SnakeController M_Controller;
     // Initialise the Model, View and Controller.
     private static void initialise() {
-        M_Model = new SnakeModel(700, 500);
+        M_Model = new SnakeModel(900, 600);
         M_Controller = new SnakeController();
     }
     public static void main(String[] args) {

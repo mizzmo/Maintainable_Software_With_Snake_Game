@@ -97,3 +97,5 @@
 - Added new comments and JavaDoc to SnakeFood.
 - Reworked SnakeFood to work with JavaFX.
 - Added new method to SnakeFood, newFruit, which creates a new fruit.
+- Added a label to track score to screen.
+- Added CSS File and customised Score label.
