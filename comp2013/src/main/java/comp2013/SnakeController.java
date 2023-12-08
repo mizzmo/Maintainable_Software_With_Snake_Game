@@ -16,6 +16,8 @@ import java.awt.image.BufferedImage;
 public class SnakeController implements IController {
     SnakeModel m_Model;
     SnakeView m_View;
+
+    private int snakeSpacing;
     // Stores constants for the key codes for WSAD and Arrow Keys.
     private static final int W = 87, S = 83, A = 65, D = 68;
     private static final int UP = 38, DOWN = 39, LEFT = 37, RIGHT = 40;
@@ -95,6 +97,7 @@ public class SnakeController implements IController {
         // Determines what to add or take from the direction of the snake.
         float speedMultiplierY = 0;
         float speedMultiplierX = 0;
+        // Counts the amount of times move snake has been called.
         // Stores the previous coordinate.
         int prevX = 50, prevY = 50;
         // Changes the direction the snakes head is facing.
@@ -107,32 +110,31 @@ public class SnakeController implements IController {
         {
             if (m_Snake.getDirection() == SnakeObject.UP)
             {
-                speedMultiplierY = m_Snake.m_SnakeSpeed * -1;
+                speedMultiplierY =-1;
             } else if (m_Snake.getDirection() == SnakeObject.DOWN)
             {
-                speedMultiplierY = m_Snake.m_SnakeSpeed;
+                speedMultiplierY = 1;
             } else if (m_Snake.getDirection() == SnakeObject.LEFT)
             {
-                speedMultiplierX = m_Snake.m_SnakeSpeed * -1 ;
+                speedMultiplierX = -1 ;
             } else if (m_Snake.getDirection() == SnakeObject.RIGHT)
             {
-                speedMultiplierX = m_Snake.m_SnakeSpeed;
+                speedMultiplierX = 1;
             }
             // For every part in the body
             for (int i = m_Model.getLength() - 1; i > 0; i--) {
-
-
                 SnakeBody currentPart = m_Snake.m_SnakeBody.get(i);
                 SnakeBody previousPart = m_Snake.m_SnakeBody.get(i - 1);
 
-                // Set the current part's position to the position of the part in front of it.
+                // Update the current part's position to the position of the previous part.
                 currentPart.setX(previousPart.getX());
                 currentPart.setY(previousPart.getY());
             }
+
             // Update the head's position based on the direction.
             SnakeBody head = m_Snake.m_SnakeBody.getFirst();
-            head.setX((int) (head.getX() + speedMultiplierX));
-            head.setY((int) (head.getY() + speedMultiplierY));
+            head.setX((int) (head.getX() + speedMultiplierX * m_Snake.m_SnakeSpeed));
+            head.setY((int) (head.getY() + speedMultiplierY * m_Snake.m_SnakeSpeed));
             // Checks if the snake has hit itself before updating the image.
             this.checkOutOfBounds();
             this.checkSelfCollide();
