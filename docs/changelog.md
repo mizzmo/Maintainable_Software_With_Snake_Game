@@ -88,3 +88,8 @@
 - Completed snakeMovement.
 - Found new issue where the snake jumps along, rather than moving slowly.
 
+### 8/12/23
+- Rename Food class to SnakeFood.
+- Removed GameUtil Class. Moved its methods to ImageUtil.
+- Reworked ImageUtil to work with JavaFX.
+- Removed RotateImage in ImageUtil.
