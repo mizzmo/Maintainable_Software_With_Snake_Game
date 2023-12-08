@@ -93,3 +93,4 @@
 - Removed GameUtil Class. Moved its methods to ImageUtil.
 - Reworked ImageUtil to work with JavaFX.
 - Removed RotateImage in ImageUtil.
+- Reworked getImage method in imageUtil.

@@ -1,20 +1,22 @@
 package comp2013;
 
 import javafx.scene.image.Image;
+
+import javax.imageio.ImageIO;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class ImageUtil
 {
-	public static BufferedImage getImage(String imagePath) {
-		try {
-			return ImageIO.read(ImageUtil.class.getResource(imagePath));
-		} catch (IOException e) {
-			System.err.println("\nError: Image URL Not Found or is NULL.\n");
-			e.printStackTrace(); // Handle the exception according to your needs
-			return null;
-		}
+	/**
+	 *  Returns the image at the given index in the hash map.
+	 * @param imageID Image ID that corrisponds to the image you want to use.
+	 * @return Image at the location in the hash map.
+	 */
+	public static Image getImage(String imageID){
+		// Returns null if no image in the index
+		return m_SnakeImages.get(imageID);
 	}
 
 
