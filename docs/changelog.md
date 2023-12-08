@@ -94,3 +94,6 @@
 - Reworked ImageUtil to work with JavaFX.
 - Removed RotateImage in ImageUtil.
 - Reworked getImage method in imageUtil.
+- Added new comments and JavaDoc to SnakeFood.
+- Reworked SnakeFood to work with JavaFX.
+- Added new method to SnakeFood, newFruit, which creates a new fruit.

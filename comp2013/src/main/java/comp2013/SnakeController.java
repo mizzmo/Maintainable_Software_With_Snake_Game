@@ -101,7 +101,7 @@ public class SnakeController implements IController {
         // Stores the previous coordinate.
         int prevX = 50, prevY = 50;
         // Changes the direction the snakes head is facing.
-        m_View.changeHeadDirection();
+        //m_View.changeHeadDirection();
         // Check that the snake is still alive.
         this.checkOutOfBounds();
         this.checkSelfCollide();

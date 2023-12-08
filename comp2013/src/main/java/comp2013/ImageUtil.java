@@ -18,6 +18,34 @@ public class ImageUtil
 		// Returns null if no image in the index
 		return m_SnakeImages.get(imageID);
 	}
+	/**
+	 * Swaps the snake-head image depending on the direction of travel
+	 */
+	public static Image changeHeadDirection(int direction){
+		// Finds out which way the snake is facing and sets the image accordingly.
+		Image snakeHeadImage;
+		switch (direction) {
+			case SnakeObject.UP: {
+				snakeHeadImage = ImageUtil.getImage("snakeHeadUp");
+			}
+			break;
+			case SnakeObject.DOWN: {
+				snakeHeadImage = ImageUtil.getImage("snakeHeaDown");
+			}
+			break;
+			case SnakeObject.LEFT: {
+				snakeHeadImage = ImageUtil.getImage("snakeHeadLeft");
+			}
+			break;
+			case SnakeObject.RIGHT: {
+				snakeHeadImage = ImageUtil.getImage("snakeHeadRight");
+			}
+			break;
+			default:
+				return null;
+		}
+		return snakeHeadImage;
+	}
 
 
 	/**
@@ -34,10 +62,10 @@ public class ImageUtil
 		m_SnakeImages.put("endImage", new Image(ImageUtil.class.getResource
 				("/images/theEnd.jpg").toExternalForm()));
 
-		// Snake Body Parts.
 		m_SnakeImages.put("snakeIcon", new Image(ImageUtil.class.getResource
 				("/images/snake-logo.png").toExternalForm()));
 
+		// Snake Body Parts.
 		m_SnakeImages.put("snakeHeadRight", new Image(ImageUtil.class.getResource
 				("/images/snake-head-right.png").toExternalForm()));
 

@@ -5,22 +5,14 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
-import javafx.fxml.FXMLLoader;
-import javafx.stage.WindowEvent;
 import javafx.util.Duration;
-
 import java.util.List;
 
 public class SnakeView extends Application implements IView {
@@ -83,12 +75,17 @@ public class SnakeView extends Application implements IView {
     public void refreshSnake() {
         // Get the list of snake body parts
         List<SnakeBody> snakeBody = m_Controller.m_Snake.m_SnakeBody;
-        // Move the snake constantly.
-        //m_Controller.moveSnake();
 
         GraphicsContext gc = m_SnakeCanvas.getGraphicsContext2D();
         // Clear the canvas by filling it with a transparent color
         gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
+        // Create a new snake food object.
+        SnakeFood snakeFood = new SnakeFood();
+        // If the food has been eaten, draw a new one to replace it.
+        if(snakeFood.m_Eaten){
+            snakeFood.newFruit();
+            snakeFood.drawFruit(m_SnakeCanvas);
+        }
         // Draw the head at its new coordinates and rotation.
         gc.drawImage(M_SnakeHeadImg, snakeBody.getFirst().getX(), snakeBody.getFirst().getY());
         // Draw the rest of the body.
@@ -104,7 +101,7 @@ public class SnakeView extends Application implements IView {
         // Set title of screen.
         primaryStage.setTitle("Snake!");
         // Set the icon of the window.
-        Image icon = new Image(getClass().getResource("/images/snake-logo.png").toExternalForm());
+        Image icon = ImageUtil.getImage("snakeIcon");
         primaryStage.getIcons().add(icon);
 
         // Set the event handler for the window-closing event
@@ -127,8 +124,6 @@ public class SnakeView extends Application implements IView {
         // Build the initial snake.
         this.buildSnake(m_Controller.m_Model.getLength());
 
-        //this.initialiseSnakeMovementTimeline();
-
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis((double) 200), event -> {
             refreshSnake();
             m_Controller.moveSnake();
@@ -142,13 +137,7 @@ public class SnakeView extends Application implements IView {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-    // Creates a seperate timeline that controls how fast the snake moves.
-    private void initialiseSnakeMovementTimeline() {
-        int speedInterval = ((int)((float)(-1 * m_Controller.m_Snake.m_SnakeSpeed)) + 225);
-        Timeline snakeMovementTimeline = new Timeline(new KeyFrame(Duration.millis(speedInterval), event -> m_Controller.moveSnake()));
-        snakeMovementTimeline.setCycleCount(Animation.INDEFINITE);
-        snakeMovementTimeline.play();
-    }
+
     @Override
     public void buildSnake(int length){
         // Get the center of the screen.
@@ -163,8 +152,8 @@ public class SnakeView extends Application implements IView {
         int verticalAdd = 25;
 
         // Get the image of the snake head.
-        this.changeHeadDirection();
-        M_SnakeBodyImg = new Image(getClass().getResourceAsStream("/images/snake-body.png"));
+        M_SnakeHeadImg = ImageUtil.changeHeadDirection(m_Controller.m_Snake.getDirection());
+        M_SnakeBodyImg = ImageUtil.getImage("snakeBody");
 
         // Just build the head.
         GraphicsContext gc = m_SnakeCanvas.getGraphicsContext2D();
@@ -199,30 +188,7 @@ public class SnakeView extends Application implements IView {
         imageView.setImage(background);
     }
 
-    @Override
-    public void changeHeadDirection(){
-        // Finds out which way the snake is facing and sets the image accordingly.
-        switch (m_Controller.m_Snake.getDirection()) {
-            case SnakeObject.UP: {
-                M_SnakeHeadImg = new Image(getClass().getResourceAsStream("/images/snake-head-up.png"));
-            }
-            break;
-            case SnakeObject.DOWN: {
-                M_SnakeHeadImg = new Image(getClass().getResourceAsStream("/images/snake-head-down.png"));
-            }
-            break;
-            case SnakeObject.LEFT: {
-                M_SnakeHeadImg = new Image(getClass().getResourceAsStream("/images/snake-head-left.png"));
-            }
-            break;
-            case SnakeObject.RIGHT: {
-                M_SnakeHeadImg = new Image(getClass().getResourceAsStream("/images/snake-head-right.png"));
-            }
-            break;
-            default:
-                break;
-        }
-    }
+
 
 
 

@@ -55,9 +55,6 @@ public interface IView {
      */
     public void setBackgroundImage(ImageView imageView);
 
-    /**
-     * Swaps the snake-head image depending on the direction of travel
-     */
-    public void changeHeadDirection();
+
 
 }
