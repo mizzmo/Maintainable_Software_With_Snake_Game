@@ -99,3 +99,10 @@
 - Added new method to SnakeFood, newFruit, which creates a new fruit.
 - Added a label to track score to screen.
 - Added CSS File and customised Score label.
+- Fixed issue where food would appear and dissapear immidiatelly.
+- Food is now complete.
+- Updated view to handle how collecting food.
+- Updated view to add a new segment onto the snake when food is collected.
+- Updated score funtion so that it now shows the score as food is collected.
+- Updated how the snake self collision is handled, removed an extra check.
+- Added a method to view "gameOverScreen" that handles what happens when a game over event is triggered.

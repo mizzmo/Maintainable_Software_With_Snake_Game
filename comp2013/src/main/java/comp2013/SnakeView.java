@@ -76,12 +76,13 @@ public class SnakeView extends Application implements IView {
         return 0;
     }
 
-     // Refreshes the screen.
+     // Refreshes the snake at its new location.
     @Override
     public void refreshSnake() {
         // Get the list of snake body parts
         List<SnakeBody> snakeBody = m_Controller.m_Snake.m_SnakeBody;
-
+        // Tells the loop if it needs to add a new segment or not.
+        boolean addSegment = false;
         GraphicsContext gc = m_SnakeCanvas.getGraphicsContext2D();
         // Clear the canvas by filling it with a transparent color
         gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
@@ -93,14 +94,21 @@ public class SnakeView extends Application implements IView {
             M_SnakeFood.drawFruit(m_FoodCanvas);
             // Update the score
             this.drawScore();
+            // Add a new segment
+            addSegment = true;
+
         }
         // Draw the head at its new coordinates and rotation.
         gc.drawImage(M_SnakeHeadImg, snakeBody.getFirst().getX(), snakeBody.getFirst().getY());
         // Draw the rest of the body.
         for (int i = 1; i < m_Controller.m_Model.getLength(); i++) {
+
             // Draws the body at the new location
             gc.drawImage(M_SnakeBodyImg, snakeBody.get(i).getX(), snakeBody.get(i).getY());
-
+            if(i == m_Controller.m_Model.getLength()-1 && addSegment){
+                m_Controller.addSegment(snakeBody.get(i).getX()+1, snakeBody.get(i).getY()+1, true);
+                addSegment = false;
+            }
         }
     }
 
@@ -260,6 +268,25 @@ public class SnakeView extends Application implements IView {
                 break;
         }
     }
+
+    public void gameOverScreen(){
+        GraphicsContext gc;
+        // Remove the food from the screen
+        gc = m_FoodCanvas.getGraphicsContext2D();
+        gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
+        // Remove the Snake from the screen.
+        gc = m_SnakeCanvas.getGraphicsContext2D();
+        gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
+
+        // Change the location of the label, move it to the middle of the screen.
+        M_ScoreLabel.setTranslateY(225);
+        // Apply the CSS style to the Label
+        M_ScoreLabel.getStyleClass().add("game-over-label");
+        // Update the text.
+        M_ScoreLabel.setText("Game Over!");
+
+    }
+
 
 
 

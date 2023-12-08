@@ -70,8 +70,9 @@ public class SnakeFood
 		this.m_Eaten = false;
 		this.M_Width = M_Image.getWidth();
 		this.M_Height = M_Image.getHeight();
-		this.M_X = (int) (Math.random() * (870 - M_Width - 10));
-		this.M_Y = (int) (Math.random() * (560 - M_Height - 40));
+		// Sets a x and y coordinate for the fruit that is at least 500 pixels away from the wall.
+		this.M_X = (int) (Math.random() * (M_Controller.m_Model.getWidth() - M_Width - 40));
+		this.M_Y = (int) (Math.random() * (M_Controller.m_Model.getHeight() - M_Height - 40));
 	}
 
 	/**
