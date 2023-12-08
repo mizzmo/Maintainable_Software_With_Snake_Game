@@ -64,4 +64,9 @@ public interface IView {
      * Swaps the snake-head image depending on the direction of travel
      */
     void changeHeadDirection();
+
+    /**
+     * Handles what happens to the view when a game over condition is met.
+     */
+    public void gameOverScreen();
 }

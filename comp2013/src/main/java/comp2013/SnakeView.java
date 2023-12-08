@@ -268,7 +268,7 @@ public class SnakeView extends Application implements IView {
                 break;
         }
     }
-
+    @Override
     public void gameOverScreen(){
         GraphicsContext gc;
         // Remove the food from the screen
@@ -284,7 +284,6 @@ public class SnakeView extends Application implements IView {
         M_ScoreLabel.getStyleClass().add("game-over-label");
         // Update the text.
         M_ScoreLabel.setText("Game Over!");
-
     }
 
 
