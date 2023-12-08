@@ -32,19 +32,18 @@ public class SnakeFood
 	 * Checks if the fruit has been eaten or not.
 	 */
 	public boolean eaten()	{
-		int snakeHeadX, snakeHeadY, newPartX, newPartY;
-		snakeHeadX = M_Controller.m_Snake.m_SnakeBody.getFirst().getX();
-		snakeHeadY = M_Controller.m_Snake.m_SnakeBody.getFirst().getY();
-		// Gets the last known x and y of the last segment.
-		newPartX = M_Controller.m_Snake.m_SnakeBody.getLast().getX();
-		newPartY = M_Controller.m_Snake.m_SnakeBody.getLast().getY();
-
-		if (snakeHeadY == this.M_Y && snakeHeadX == this.M_X || this.m_Eaten == true){
-			this.m_Eaten = false;
-			//M_Controller.addSegment(newPartX, newPartY, true);
-			M_Controller.m_Model.setScore(M_Controller.m_Model.getScore()+500);
-			System.out.println("Here1");
-			return true;
+		// For every point in the body.
+		for (SnakeBody snakePart : M_Controller.m_Snake.m_SnakeBody) {
+			int snakeBodyX = snakePart.getX();
+			int snakeBodyY = snakePart.getY();
+			// Checks if the fruit is intersecting with any part of the snake
+			boolean isIntersecting = areImagesIntersecting(snakeBodyX, snakeBodyY, 25, 25,
+					this.M_X, this.M_Y, 32, 32);
+			// If intersecting, return true.
+			if(isIntersecting){
+				M_Controller.m_Model.setScore(M_Controller.m_Model.getScore()+100);
+				return true;
+			}
 		}
 		return false;
 	}
@@ -55,6 +54,9 @@ public class SnakeFood
 	 */
 	public void drawFruit(Canvas canvas){
 		GraphicsContext gc = canvas.getGraphicsContext2D();
+		// Clear the canvas by filling it with a transparent color
+		gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
+		// Draw the fruit
 		gc.drawImage(this.M_Image, this.M_X, this.M_Y);
 		this.m_Eaten = false;
 	};
@@ -70,5 +72,22 @@ public class SnakeFood
 		this.M_Height = M_Image.getHeight();
 		this.M_X = (int) (Math.random() * (870 - M_Width - 10));
 		this.M_Y = (int) (Math.random() * (560 - M_Height - 40));
+	}
+
+	/**
+	 * Detects if images are interesecting
+	 * @param x1 first X coordinate
+	 * @param y1 first Y coordinaTe
+	 * @param w1 first image width
+	 * @param h1 first image height
+	 * @param x2 second X coordinate
+	 * @param y2 second Y coordinate
+	 * @param w2 second image width
+	 * @param h2 second image height
+	 * @return Returns true if the image are intersecting, false otherwise.
+	 */
+	private boolean areImagesIntersecting(double x1, double y1, double w1, double h1,
+										  double x2, double y2, double w2, double h2) {
+		return (x1 < x2 + w2 && x1 + w1 > x2 && y1 < y2 + h2 && y1 + h1 > y2);
 	}
 }

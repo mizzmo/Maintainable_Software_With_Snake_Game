@@ -5,13 +5,11 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.geometry.HPos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
@@ -23,10 +21,15 @@ public class SnakeView extends Application implements IView {
     SnakeController m_Controller;
 
     public Canvas m_SnakeCanvas;
+    public Canvas m_FoodCanvas;
 
     private Image M_SnakeHeadImg;
 
     private Image M_SnakeBodyImg;
+
+    private SnakeFood M_SnakeFood;
+
+    private Label M_ScoreLabel;
 
     private static SnakeView m_Instance;
     public SnakeView() {
@@ -82,14 +85,14 @@ public class SnakeView extends Application implements IView {
         GraphicsContext gc = m_SnakeCanvas.getGraphicsContext2D();
         // Clear the canvas by filling it with a transparent color
         gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
-        // Create a new snake food object.
-        SnakeFood snakeFood = new SnakeFood();
         // If the food has been eaten, draw a new one to replace it.
-        if(snakeFood.eaten() && snakeFood.m_Eaten){
+        if(M_SnakeFood.eaten()){
             // Re-Roll the fruit.
-            snakeFood.newFruit();
+            M_SnakeFood.newFruit();
             // Draw the new fruit.
-            snakeFood.drawFruit(m_SnakeCanvas);
+            M_SnakeFood.drawFruit(m_FoodCanvas);
+            // Update the score
+            this.drawScore();
         }
         // Draw the head at its new coordinates and rotation.
         gc.drawImage(M_SnakeHeadImg, snakeBody.getFirst().getX(), snakeBody.getFirst().getY());
@@ -133,28 +136,31 @@ public class SnakeView extends Application implements IView {
         // Create a canvas that will be used to draw on the snake.
         m_SnakeCanvas = new Canvas(m_Controller.m_Model.getWidth(),
                 m_Controller.m_Model.getHeight());
+        // Create a seperate canvas for the food.
+        m_FoodCanvas = new Canvas(m_Controller.m_Model.getWidth(),
+                m_Controller.m_Model.getHeight());
 
+        // Add both of the canvases to the screen
+        snakePane.getChildren().add(m_FoodCanvas);
         snakePane.getChildren().add(m_SnakeCanvas);
 
-        GridPane gridPane = new GridPane();
-        // Setting preferred width and height
-        gridPane.setPrefWidth(m_Controller.m_Model.getWidth()); // Set preferred width
-        gridPane.setPrefHeight(m_Controller.m_Model.getHeight()); // Set preferred height
 
-
-        Label scoreLabel = new Label("This is the Score.");
+        M_ScoreLabel = new Label("Score: 0");
 
         // Apply the CSS style to the Label
-        scoreLabel.getStyleClass().add("label-with-padding");
+        M_ScoreLabel.getStyleClass().add("label-with-padding");
 
         // Set alignment of the label within the StackPane
-        StackPane.setAlignment(scoreLabel, javafx.geometry.Pos.TOP_CENTER);
+        StackPane.setAlignment(M_ScoreLabel, javafx.geometry.Pos.TOP_CENTER);
 
         // Add the label to the StackPane
-        snakePane.getChildren().add(scoreLabel);
+        snakePane.getChildren().add(M_ScoreLabel);
 
         // Build the initial snake.
         this.buildSnake(m_Controller.m_Model.getLength());
+        // Create a new food and draw it.
+        M_SnakeFood = new SnakeFood();
+        M_SnakeFood.drawFruit(m_FoodCanvas);
 
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis((double) 200),
             event -> {
@@ -227,7 +233,7 @@ public class SnakeView extends Application implements IView {
 
     @Override
     public void drawScore(){
-
+        M_ScoreLabel.setText("Score: " + m_Controller.m_Model.getScore());
     }
 
     @Override
