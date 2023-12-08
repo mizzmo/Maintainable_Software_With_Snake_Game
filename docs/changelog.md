@@ -81,3 +81,10 @@
 - Added method to change the direction the image is facing.
 - Update moveSnake to add snake rotation functionality from view.
 - Fixed bug with controller not being set view correctly.
+- Add method to SnakeObject that stores the previous direction.
+- Updated setDirection to set the previous direction.
+- Updated SnakeObject to store the previous X and Y Values.
+- Removed method from Controller, turnSnake.
+- Completed snakeMovement.
+- Found new issue where the snake jumps along, rather than moving slowly.
+

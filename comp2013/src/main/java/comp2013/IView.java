@@ -39,17 +39,6 @@ public interface IView {
     int stopMusic();
 
     /**
-     * Load the current game frame.
-     */
-     void loadFrame();
-
-    /**
-     * Draws the body of the snake for a specified length.
-     * @param length Length of the snake in play.
-     */
-     void drawBody(int length);
-
-    /**
      * Draw the snake again from its new coordinates.
      */
     void refreshSnake();

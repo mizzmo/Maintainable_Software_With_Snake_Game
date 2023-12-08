@@ -1,19 +1,20 @@
 package comp2013;
 
+import javafx.scene.image.Image;
+
 import java.awt.Graphics;
 import java.util.Random;
 
-public class Food extends MyFrame.SnakeObject
+public class SnakeFood
 {
+	private SnakeController M_Controller = SnakeController.getInstance();
 
-	private static final long serialVersionUID = -3641221053272056036L;
+	private boolean M_Eaten;
+	private Image M_Image;
+	public SnakeFood()	{
+		this.M_Eaten = false;
 
-
-
-	public Food()	{
-		this.l = true;
-
-		this.i = ImageUtil.images.get(String.valueOf(new Random().nextInt(10)));
+		this.M_Image = ImageUtil.images.get(String.valueOf(new Random().nextInt(10)));
 
 		this.w = i.getWidth(null);
 		this.h = i.getHeight(null);

@@ -7,15 +7,20 @@ public class SnakeObject implements Movable {
     // Keeps track of how fast the snake is moving.
     public int m_SnakeSpeed;
     // Keeps track of which direction the snake is moving.
-    public int m_Direction;
+    public int m_Direction, m_PreviousDirection;
     // Constants that define direction.
     public static final int UP = 0, DOWN = 1, LEFT = 2, RIGHT = 3;
+    // Added to the speed to determine how far the snake moves per tick
+    public static final int SPEED_MODIFIER = 25;
 
     // Linked list containing all of the snake body points.
     public List<SnakeBody> m_SnakeBody = new LinkedList<>();
 
     public SnakeObject(int x, int y){
-        this.m_SnakeSpeed = 5;
+        this.m_SnakeSpeed = 1 * SPEED_MODIFIER;
+        // Set the initial direction
+        this.m_PreviousDirection = RIGHT;
+        this.m_Direction = RIGHT;
         // Create the head of the snake and store it in the linked list.
         SnakeBody snakeHead = new SnakeBody(x, y);
         m_SnakeBody.addFirst(snakeHead);
@@ -25,6 +30,8 @@ public class SnakeObject implements Movable {
     public void setDirection(int direction) {
         // Checks that the direction is valid.
         if(direction == UP || direction == DOWN || direction == LEFT || direction == RIGHT) {
+            // Update the previous direction, set the new direction.
+            this.m_PreviousDirection = this.m_Direction;
             this.m_Direction = direction;
         }
     }
@@ -32,6 +39,8 @@ public class SnakeObject implements Movable {
     @Override
     public int getDirection(){ return this.m_Direction; }
 
+    @Override
+    public int getPreviousDirection(){ return this.m_PreviousDirection; }
     //Increase the speed of the snake.
     @Override
     public void increaseSpeed() {
@@ -45,16 +54,5 @@ public class SnakeObject implements Movable {
         this.m_SnakeSpeed--;
     }
 
-
-    /* Change the snakes direction.
-    0 : UP
-    1 : DOWN
-    2 : LEFT
-    3 : RIGHT */
-    @Override
-    public void changeDirection(int newDirection) {
-        this.m_Direction = newDirection;
-        // Need to implement the rest of this.
-    }
 
 }
