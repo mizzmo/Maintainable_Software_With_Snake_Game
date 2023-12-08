@@ -8,6 +8,7 @@ import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -82,8 +83,10 @@ public class SnakeView extends Application implements IView {
         // Create a new snake food object.
         SnakeFood snakeFood = new SnakeFood();
         // If the food has been eaten, draw a new one to replace it.
-        if(snakeFood.m_Eaten){
+        if(snakeFood.eaten() && snakeFood.m_Eaten){
+            // Re-Roll the fruit.
             snakeFood.newFruit();
+            // Draw the new fruit.
             snakeFood.drawFruit(m_SnakeCanvas);
         }
         // Draw the head at its new coordinates and rotation.
@@ -121,6 +124,9 @@ public class SnakeView extends Application implements IView {
         m_SnakeCanvas = new Canvas(m_Controller.m_Model.getWidth(), m_Controller.m_Model.getHeight());
         snakePane.getChildren().add(m_SnakeCanvas);
 
+        Label scoreLabel = new Label("This is the Score.");
+        snakePane.getChildren().add(scoreLabel);
+
         // Build the initial snake.
         this.buildSnake(m_Controller.m_Model.getLength());
 
@@ -152,7 +158,7 @@ public class SnakeView extends Application implements IView {
         int verticalAdd = 25;
 
         // Get the image of the snake head.
-        M_SnakeHeadImg = ImageUtil.changeHeadDirection(m_Controller.m_Snake.getDirection());
+        this.changeHeadDirection();
         M_SnakeBodyImg = ImageUtil.getImage("snakeBody");
 
         // Just build the head.
@@ -186,6 +192,36 @@ public class SnakeView extends Application implements IView {
     public void setBackgroundImage(ImageView imageView){
         Image background = new Image(getClass().getResourceAsStream("/images/UI-Background.png"));
         imageView.setImage(background);
+    }
+
+    @Override
+    public void drawScore(){
+
+    }
+
+    @Override
+    public void changeHeadDirection(){
+        // Finds out which way the snake is facing and sets the image accordingly.
+        switch (this.m_Controller.m_Snake.getDirection()) {
+            case SnakeObject.UP: {
+                M_SnakeHeadImg = ImageUtil.getImage("snakeHeadUp");
+            }
+            break;
+            case SnakeObject.DOWN: {
+                M_SnakeHeadImg = ImageUtil.getImage("snakeHeaDown");
+            }
+            break;
+            case SnakeObject.LEFT: {
+                M_SnakeHeadImg = ImageUtil.getImage("snakeHeadLeft");
+            }
+            break;
+            case SnakeObject.RIGHT: {
+                M_SnakeHeadImg = ImageUtil.getImage("snakeHeadRight");
+            }
+            break;
+            default:
+                break;
+        }
     }
 
 

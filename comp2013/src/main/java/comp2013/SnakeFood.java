@@ -31,7 +31,7 @@ public class SnakeFood
 	/**
 	 * Checks if the fruit has been eaten or not.
 	 */
-	public void eaten()	{
+	public boolean eaten()	{
 		int snakeHeadX, snakeHeadY, newPartX, newPartY;
 		snakeHeadX = M_Controller.m_Snake.m_SnakeBody.getFirst().getX();
 		snakeHeadY = M_Controller.m_Snake.m_SnakeBody.getFirst().getY();
@@ -39,11 +39,14 @@ public class SnakeFood
 		newPartX = M_Controller.m_Snake.m_SnakeBody.getLast().getX();
 		newPartY = M_Controller.m_Snake.m_SnakeBody.getLast().getY();
 
-		if (snakeHeadY == this.M_Y && snakeHeadX == this.M_X){
-			this.m_Eaten = true;
-			M_Controller.addSegment(newPartX, newPartY, true);
+		if (snakeHeadY == this.M_Y && snakeHeadX == this.M_X || this.m_Eaten == true){
+			this.m_Eaten = false;
+			//M_Controller.addSegment(newPartX, newPartY, true);
 			M_Controller.m_Model.setScore(M_Controller.m_Model.getScore()+500);
+			System.out.println("Here1");
+			return true;
 		}
+		return false;
 	}
 
 	/**

@@ -20,7 +20,7 @@ import javax.swing.JPanel;
  * @version Ekki viss
  */ 
 
-
+/*
 public class MyFrame extends JPanel implements KeyListener
 {
 	private static final long serialVersionUID = -3149926831770554380L;
@@ -34,9 +34,7 @@ public class MyFrame extends JPanel implements KeyListener
 
 	public void loadFrame()
 	{
-		/*
-		 * Komið í veg fyrir að myndin blikki.
-		 */
+
 		this.setDoubleBuffered(true);
 		jFrame.add(this);
 		jFrame.addKeyListener(this);
@@ -125,9 +123,7 @@ public class MyFrame extends JPanel implements KeyListener
 			this.speed_XY = 5;
 			this.length = 1;
 
-			/*
-			 * Attention : ?
-			 */
+
 			this.num = w / speed_XY;
 			newImgSnakeHead = IMG_SNAKE_HEAD;
 
@@ -293,4 +289,4 @@ public class MyFrame extends JPanel implements KeyListener
 			return new Rectangle(x, y, w, h);
 		}
 	}
-}
+} */
