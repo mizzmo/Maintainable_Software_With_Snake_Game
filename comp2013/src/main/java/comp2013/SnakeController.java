@@ -79,8 +79,8 @@ public class SnakeController implements IController {
     public void checkOutOfBounds()
     {
         SnakeBody snakeHead = m_Snake.m_SnakeBody.getFirst();
-        boolean xOut = (snakeHead.getX() <= 0 || snakeHead.getX() >= (m_Model.getWidth()));
-        boolean yOut = (snakeHead.getY() <= 0 || snakeHead.getY() >= (m_Model.getHeight()));
+        boolean xOut = (snakeHead.getX() < 0 || snakeHead.getX() > (m_Model.getWidth()));
+        boolean yOut = (snakeHead.getY() < 0 || snakeHead.getY() > (m_Model.getHeight()));
         if (xOut || yOut)
         {
             // Set the snake to be dead if found to be out of bounds
