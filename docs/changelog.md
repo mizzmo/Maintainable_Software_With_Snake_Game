@@ -117,3 +117,6 @@
 - Removed Music methods from SnakeView and IView.
 - Created a new Interface, IMusic.
 - Implemented IMusic in SnakeMusic.
+- Added JavaFX Descriptions to my Interfaces.
+- Added method to SnakeMusic to set looping of music.
+- Added code to SnakeView that calls the SnakeMusic class.

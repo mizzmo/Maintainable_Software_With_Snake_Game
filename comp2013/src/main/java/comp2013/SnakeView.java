@@ -18,17 +18,13 @@ import java.util.List;
 
 public class SnakeView extends Application implements IView {
     // Store references to the controller
-    SnakeController m_Controller;
-
+    public SnakeController m_Controller;
+    public SnakeMusic m_SnakeMusic;
     public Canvas m_SnakeCanvas;
     public Canvas m_FoodCanvas;
-
     private Image M_SnakeHeadImg;
-
     private Image M_SnakeBodyImg;
-
     private SnakeFood M_SnakeFood;
-
     private Label M_ScoreLabel;
 
     private static SnakeView m_Instance;
@@ -37,6 +33,7 @@ public class SnakeView extends Application implements IView {
         m_Controller = SnakeController.getInstance();
         // Set the controllers view to be this.
         m_Controller.setView(this);
+
     }
 
     public static SnakeView getInstance() {
@@ -151,6 +148,13 @@ public class SnakeView extends Application implements IView {
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
 
+        // Create a new SnakeMusic to be used to play music.
+        m_SnakeMusic = new SnakeMusic(SnakeMusic.class.getResource("/sound/frogger.mp3").toString());
+        // Play the music
+        m_SnakeMusic.playMusic();
+        // Sets the music to loop until it is told otherwise.
+        m_SnakeMusic.setLooping(true);
+
         scene.setOnKeyPressed(event -> m_Controller.handleKeyPress(event.getCode()));
 
         // Set the scene and show the page.
@@ -256,6 +260,10 @@ public class SnakeView extends Application implements IView {
         M_ScoreLabel.getStyleClass().add("game-over-label");
         // Update the text.
         M_ScoreLabel.setText("Game Over!");
+        // Stop the music playing after its last loop.
+        m_SnakeMusic.setLooping(false);
+
+        // Add a countdown to a automatic restart after the game has finished.
     }
 
 

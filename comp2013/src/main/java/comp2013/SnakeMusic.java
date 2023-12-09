@@ -41,6 +41,23 @@ public class SnakeMusic implements IMusic
 	public String getMusic(){
 		return this.M_FileName;
 	}
+	@Override
+	public void setLooping(boolean loop) {
+		if (this.M_MediaPlayer != null) {
+			// Enable looping if true.
+			if(loop) {
+				this.M_MediaPlayer.setOnEndOfMedia(() -> {
+					// When the end of media is reached,
+					// reset the playback position to the beginning
+					this.M_MediaPlayer.seek(Duration.ZERO);
+				});
+			}
+			// Disable looping if false
+			else{
+				this.M_MediaPlayer.setOnEndOfMedia(null); // Disable looping
+			}
+		}
+	}
 
 	// Plays the currently loaded song.
 	@Override

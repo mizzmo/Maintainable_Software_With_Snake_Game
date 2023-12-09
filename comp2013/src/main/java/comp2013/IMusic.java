@@ -1,5 +1,8 @@
 package comp2013;
 
+/**
+ * Utility to play music using JavaFX MediaPlayer.
+ */
 public interface IMusic {
 
     /**
@@ -13,6 +16,12 @@ public interface IMusic {
      * @param url Location of new file to play ".mp3"
      */
     void setMusic(String url);
+
+    /**
+     * Sets the song to loop infinitely.
+     * @param loop True if music is looping, false to stop looping.
+     */
+    public void setLooping(boolean loop);
 
     /**
      * Plays the currently loaded song.

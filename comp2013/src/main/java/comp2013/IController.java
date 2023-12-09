@@ -2,6 +2,10 @@ package comp2013;
 
 import javafx.scene.input.KeyCode;
 
+/**
+ * The main brains of the program, used to sync actions
+ * from the View and Model.
+ */
 public interface IController {
     /**
      * Move the snake Left.

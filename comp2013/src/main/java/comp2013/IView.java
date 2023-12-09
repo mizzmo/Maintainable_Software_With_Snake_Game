@@ -3,6 +3,9 @@ package comp2013;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.ImageView;
 
+/**
+ * The view is used to control visual aspects of the program.
+ */
 public interface IView {
     /**
      * Sets the controller to use.
