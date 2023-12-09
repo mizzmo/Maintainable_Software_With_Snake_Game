@@ -120,3 +120,5 @@
 - Added JavaFX Descriptions to my Interfaces.
 - Added method to SnakeMusic to set looping of music.
 - Added code to SnakeView that calls the SnakeMusic class.
+- Added a proper end screen which show the final score, and has a countdown to when the game will restart.
+- Updated how the game ending is handled, moved to moveSnake method.
