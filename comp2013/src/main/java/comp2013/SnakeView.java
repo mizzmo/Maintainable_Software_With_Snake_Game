@@ -5,6 +5,8 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -18,18 +20,18 @@ import java.util.List;
 
 public class SnakeView extends Application implements IView {
     // Store references to the controller
-    SnakeController m_Controller;
-
+    public SnakeController m_Controller;
+    public SnakeMusic m_SnakeMusic;
+    private StackPane M_SnakePane;
     public Canvas m_SnakeCanvas;
     public Canvas m_FoodCanvas;
-
     private Image M_SnakeHeadImg;
-
     private Image M_SnakeBodyImg;
-
     private SnakeFood M_SnakeFood;
+    private Label M_ScoreLabel, M_CountDownLabel;
+    private Timeline M_Timeline;
 
-    private Label M_ScoreLabel;
+    private int M_TimerLength = 5;
 
     private static SnakeView m_Instance;
     public SnakeView() {
@@ -37,6 +39,7 @@ public class SnakeView extends Application implements IView {
         m_Controller = SnakeController.getInstance();
         // Set the controllers view to be this.
         m_Controller.setView(this);
+
     }
 
     public static SnakeView getInstance() {
@@ -46,35 +49,7 @@ public class SnakeView extends Application implements IView {
     public void setController(SnakeController controller){
         this.m_Controller = controller;
     }
-    // Gets the current url of the song playing
-    @Override
-    public String getMusic() {
-        return null;
-    }
-     // Set the currently playing music
-    @Override
-    public void setMusic(String url) {
 
-    }
-
-    // Plays the currently loaded song.
-    @Override
-    public void playMusic() {
-
-    }
-
-
-    // Overloaded function to play music from a specified timestamp.
-    @Override
-    public void playMusic(int timeStamp) {
-
-    }
-
-    // Stops the music from playing
-    @Override
-    public int stopMusic() {
-        return 0;
-    }
 
      // Refreshes the snake at its new location.
     @Override
@@ -117,16 +92,16 @@ public class SnakeView extends Application implements IView {
         // Set title of screen.
         primaryStage.setTitle("Snake!");
         // Set the icon of the window.
-        Image icon = ImageUtil.getImage("snakeIcon");
+        Image icon = SnakeImageUtil.getImage("snakeIcon");
         primaryStage.getIcons().add(icon);
 
         // Set the event handler for the window-closing event
         primaryStage.setOnCloseRequest(event -> {
             Platform.exit();});
 
-        StackPane snakePane = new StackPane();
+        M_SnakePane = new StackPane();
 
-        Scene scene = new Scene(snakePane, m_Controller.m_Model.getWidth(),
+        Scene scene = new Scene(M_SnakePane, m_Controller.m_Model.getWidth(),
                 m_Controller.m_Model.getHeight());
 
         // Load the CSS file
@@ -139,7 +114,7 @@ public class SnakeView extends Application implements IView {
         // Set the background of the image.
         this.setBackgroundImage(imageView);
         // Add the background to the pane.
-        snakePane.getChildren().add(imageView);
+        M_SnakePane.getChildren().add(imageView);
 
         // Create a canvas that will be used to draw on the snake.
         m_SnakeCanvas = new Canvas(m_Controller.m_Model.getWidth(),
@@ -149,8 +124,8 @@ public class SnakeView extends Application implements IView {
                 m_Controller.m_Model.getHeight());
 
         // Add both of the canvases to the screen
-        snakePane.getChildren().add(m_FoodCanvas);
-        snakePane.getChildren().add(m_SnakeCanvas);
+        M_SnakePane.getChildren().add(m_FoodCanvas);
+        M_SnakePane.getChildren().add(m_SnakeCanvas);
 
 
         M_ScoreLabel = new Label("Score: 0");
@@ -162,7 +137,7 @@ public class SnakeView extends Application implements IView {
         StackPane.setAlignment(M_ScoreLabel, javafx.geometry.Pos.TOP_CENTER);
 
         // Add the label to the StackPane
-        snakePane.getChildren().add(M_ScoreLabel);
+        M_SnakePane.getChildren().add(M_ScoreLabel);
 
         // Build the initial snake.
         this.buildSnake(m_Controller.m_Model.getLength());
@@ -170,14 +145,21 @@ public class SnakeView extends Application implements IView {
         M_SnakeFood = new SnakeFood();
         M_SnakeFood.drawFruit(m_FoodCanvas);
 
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis((double) 200),
+        M_Timeline = new Timeline(new KeyFrame(Duration.millis((double) 200),
             event -> {
             refreshSnake();
             m_Controller.moveSnake();
         }));
 
-        timeline.setCycleCount(Animation.INDEFINITE);
-        timeline.play();
+        M_Timeline.setCycleCount(Animation.INDEFINITE);
+        M_Timeline.play();
+
+        // Create a new SnakeMusic to be used to play music.
+        m_SnakeMusic = new SnakeMusic(SnakeMusic.class.getResource("/sound/frogger.mp3").toString());
+        // Play the music
+        m_SnakeMusic.playMusic();
+        // Sets the music to loop until it is told otherwise.
+        m_SnakeMusic.setLooping(true);
 
         scene.setOnKeyPressed(event -> m_Controller.handleKeyPress(event.getCode()));
 
@@ -201,7 +183,7 @@ public class SnakeView extends Application implements IView {
 
         // Get the image of the snake head.
         this.changeHeadDirection();
-        M_SnakeBodyImg = ImageUtil.getImage("snakeBody");
+        M_SnakeBodyImg = SnakeImageUtil.getImage("snakeBody");
 
         // Just build the head.
         GraphicsContext gc = m_SnakeCanvas.getGraphicsContext2D();
@@ -249,19 +231,19 @@ public class SnakeView extends Application implements IView {
         // Finds out which way the snake is facing and sets the image accordingly.
         switch (this.m_Controller.m_Snake.getDirection()) {
             case SnakeObject.UP: {
-                M_SnakeHeadImg = ImageUtil.getImage("snakeHeadUp");
+                M_SnakeHeadImg = SnakeImageUtil.getImage("snakeHeadUp");
             }
             break;
             case SnakeObject.DOWN: {
-                M_SnakeHeadImg = ImageUtil.getImage("snakeHeadDown");
+                M_SnakeHeadImg = SnakeImageUtil.getImage("snakeHeadDown");
             }
             break;
             case SnakeObject.LEFT: {
-                M_SnakeHeadImg = ImageUtil.getImage("snakeHeadLeft");
+                M_SnakeHeadImg = SnakeImageUtil.getImage("snakeHeadLeft");
             }
             break;
             case SnakeObject.RIGHT: {
-                M_SnakeHeadImg = ImageUtil.getImage("snakeHeadRight");
+                M_SnakeHeadImg = SnakeImageUtil.getImage("snakeHeadRight");
             }
             break;
             default:
@@ -271,6 +253,9 @@ public class SnakeView extends Application implements IView {
     @Override
     public void gameOverScreen(){
         GraphicsContext gc;
+
+        // Stop the timeline so the snake no longer moves.
+        M_Timeline.stop();
         // Remove the food from the screen
         gc = m_FoodCanvas.getGraphicsContext2D();
         gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
@@ -278,12 +263,48 @@ public class SnakeView extends Application implements IView {
         gc = m_SnakeCanvas.getGraphicsContext2D();
         gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
 
+        // Add a new label to show game over.
+        Label gameOverLabel = new Label("Game Over!");
+        gameOverLabel.getStyleClass().add("label-with-padding");
+        gameOverLabel.getStyleClass().add("game-over-label");
+        StackPane.setAlignment(gameOverLabel, javafx.geometry.Pos.TOP_CENTER);
+        M_SnakePane.getChildren().add(gameOverLabel);
+        gameOverLabel.setTranslateY(225);
+
         // Change the location of the label, move it to the middle of the screen.
-        M_ScoreLabel.setTranslateY(225);
-        // Apply the CSS style to the Label
-        M_ScoreLabel.getStyleClass().add("game-over-label");
+        M_ScoreLabel.setTranslateY(325);
         // Update the text.
-        M_ScoreLabel.setText("Game Over!");
+        M_ScoreLabel.setText("Final Score: " + m_Controller.m_Model.getScore());
+        // Stop the music playing after its last loop.
+        m_SnakeMusic.setLooping(false);
+
+        M_CountDownLabel = new Label("Restart in: 5");
+        M_CountDownLabel.getStyleClass().add("label-with-padding");
+        // Set alignment of the label within the StackPane
+        StackPane.setAlignment(M_CountDownLabel, javafx.geometry.Pos.TOP_CENTER);
+        M_SnakePane.getChildren().add(M_CountDownLabel);
+        M_CountDownLabel.setTranslateY(375);
+        // Start the countdown timer.
+        updateTimer();
+    }
+
+    private void updateTimer() {
+        // Countdown to restart
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
+            // Update the label with the current countdown time on the JavaFX application thread
+            Platform.runLater(() -> {
+                M_CountDownLabel.setText("Restart in: " + M_TimerLength);
+                M_TimerLength--;
+            });
+
+            // Check if the countdown has reached zero
+            if (M_TimerLength <= 0) {
+                m_Controller.restartGame();
+            }
+
+        }));
+        timeline.setCycleCount(6);
+        timeline.play();
     }
 
 

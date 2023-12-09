@@ -2,6 +2,10 @@ package comp2013;
 
 import javafx.scene.input.KeyCode;
 
+/**
+ * The main brains of the program, used to sync actions
+ * from the View and Model.
+ */
 public interface IController {
     /**
      * Move the snake Left.
@@ -22,15 +26,17 @@ public interface IController {
 
     /**
      * Checks if the snake has hit itself
+     *
      * @return True if it has hit itself, False if not.
      */
-    void checkSelfCollide();
+    boolean checkSelfCollide();
 
     /**
      * Check if the snake is out of bounds.
+     *
      * @return True if snake is out of bounds, False if not.
      */
-    void checkOutOfBounds();
+    boolean checkOutOfBounds();
 
     /**
      * Move the snake in a specified direction
@@ -57,4 +63,9 @@ public interface IController {
      * Handles what happens when the game ends.
      */
     void handleGameOver();
+
+    /**
+     * Restarts the game to its original state.
+     */
+    void restartGame();
 }

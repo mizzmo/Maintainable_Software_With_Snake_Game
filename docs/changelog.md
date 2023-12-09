@@ -106,3 +106,19 @@
 - Updated score funtion so that it now shows the score as food is collected.
 - Updated how the snake self collision is handled, removed an extra check.
 - Added a method to view "gameOverScreen" that handles what happens when a game over event is triggered.
+
+### 9/12/23
+- Fixed issue where boundary detection is to sensitive.
+- Removed Play and MyFrame Classes.
+- Renamed Movable to IMovable.
+- Renamed ImageUtil to SnakeImageUtil
+- Removed SnakeThread Class.
+- Renamed MusicPlayer to SnakeMusic.
+- Removed Music methods from SnakeView and IView.
+- Created a new Interface, IMusic.
+- Implemented IMusic in SnakeMusic.
+- Added JavaFX Descriptions to my Interfaces.
+- Added method to SnakeMusic to set looping of music.
+- Added code to SnakeView that calls the SnakeMusic class.
+- Added a proper end screen which show the final score, and has a countdown to when the game will restart.
+- Updated how the game ending is handled, moved to moveSnake method.

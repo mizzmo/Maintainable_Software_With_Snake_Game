@@ -1,16 +1,6 @@
 package comp2013;
 
-import javafx.fxml.FXML;
-import javafx.scene.Camera;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
-
-import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
 
 
 public class SnakeController implements IController {
@@ -59,7 +49,7 @@ public class SnakeController implements IController {
 
     // Checks if the snake has hit itself
     @Override
-    public void checkSelfCollide() {
+    public boolean checkSelfCollide() {
         // For every point in the body.
         for (SnakeBody bodyPoint1 : m_Snake.m_SnakeBody) {
             // For every other point in the body
@@ -67,16 +57,17 @@ public class SnakeController implements IController {
                 // If the points are in the same place, and are not the same point.
                 if (bodyPoint1.getY() == (bodyPoint2.getY()) && bodyPoint1.getX() == (bodyPoint2.getX()) && bodyPoint1 != bodyPoint2) {
                     m_Model.setAlive(0);
-                    this.handleGameOver();
+                    return true;
                 }
             }
         }
+        return false;
     }
 
 
     // Check if the snake is out of bounds.
     @Override
-    public void checkOutOfBounds()
+    public boolean checkOutOfBounds()
     {
         SnakeBody snakeHead = m_Snake.m_SnakeBody.getFirst();
         boolean xOut = (snakeHead.getX() < 0 || snakeHead.getX() > (m_Model.getWidth()));
@@ -85,8 +76,9 @@ public class SnakeController implements IController {
         {
             // Set the snake to be dead if found to be out of bounds
             m_Model.setAlive(0);
-            this.handleGameOver();
+            return true;
         }
+        return false;
     }
 
      // Move the snake in a specified direction
@@ -101,8 +93,16 @@ public class SnakeController implements IController {
         // Changes the direction the snakes head is facing.
         m_View.changeHeadDirection();
         // Check that the snake is still alive.
-        this.checkOutOfBounds();
-        this.checkSelfCollide();
+        if(this.checkOutOfBounds()){
+            // If out of bounds, end this loop and handle the gameover.
+            this.handleGameOver();
+            return;
+        }
+        if(this.checkSelfCollide()){
+            // If out of hit itself, end this loop and handle the gameover.
+            this.handleGameOver();
+            return;
+        }
         // If the snake is still alive.
         if(m_Model.getAlive() == 1)
         {
@@ -134,8 +134,6 @@ public class SnakeController implements IController {
             head.setX((int) (head.getX() + speedMultiplierX * m_Snake.m_SnakeSpeed));
             head.setY((int) (head.getY() + speedMultiplierY * m_Snake.m_SnakeSpeed));
         }
-        // Otherwise the game is over, handle this.
-        else{this.handleGameOver();}
     }
 
     // Add a new segment to the snake.
@@ -196,6 +194,12 @@ public class SnakeController implements IController {
     @Override
     public void handleGameOver() {
         m_View.gameOverScreen();
+        return;
+    }
+
+    @Override
+    public void restartGame() {
+        return;
     }
 
 

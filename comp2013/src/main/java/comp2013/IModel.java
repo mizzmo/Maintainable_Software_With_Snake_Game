@@ -1,5 +1,8 @@
 package comp2013;
 
+/**
+ * Holds useful information about the program.
+ */
 public interface IModel {
     /**
      * Gets whether the snake is still alive or not
