@@ -46,35 +46,7 @@ public class SnakeView extends Application implements IView {
     public void setController(SnakeController controller){
         this.m_Controller = controller;
     }
-    // Gets the current url of the song playing
-    @Override
-    public String getMusic() {
-        return null;
-    }
-     // Set the currently playing music
-    @Override
-    public void setMusic(String url) {
 
-    }
-
-    // Plays the currently loaded song.
-    @Override
-    public void playMusic() {
-
-    }
-
-
-    // Overloaded function to play music from a specified timestamp.
-    @Override
-    public void playMusic(int timeStamp) {
-
-    }
-
-    // Stops the music from playing
-    @Override
-    public int stopMusic() {
-        return 0;
-    }
 
      // Refreshes the snake at its new location.
     @Override

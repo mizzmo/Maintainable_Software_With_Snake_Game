@@ -5,4 +5,5 @@ module comp2013 {
     requires javafx.graphics;
     requires javafx.controls;
     requires javafx.fxml;
+    requires javafx.media;
 }

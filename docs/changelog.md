@@ -114,3 +114,6 @@
 - Renamed ImageUtil to SnakeImageUtil
 - Removed SnakeThread Class.
 - Renamed MusicPlayer to SnakeMusic.
+- Removed Music methods from SnakeView and IView.
+- Created a new Interface, IMusic.
+- Implemented IMusic in SnakeMusic.
