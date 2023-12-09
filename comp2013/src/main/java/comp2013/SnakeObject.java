@@ -3,7 +3,7 @@ package comp2013;
 import java.util.LinkedList;
 import java.util.List;
 
-public class SnakeObject implements Movable {
+public class SnakeObject implements IMovable {
     // Keeps track of how fast the snake is moving.
     public int m_SnakeSpeed;
     // Keeps track of which direction the snake is moving.

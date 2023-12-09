@@ -117,7 +117,7 @@ public class SnakeView extends Application implements IView {
         // Set title of screen.
         primaryStage.setTitle("Snake!");
         // Set the icon of the window.
-        Image icon = ImageUtil.getImage("snakeIcon");
+        Image icon = SnakeImageUtil.getImage("snakeIcon");
         primaryStage.getIcons().add(icon);
 
         // Set the event handler for the window-closing event
@@ -201,7 +201,7 @@ public class SnakeView extends Application implements IView {
 
         // Get the image of the snake head.
         this.changeHeadDirection();
-        M_SnakeBodyImg = ImageUtil.getImage("snakeBody");
+        M_SnakeBodyImg = SnakeImageUtil.getImage("snakeBody");
 
         // Just build the head.
         GraphicsContext gc = m_SnakeCanvas.getGraphicsContext2D();
@@ -249,19 +249,19 @@ public class SnakeView extends Application implements IView {
         // Finds out which way the snake is facing and sets the image accordingly.
         switch (this.m_Controller.m_Snake.getDirection()) {
             case SnakeObject.UP: {
-                M_SnakeHeadImg = ImageUtil.getImage("snakeHeadUp");
+                M_SnakeHeadImg = SnakeImageUtil.getImage("snakeHeadUp");
             }
             break;
             case SnakeObject.DOWN: {
-                M_SnakeHeadImg = ImageUtil.getImage("snakeHeadDown");
+                M_SnakeHeadImg = SnakeImageUtil.getImage("snakeHeadDown");
             }
             break;
             case SnakeObject.LEFT: {
-                M_SnakeHeadImg = ImageUtil.getImage("snakeHeadLeft");
+                M_SnakeHeadImg = SnakeImageUtil.getImage("snakeHeadLeft");
             }
             break;
             case SnakeObject.RIGHT: {
-                M_SnakeHeadImg = ImageUtil.getImage("snakeHeadRight");
+                M_SnakeHeadImg = SnakeImageUtil.getImage("snakeHeadRight");
             }
             break;
             default:

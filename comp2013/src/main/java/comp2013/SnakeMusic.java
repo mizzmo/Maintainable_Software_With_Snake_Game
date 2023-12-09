@@ -5,12 +5,12 @@ import java.io.FileInputStream;
 
 import javazoom.jl.player.Player;
 
-public class MusicPlayer extends Thread
+public class SnakeMusic extends Thread
 {
 	private String filename;
 	public Player player;
 
-	public MusicPlayer(String filename)
+	public SnakeMusic(String filename)
 	{
 		this.filename = filename;
 	}
@@ -41,7 +41,7 @@ public class MusicPlayer extends Thread
 
 	public static void getMusicPlay(String filename)
 	{
-		MusicPlayer musicPlayer = new MusicPlayer(filename);
-		musicPlayer.play();
+		SnakeMusic snakeMusic = new SnakeMusic(filename);
+		snakeMusic.play();
 	}
 }

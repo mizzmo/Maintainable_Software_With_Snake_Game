@@ -1,7 +1,5 @@
 package comp2013;
 
-import javafx.scene.image.Image;
-
 /**
  * 
  * @Project Snakee
@@ -10,7 +8,7 @@ import javafx.scene.image.Image;
  * @version Ekki viss
  */ 
 
-public interface Movable
+public interface IMovable
 {
 	public int m_Direction = 0;
 
