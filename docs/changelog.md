@@ -88,3 +88,21 @@
 - Completed snakeMovement.
 - Found new issue where the snake jumps along, rather than moving slowly.
 
+### 8/12/23
+- Rename Food class to SnakeFood.
+- Removed GameUtil Class. Moved its methods to ImageUtil.
+- Reworked ImageUtil to work with JavaFX.
+- Removed RotateImage in ImageUtil.
+- Reworked getImage method in imageUtil.
+- Added new comments and JavaDoc to SnakeFood.
+- Reworked SnakeFood to work with JavaFX.
+- Added new method to SnakeFood, newFruit, which creates a new fruit.
+- Added a label to track score to screen.
+- Added CSS File and customised Score label.
+- Fixed issue where food would appear and dissapear immidiatelly.
+- Food is now complete.
+- Updated view to handle how collecting food.
+- Updated view to add a new segment onto the snake when food is collected.
+- Updated score funtion so that it now shows the score as food is collected.
+- Updated how the snake self collision is handled, removed an extra check.
+- Added a method to view "gameOverScreen" that handles what happens when a game over event is triggered.

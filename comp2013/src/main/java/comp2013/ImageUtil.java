@@ -1,37 +1,112 @@
 package comp2013;
 
-import java.awt.Image;
+import javafx.scene.image.Image;
+
+import javax.imageio.ImageIO;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class ImageUtil
 {
-	public static Map<String, Image> images = new HashMap<>();
+	/**
+	 *  Returns the image at the given index in the hash map.
+	 * @param imageID Image ID that corrisponds to the image you want to use.
+	 * @return Image at the location in the hash map.
+	 */
+	public static Image getImage(String imageID){
+		// Returns null if no image in the index
+		return m_SnakeImages.get(imageID);
+	}
+
+	/**
+	 * Hash map that contains all of the images that will be used during the game.
+	 */
+	public static Map<String, Image> m_SnakeImages = new HashMap<>();
 
 	static
 	{
-		// snake
-		images.put("snake-head-right", GameUtil.getImage("/images/snake-head-right.png"));
-		images.put("snake-body", GameUtil.getImage("/images/snake-body.png"));
-		// obstacles
-		images.put("0", GameUtil.getImage("/images/food-kiwi.png"));
-		images.put("1", GameUtil.getImage("/images/food-lemon.png"));
-		images.put("2", GameUtil.getImage("/images/food-litchi.png"));
-		images.put("3", GameUtil.getImage("/images/food-mango.png"));
-		images.put("4", GameUtil.getImage("/images/food-apple.png"));
-		images.put("5", GameUtil.getImage("/images/food-banana.png"));
-		images.put("6", GameUtil.getImage("/images/food-blueberry.png"));
-		images.put("7", GameUtil.getImage("/images/food-cherry.png"));
-		images.put("8", GameUtil.getImage("/images/food-durian.png"));
-		images.put("9", GameUtil.getImage("/images/food-grape.png"));
-		images.put("10", GameUtil.getImage("/images/food-grapefruit.png"));
-		images.put("11", GameUtil.getImage("/images/food-peach.png"));
-		images.put("12", GameUtil.getImage("/images/food-pear.png"));
-		images.put("13", GameUtil.getImage("/images/food-orange.png"));
-		images.put("14", GameUtil.getImage("/images/food-pineapple.png"));
-		images.put("15", GameUtil.getImage("/images/food-strawberry.png"));
-		images.put("16", GameUtil.getImage("/images/food-watermelon.png"));
-		images.put("UI-background", GameUtil.getImage("/images/UI-background.png"));
-		images.put("game-scene-01", GameUtil.getImage("/images/theEnd.jpg"));
+		// Game Scenes
+		m_SnakeImages.put("background", new Image(ImageUtil.class.getResource
+				("/images/UI-background.png").toExternalForm()));
+
+		m_SnakeImages.put("endImage", new Image(ImageUtil.class.getResource
+				("/images/theEnd.jpg").toExternalForm()));
+
+		m_SnakeImages.put("snakeIcon", new Image(ImageUtil.class.getResource
+				("/images/snake-logo.png").toExternalForm()));
+
+		// Snake Body Parts.
+		m_SnakeImages.put("snakeHeadRight", new Image(ImageUtil.class.getResource
+				("/images/snake-head-right.png").toExternalForm()));
+
+		m_SnakeImages.put("snakeHeadLeft", new Image(ImageUtil.class.getResource
+				("/images/snake-head-left.png").toExternalForm()));
+
+		m_SnakeImages.put("snakeHeadUp", new Image(ImageUtil.class.getResource
+				("/images/snake-head-up.png").toExternalForm()));
+
+		m_SnakeImages.put("snakeHeadDown", new Image(ImageUtil.class.getResource
+				("/images/snake-head-down.png").toExternalForm()));
+
+		m_SnakeImages.put("snakeBody", new Image(ImageUtil.class.getResource
+				("/images/snake-body.png").toExternalForm()));
+
+		// Obstacles.
+		m_SnakeImages.put("0", new Image(ImageUtil.class.getResource
+				("/images/food-kiwi.png").toExternalForm()));
+
+		m_SnakeImages.put("1", new Image(ImageUtil.class.getResource
+				("/images/food-litchi.png").toExternalForm()));
+
+		m_SnakeImages.put("2", new Image(ImageUtil.class.getResource
+				("/images/food-mango.png").toExternalForm()));
+
+		m_SnakeImages.put("3", new Image(ImageUtil.class.getResource
+				("/images/food-apple.png").toExternalForm()));
+
+		m_SnakeImages.put("4", new Image(ImageUtil.class.getResource
+				("/images/food-banana.png").toExternalForm()));
+
+		m_SnakeImages.put("5", new Image(ImageUtil.class.getResource
+				("/images/food-blueberry.png").toExternalForm()));
+
+		m_SnakeImages.put("6", new Image(ImageUtil.class.getResource
+				("/images/food-cherry.png").toExternalForm()));
+
+		m_SnakeImages.put("7", new Image(ImageUtil.class.getResource
+				("/images/food-durian.png").toExternalForm()));
+
+		m_SnakeImages.put("8", new Image(ImageUtil.class.getResource
+				("/images/food-grape.png").toExternalForm()));
+
+		m_SnakeImages.put("9", new Image(ImageUtil.class.getResource
+				("/images/food-grapefruit.png").toExternalForm()));
+
+		m_SnakeImages.put("10", new Image(ImageUtil.class.getResource
+				("/images/food-peach.png").toExternalForm()));
+
+		m_SnakeImages.put("11", new Image(ImageUtil.class.getResource
+				("/images/food-pear.png").toExternalForm()));
+
+		m_SnakeImages.put("12", new Image(ImageUtil.class.getResource
+				("/images/food-orange.png").toExternalForm()));
+
+		m_SnakeImages.put("13", new Image(ImageUtil.class.getResource
+				("/images/food-pineapple.png").toExternalForm()));
+
+		m_SnakeImages.put("14", new Image(ImageUtil.class.getResource
+				("/images/food-strawberry.png").toExternalForm()));
+
+		m_SnakeImages.put("15", new Image(ImageUtil.class.getResource
+				("/images/food-watermelon.png").toExternalForm()));
+
+		m_SnakeImages.put("16", new Image(ImageUtil.class.getResource
+				("/images/food-lemon.png").toExternalForm()));
+
+		m_SnakeImages.put("17", new Image(ImageUtil.class.getResource
+				("/images/food-pitaya.png").toExternalForm()));
+
+
 	}
 }

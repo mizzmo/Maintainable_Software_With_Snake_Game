@@ -1,0 +1,11 @@
+.label-with-padding {
+    -fx-padding: 10; /* Add Padding */
+    -fx-font-size: 30; /* Change font size */
+    -fx-font-weight: bold; /* Set bold */
+    -fx-font-family: "Calibri"; /* Change font to Calibri */
+}
+.game-over-label {
+    -fx-font-size: 60; /* Change font size */
+    -fx-background-color: black;
+    -fx-text-fill: red;
+}

@@ -67,7 +67,6 @@ public class SnakeController implements IController {
                 // If the points are in the same place, and are not the same point.
                 if (bodyPoint1.getY() == (bodyPoint2.getY()) && bodyPoint1.getX() == (bodyPoint2.getX()) && bodyPoint1 != bodyPoint2) {
                     m_Model.setAlive(0);
-                    System.out.println("Snake has hit itself");
                     this.handleGameOver();
                 }
             }
@@ -80,13 +79,12 @@ public class SnakeController implements IController {
     public void checkOutOfBounds()
     {
         SnakeBody snakeHead = m_Snake.m_SnakeBody.getFirst();
-        boolean xOut = (snakeHead.getX() <= 0 || snakeHead.getX() >= (m_Model.getWidth()));
-        boolean yOut = (snakeHead.getY() <= 0 || snakeHead.getY() >= (m_Model.getHeight()));
+        boolean xOut = (snakeHead.getX() < 0 || snakeHead.getX() > (m_Model.getWidth()));
+        boolean yOut = (snakeHead.getY() < 0 || snakeHead.getY() > (m_Model.getHeight()));
         if (xOut || yOut)
         {
             // Set the snake to be dead if found to be out of bounds
             m_Model.setAlive(0);
-            System.out.println("Snake is out of bounds");
             this.handleGameOver();
         }
     }
@@ -135,10 +133,6 @@ public class SnakeController implements IController {
             SnakeBody head = m_Snake.m_SnakeBody.getFirst();
             head.setX((int) (head.getX() + speedMultiplierX * m_Snake.m_SnakeSpeed));
             head.setY((int) (head.getY() + speedMultiplierY * m_Snake.m_SnakeSpeed));
-            // Checks if the snake has hit itself before updating the image.
-            this.checkOutOfBounds();
-            this.checkSelfCollide();
-
         }
         // Otherwise the game is over, handle this.
         else{this.handleGameOver();}
@@ -201,7 +195,7 @@ public class SnakeController implements IController {
     // Handles what happens when the game is over.
     @Override
     public void handleGameOver() {
-        return;
+        m_View.gameOverScreen();
     }
 
 

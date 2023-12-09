@@ -13,7 +13,7 @@ import java.awt.event.KeyEvent;
  * @Author Sigurður Sigurðardóttir
  * @version Ekki viss
  */ 
-
+/*
 public class Play extends MyFrame
 {
 
@@ -41,11 +41,12 @@ public class Play extends MyFrame
 		// Ákveða stöðu leiksins.
 		if (mySnake.l)
 		{
+
 			mySnake.draw(g);
 			if (snakeFood.l)
 			{
-				snakeFood.draw(g);
-				snakeFood.eaten(mySnake);
+				//snakeFood.draw(g);
+				//snakeFood.eaten(mySnake);
 			} else
 			{
 				snakeFood = new SnakeFood();
@@ -72,4 +73,4 @@ public class Play extends MyFrame
 		//view.initialiseDisplay(500, 700);
 
 	}
-}
+} */

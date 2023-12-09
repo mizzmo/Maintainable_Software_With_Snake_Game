@@ -56,8 +56,17 @@ public interface IView {
     public void setBackgroundImage(ImageView imageView);
 
     /**
+     * Draws the current score of the game.
+     */
+    public void drawScore();
+
+    /**
      * Swaps the snake-head image depending on the direction of travel
      */
-    public void changeHeadDirection();
+    void changeHeadDirection();
 
+    /**
+     * Handles what happens to the view when a game over condition is met.
+     */
+    public void gameOverScreen();
 }
