@@ -44,5 +44,5 @@ public interface IView {
     /**
      * Handles what happens to the view when a game over condition is met.
      */
-    public void gameOverScreen();
+    void gameOverScreen();
 }

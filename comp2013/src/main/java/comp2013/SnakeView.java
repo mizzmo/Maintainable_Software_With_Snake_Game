@@ -10,6 +10,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
@@ -28,10 +29,13 @@ public class SnakeView extends Application implements IView {
     private Image M_SnakeHeadImg;
     private Image M_SnakeBodyImg;
     private SnakeFood M_SnakeFood;
-    private Label M_ScoreLabel, M_CountDownLabel;
+    private Label M_ScoreLabel, M_CountDownLabel, M_GameOverLabel;
     private Timeline M_Timeline;
-
-    private int M_TimerLength = 5;
+    private Button M_RestartButton, M_MenuReturnButton;
+    private int M_TimerLength;
+    // Used if the restart button has been pressed,
+    // so the timeline doesnt call restart over and over.
+    private static final int NO_RESTART = -1;
 
     private static SnakeView m_Instance;
     public SnakeView() {
@@ -264,15 +268,36 @@ public class SnakeView extends Application implements IView {
         gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
 
         // Add a new label to show game over.
-        Label gameOverLabel = new Label("Game Over!");
-        gameOverLabel.getStyleClass().add("label-with-padding");
-        gameOverLabel.getStyleClass().add("game-over-label");
-        StackPane.setAlignment(gameOverLabel, javafx.geometry.Pos.TOP_CENTER);
-        M_SnakePane.getChildren().add(gameOverLabel);
-        gameOverLabel.setTranslateY(225);
+        M_GameOverLabel = new Label("Game Over!");
+        M_GameOverLabel.getStyleClass().add("label-with-padding");
+        M_GameOverLabel.getStyleClass().add("game-over-label");
+        StackPane.setAlignment(M_GameOverLabel, javafx.geometry.Pos.TOP_CENTER);
+        M_SnakePane.getChildren().add(M_GameOverLabel);
+        M_GameOverLabel.setTranslateY(175);
+        // Create a button that skips the countdown timer and
+        // restarts the game.
+        M_RestartButton = new Button("Restart");
+        M_RestartButton.setOnAction(event -> {
+            // Restart the game.
+            m_Controller.restartGame();
+        });
+        // Create a button that returns to the main menu.
+        M_MenuReturnButton = new Button("Main Menu");
+        M_MenuReturnButton.setOnAction(event -> { return; });
+        // Set the location of the buttons.
+        StackPane.setAlignment(M_RestartButton, javafx.geometry.Pos.TOP_CENTER);
+        StackPane.setAlignment(M_MenuReturnButton, javafx.geometry.Pos.TOP_CENTER);
+        // Adding CSS to the buttons.
+        M_RestartButton.getStyleClass().add("snake-button");
+        M_MenuReturnButton.getStyleClass().add("snake-button");
+        // Add new buttons to the screen.
+        M_SnakePane.getChildren().addAll(M_RestartButton, M_MenuReturnButton);
+        // Set the position of the buttons.
+        M_RestartButton.setTranslateY(375);
+        M_MenuReturnButton.setTranslateY(425);
 
         // Change the location of the label, move it to the middle of the screen.
-        M_ScoreLabel.setTranslateY(325);
+        M_ScoreLabel.setTranslateY(275);
         // Update the text.
         M_ScoreLabel.setText("Final Score: " + m_Controller.m_Model.getScore());
         // Stop the music playing after its last loop.
@@ -283,28 +308,56 @@ public class SnakeView extends Application implements IView {
         // Set alignment of the label within the StackPane
         StackPane.setAlignment(M_CountDownLabel, javafx.geometry.Pos.TOP_CENTER);
         M_SnakePane.getChildren().add(M_CountDownLabel);
-        M_CountDownLabel.setTranslateY(375);
+        M_CountDownLabel.setTranslateY(325);
         // Start the countdown timer.
-        updateTimer();
+        this.updateTimer();
     }
 
     private void updateTimer() {
         // Countdown to restart
-        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1), event -> {
-            // Update the label with the current countdown time on the JavaFX application thread
+        M_TimerLength = 5;
+        Timeline timeline = new Timeline();
+        timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1), event -> {
             Platform.runLater(() -> {
-                M_CountDownLabel.setText("Restart in: " + M_TimerLength);
-                M_TimerLength--;
+                if(M_TimerLength > 0) {
+                    M_TimerLength--;
+                    M_CountDownLabel.setText("Restart in: " + M_TimerLength);
+                }
+                // Check if the countdown has reached zero
+                else if (M_TimerLength == 0) {
+                    // Stop the timeline before restarting the game
+                    m_Controller.restartGame();
+                    timeline.stop();
+                }
             });
-
-            // Check if the countdown has reached zero
-            if (M_TimerLength <= 0) {
-                m_Controller.restartGame();
-            }
-
         }));
         timeline.setCycleCount(6);
         timeline.play();
+    }
+
+    public void restartGame(){
+        // Set the timer to -1 so that the timeline loop doesnt do anything.
+        M_TimerLength = -1;
+        // Remove the game over labels from the screen.
+        M_SnakePane.getChildren().remove(M_CountDownLabel);
+        M_SnakePane.getChildren().remove(M_GameOverLabel);
+        M_SnakePane.getChildren().remove(M_RestartButton);
+        M_SnakePane.getChildren().remove(M_MenuReturnButton);
+        // Put the score back to its place.
+        M_ScoreLabel.setTranslateY(0);
+        // Update its text back to default.
+        M_ScoreLabel.setText("Score: " + m_Controller.m_Model.getScore());
+        // Build the snake again.
+        this.buildSnake(m_Controller.m_Model.getLength());
+        // Create a new food and draw it.
+        M_SnakeFood = new SnakeFood();
+        M_SnakeFood.drawFruit(m_FoodCanvas);
+        // Start the timeline again.
+        M_Timeline.play();
+        // Play the music again from the beginning.
+        m_SnakeMusic.playMusic(0);
+        // Play the music on a loop.
+        m_SnakeMusic.setLooping(true);
     }
 
 
