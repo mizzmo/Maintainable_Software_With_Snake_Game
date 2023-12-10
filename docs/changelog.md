@@ -135,3 +135,7 @@
 - Added new image "jungle-background".
 - Renamed image "cloud-background"
 - Removed theEnd image.
+- Added method to View, setGameScene.
+- Moved the snake game scene from start to setGameScene.
+- Reworked how start operates.
+- Added UI elements to the menu. 

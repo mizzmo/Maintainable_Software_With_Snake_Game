@@ -12,6 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import javafx.util.Duration;
@@ -104,73 +105,8 @@ public class SnakeView extends Application implements IView {
         M_PrimaryStage.setOnCloseRequest(event -> {
             Platform.exit();});
 
-        M_SnakePane = new StackPane();
+        this.setMenuScene();
 
-        M_SnakeScene = new Scene(M_SnakePane, m_Controller.m_Model.getWidth(),
-                m_Controller.m_Model.getHeight());
-
-        // Load the CSS file
-        M_SnakeScene.getStylesheets().add(getClass().getResource
-                ("/SnakeStyle.css").toExternalForm());
-
-        // Add an image view to the pane
-        ImageView imageView = new ImageView();
-
-        // Set the background of the image.
-        this.setBackgroundImage(imageView, "cloud-background");
-        // Add the background to the pane.
-        M_SnakePane.getChildren().add(imageView);
-
-        // Create a canvas that will be used to draw on the snake.
-        m_SnakeCanvas = new Canvas(m_Controller.m_Model.getWidth(),
-                m_Controller.m_Model.getHeight());
-        // Create a seperate canvas for the food.
-        m_FoodCanvas = new Canvas(m_Controller.m_Model.getWidth(),
-                m_Controller.m_Model.getHeight());
-
-        // Add both of the canvases to the screen
-        M_SnakePane.getChildren().add(m_FoodCanvas);
-        M_SnakePane.getChildren().add(m_SnakeCanvas);
-
-
-        M_ScoreLabel = new Label("Score: 0");
-
-        // Apply the CSS style to the Label
-        M_ScoreLabel.getStyleClass().add("label-with-padding");
-
-        // Set alignment of the label within the StackPane
-        StackPane.setAlignment(M_ScoreLabel, javafx.geometry.Pos.TOP_CENTER);
-
-        // Add the label to the StackPane
-        M_SnakePane.getChildren().add(M_ScoreLabel);
-
-        // Build the initial snake.
-        this.buildSnake(m_Controller.m_Model.getLength());
-        // Create a new food and draw it.
-        M_SnakeFood = new SnakeFood();
-        M_SnakeFood.drawFruit(m_FoodCanvas);
-
-        M_Timeline = new Timeline(new KeyFrame(Duration.millis((double) 200),
-            event -> {
-            refreshSnake();
-            m_Controller.moveSnake();
-        }));
-
-        M_Timeline.setCycleCount(Animation.INDEFINITE);
-        M_Timeline.play();
-
-        // Create a new SnakeMusic to be used to play music.
-        m_SnakeMusic = new SnakeMusic(SnakeMusic.class.getResource("/sound/frogger.mp3").toString());
-        // Play the music
-        m_SnakeMusic.playMusic();
-        // Sets the music to loop until it is told otherwise.
-        m_SnakeMusic.setLooping(true);
-
-        M_SnakeScene.setOnKeyPressed(event -> m_Controller.handleKeyPress(event.getCode()));
-
-        // Set the scene and show the page.
-        M_PrimaryStage.setScene(M_SnakeScene);
-        M_PrimaryStage.show();
     }
 
     @Override
@@ -378,9 +314,88 @@ public class SnakeView extends Application implements IView {
         this.setBackgroundImage(imageView, "jungle-background");
         // Add the background to the pane.
         M_MenuPane.getChildren().add(imageView);
+        // Create a transparent VBox that goes over the top of the jungle
+        // image so that it isnt so glaring.
+        VBox darkBox = new VBox();
+        // Set the box background to be transparent black.
+        darkBox.setStyle("-fx-background-color: rgba(0, 0, 0, 0.6);");
+        M_MenuPane.getChildren().add(darkBox);
+
+        M_GameOverLabel = new Label("Snake!");
+        M_GameOverLabel.getStyleClass().add("label-with-padding");
+        M_GameOverLabel.getStyleClass().add("snake-title-label");
 
         // Set the scene and show the page.
         M_PrimaryStage.setScene(M_MenuScene);
+        M_PrimaryStage.show();
+    }
+    private void setGameScene(){
+        M_SnakePane = new StackPane();
+
+        M_SnakeScene = new Scene(M_SnakePane, m_Controller.m_Model.getWidth(),
+                m_Controller.m_Model.getHeight());
+
+        // Load the CSS file
+        M_SnakeScene.getStylesheets().add(getClass().getResource
+                ("/SnakeStyle.css").toExternalForm());
+
+        // Add an image view to the pane
+        ImageView imageView = new ImageView();
+
+        // Set the background of the image.
+        this.setBackgroundImage(imageView, "cloud-background");
+        // Add the background to the pane.
+        M_SnakePane.getChildren().add(imageView);
+
+        // Create a canvas that will be used to draw on the snake.
+        m_SnakeCanvas = new Canvas(m_Controller.m_Model.getWidth(),
+                m_Controller.m_Model.getHeight());
+        // Create a seperate canvas for the food.
+        m_FoodCanvas = new Canvas(m_Controller.m_Model.getWidth(),
+                m_Controller.m_Model.getHeight());
+
+        // Add both of the canvases to the screen
+        M_SnakePane.getChildren().add(m_FoodCanvas);
+        M_SnakePane.getChildren().add(m_SnakeCanvas);
+
+
+        M_ScoreLabel = new Label("Score: 0");
+
+        // Apply the CSS style to the Label
+        M_ScoreLabel.getStyleClass().add("label-with-padding");
+
+        // Set alignment of the label within the StackPane
+        StackPane.setAlignment(M_ScoreLabel, javafx.geometry.Pos.TOP_CENTER);
+
+        // Add the label to the StackPane
+        M_SnakePane.getChildren().add(M_ScoreLabel);
+
+        // Build the initial snake.
+        this.buildSnake(m_Controller.m_Model.getLength());
+        // Create a new food and draw it.
+        M_SnakeFood = new SnakeFood();
+        M_SnakeFood.drawFruit(m_FoodCanvas);
+
+        M_Timeline = new Timeline(new KeyFrame(Duration.millis((double) 200),
+                event -> {
+                    refreshSnake();
+                    m_Controller.moveSnake();
+                }));
+
+        M_Timeline.setCycleCount(Animation.INDEFINITE);
+        M_Timeline.play();
+
+        // Create a new SnakeMusic to be used to play music.
+        m_SnakeMusic = new SnakeMusic(SnakeMusic.class.getResource("/sound/frogger.mp3").toString());
+        // Play the music
+        m_SnakeMusic.playMusic();
+        // Sets the music to loop until it is told otherwise.
+        m_SnakeMusic.setLooping(true);
+
+        M_SnakeScene.setOnKeyPressed(event -> m_Controller.handleKeyPress(event.getCode()));
+
+        // Set the scene and show the page.
+        M_PrimaryStage.setScene(M_SnakeScene);
         M_PrimaryStage.show();
     }
 
