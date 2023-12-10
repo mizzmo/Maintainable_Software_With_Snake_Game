@@ -320,10 +320,56 @@ public class SnakeView extends Application implements IView {
         // Set the box background to be transparent black.
         darkBox.setStyle("-fx-background-color: rgba(0, 0, 0, 0.6);");
         M_MenuPane.getChildren().add(darkBox);
+        // New label for the title screen
+        Label titleLabel = new Label("Snake!");
+        titleLabel.getStyleClass().add("label-with-padding");
+        titleLabel.getStyleClass().add("snake-title-label");
+        // Set the position of the label
+        StackPane.setAlignment(titleLabel, javafx.geometry.Pos.TOP_CENTER);
+        M_MenuPane.getChildren().add(titleLabel);
+        titleLabel.setTranslateY(100);
 
-        M_GameOverLabel = new Label("Snake!");
-        M_GameOverLabel.getStyleClass().add("label-with-padding");
-        M_GameOverLabel.getStyleClass().add("snake-title-label");
+        // Button to start the game.
+        Button startButton = new Button("Start Game");
+        startButton.setOnAction(event -> {
+            // Set the new scene
+            this.setGameScene();
+            // Reset the game to default.
+            m_Controller.restartGame();
+        });
+        // Add styling and set location
+        startButton.getStyleClass().add("snake-button");
+        startButton.getStyleClass().add("menu-button-size");
+        StackPane.setAlignment(startButton, javafx.geometry.Pos.TOP_CENTER);
+        // Add to pane
+        M_MenuPane.getChildren().add(startButton);
+        startButton.setTranslateY(225);
+
+        // Create a settings button to access the games settings.
+        Button settingsButton = new Button("Settings");
+        settingsButton.setOnAction(event -> {
+            return;
+        });
+        // Add styling and set location
+        settingsButton.getStyleClass().add("snake-button");
+        settingsButton.getStyleClass().add("menu-button-size");
+        StackPane.setAlignment(settingsButton, javafx.geometry.Pos.TOP_CENTER);
+        // Add to pane
+        M_MenuPane.getChildren().add(settingsButton);
+        settingsButton.setTranslateY(325);
+
+        // Create a exit button that exits the game.
+        Button exitButton = new Button("Exit");
+        exitButton.setOnAction(event -> {
+            Platform.exit();
+        });
+        // Add styling and set location
+        exitButton.getStyleClass().add("snake-button");
+        exitButton.getStyleClass().add("menu-button-size");
+        StackPane.setAlignment(exitButton, javafx.geometry.Pos.TOP_CENTER);
+        // Add to pane
+        M_MenuPane.getChildren().add(exitButton);
+        exitButton.setTranslateY(425);
 
         // Set the scene and show the page.
         M_PrimaryStage.setScene(M_MenuScene);

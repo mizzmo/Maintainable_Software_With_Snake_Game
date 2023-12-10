@@ -139,3 +139,5 @@
 - Moved the snake game scene from start to setGameScene.
 - Reworked how start operates.
 - Added UI elements to the menu. 
+- Added a settings button and a exit button.
+- Added CSS to customise button size.

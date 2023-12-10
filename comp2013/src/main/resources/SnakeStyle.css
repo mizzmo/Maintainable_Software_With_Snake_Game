@@ -10,6 +10,20 @@
     -fx-text-fill: red;
 }
 
+.snake-title-label {
+    -fx-font-size: 60; /* Change font size */
+    -fx-text-fill: white; /* Set text to white */
+    -fx-border-color: white; /* Set the border color */
+    -fx-border-width: 5px; /* Set the border width */
+}
+
+.menu-button-size {
+    -fx-min-width: 150px; /* Set the minimum width */
+    -fx-min-height: 60px; /* Set the minimum height */
+    -fx-pref-width: 200px; /* Set the preferred width */
+    -fx-pref-height: 80px; /* Set the preferred height */
+}
+
 /* Default style for the snake-button */
 .snake-button {
     -fx-padding: 8 15 15 15; /* Top, Right, Bottom, Left padding */
