@@ -3,7 +3,6 @@ package comp2013;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
-import java.io.File;
 import javafx.util.Duration;
 
 public class SnakeMusic implements IMusic
@@ -11,22 +10,28 @@ public class SnakeMusic implements IMusic
 	private String M_FileName;
 	private Media M_MusicMedia;
 	private MediaPlayer M_MediaPlayer;
+	private float M_CurrentVolume;
 
 	public SnakeMusic(String filename)
 	{
 		this.M_FileName = filename;
 		this.M_MusicMedia = new Media(M_FileName);
 		this.M_MediaPlayer = new MediaPlayer(M_MusicMedia);
+		this.M_CurrentVolume = 1;
+		System.out.printf("Here1\n");
+
 	}
 
 	// Sets the music that you want to play
 	@Override
 	public void setMusic(String filename) {
+		System.out.printf("Here2\n");
+
 		if(filename != null) {
 			// Set the filename.
 			this.M_FileName = filename;
 			// Update the media object.
-			this.M_MusicMedia = new Media(new File(filename).toURI().toString());
+			this.M_MusicMedia = new Media(filename);
 			// Create a new Media Player with the new song.
 			this.M_MediaPlayer = new MediaPlayer(M_MusicMedia);
 			// Play the song.
@@ -41,11 +46,49 @@ public class SnakeMusic implements IMusic
 	public String getMusic(){
 		return this.M_FileName;
 	}
+
+	@Override
+	public void setVolume(float volume){
+		// Update the volume variable
+		this.M_CurrentVolume = volume;
+		// Set the new volume of the player
+		M_MediaPlayer.setVolume(M_CurrentVolume);
+		System.out.printf("Here3\n");
+
+	}
+	@Override
+	public void increaseVolume(){
+		if(this.M_CurrentVolume <= 1){
+			// Add 0.1 to the volume
+			this.M_CurrentVolume += 0.1F;
+		}
+		// If volume is already max, doesnt increase it.
+		M_MediaPlayer.setVolume(M_CurrentVolume);
+	}
+
+	@Override
+	public void decreaseVolume(){
+		if(this.M_CurrentVolume >= 0){
+			// Take 0.1 from the volume
+			this.M_CurrentVolume -= 0.1F;
+		}
+		// If volume is already min, doesnt decrease it.
+		M_MediaPlayer.setVolume(M_CurrentVolume);
+	}
+
+	@Override
+	public void muteVolume(){
+		// Set the volume to 0
+		this.M_CurrentVolume = 0;
+		this.setVolume(M_CurrentVolume);
+	}
 	@Override
 	public void setLooping(boolean loop) {
 		if (this.M_MediaPlayer != null) {
 			// Enable looping if true.
 			if(loop) {
+				System.out.printf("Here4\n");
+
 				this.M_MediaPlayer.setOnEndOfMedia(() -> {
 					// When the end of media is reached,
 					// reset the playback position to the beginning
@@ -54,6 +97,8 @@ public class SnakeMusic implements IMusic
 			}
 			// Disable looping if false
 			else{
+				System.out.printf("Here5\n");
+
 				this.M_MediaPlayer.setOnEndOfMedia(null); // Disable looping
 			}
 		}
@@ -64,6 +109,8 @@ public class SnakeMusic implements IMusic
 	public void playMusic() {
 		if(M_MediaPlayer.getStatus() != MediaPlayer.Status.PLAYING){
 			M_MediaPlayer.play();
+			System.out.printf("Here6\n");
+
 		}
 	}
 
@@ -75,13 +122,28 @@ public class SnakeMusic implements IMusic
 		Duration seekTime = Duration.seconds(timeStamp);
 		M_MediaPlayer.seek(seekTime);
 		M_MediaPlayer.play();
+		System.out.printf("Here7\n");
+
 	}
 
 	// Stops the music from playing
 	@Override
+	public void pauseMusic() {
+		if(M_MediaPlayer.getStatus() == MediaPlayer.Status.PLAYING){
+			M_MediaPlayer.pause();
+			System.out.printf("Here8\n");
+
+		}
+	}
+
+	@Override
 	public void stopMusic() {
 		if(M_MediaPlayer.getStatus() == MediaPlayer.Status.PLAYING){
 			M_MediaPlayer.pause();
+			// Remove the previous object
+			M_MediaPlayer.dispose();
+			System.out.printf("Here9\n");
+
 		}
 	}
 

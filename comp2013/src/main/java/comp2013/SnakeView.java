@@ -22,9 +22,8 @@ public class SnakeView extends Application implements IView {
     // Store references to the controller
     public SnakeController m_Controller;
     private Stage M_PrimaryStage;
-    private Scene M_SnakeScene, M_MenuScene;
     public SnakeMusic m_SnakeMusic;
-    private StackPane M_SnakePane, M_MenuPane;
+    private StackPane M_SnakePane;
     public Canvas m_SnakeCanvas;
     public Canvas m_FoodCanvas;
     private Image M_SnakeHeadImg;
@@ -221,6 +220,9 @@ public class SnakeView extends Application implements IView {
         M_MenuReturnButton = new Button("Main Menu");
         // Set what happens when button is clicked.
         M_MenuReturnButton.setOnAction(event -> {
+            // Stop the timeline
+            M_Timeline.stop();
+            // Go to the menu
             this.setMenuScene();
         });
         // Set the location of the buttons.
@@ -291,21 +293,33 @@ public class SnakeView extends Application implements IView {
         // Create a new food and draw it.
         M_SnakeFood = new SnakeFood();
         M_SnakeFood.drawFruit(m_FoodCanvas);
-        // Start the timeline again.
-        M_Timeline.play();
-        // Play the music again from the beginning.
-        m_SnakeMusic.playMusic(0);
         // Play the music on a loop.
         m_SnakeMusic.setLooping(true);
+        // Start the timeline again.
+        M_Timeline.play();
     }
 
     private void setMenuScene(){
+        // Stops music if there is any, and plays a new one.
+        if(m_SnakeMusic != null) {
+            System.out.printf("Here\n");
+            m_SnakeMusic.stopMusic();
+        }
+
+        m_SnakeMusic = new SnakeMusic(SnakeMusicUtil.getMedia("retroFunk"));
+        m_SnakeMusic.playMusic();
+
+        // Set the music to loop
+        m_SnakeMusic.setLooping(true);
+        // Set the volume of the music
+        m_SnakeMusic.setVolume(0.2F);
+
         // Initialise the menu scene and stack pane.
-        M_MenuPane = new StackPane();
-        M_MenuScene = new Scene(M_MenuPane, m_Controller.m_Model.getWidth(),
+        StackPane menuPane = new StackPane();
+        Scene menuScene = new Scene(menuPane, m_Controller.m_Model.getWidth(),
                 m_Controller.m_Model.getHeight());
         // Add the CSS to the scene.
-        M_MenuScene.getStylesheets().add(getClass().getResource
+        menuScene.getStylesheets().add(getClass().getResource
                 ("/SnakeStyle.css").toExternalForm());
 
         // Add an image view to the pane
@@ -313,20 +327,20 @@ public class SnakeView extends Application implements IView {
         // Set the background of the image.
         this.setBackgroundImage(imageView, "jungle-background");
         // Add the background to the pane.
-        M_MenuPane.getChildren().add(imageView);
+        menuPane.getChildren().add(imageView);
         // Create a transparent VBox that goes over the top of the jungle
         // image so that it isnt so glaring.
         VBox darkBox = new VBox();
         // Set the box background to be transparent black.
         darkBox.setStyle("-fx-background-color: rgba(0, 0, 0, 0.6);");
-        M_MenuPane.getChildren().add(darkBox);
+        menuPane.getChildren().add(darkBox);
         // New label for the title screen
         Label titleLabel = new Label("Snake!");
         titleLabel.getStyleClass().add("label-with-padding");
         titleLabel.getStyleClass().add("snake-title-label");
         // Set the position of the label
         StackPane.setAlignment(titleLabel, javafx.geometry.Pos.TOP_CENTER);
-        M_MenuPane.getChildren().add(titleLabel);
+        menuPane.getChildren().add(titleLabel);
         titleLabel.setTranslateY(100);
 
         // Button to start the game.
@@ -342,7 +356,7 @@ public class SnakeView extends Application implements IView {
         startButton.getStyleClass().add("menu-button-size");
         StackPane.setAlignment(startButton, javafx.geometry.Pos.TOP_CENTER);
         // Add to pane
-        M_MenuPane.getChildren().add(startButton);
+        menuPane.getChildren().add(startButton);
         startButton.setTranslateY(225);
 
         // Create a settings button to access the games settings.
@@ -355,7 +369,7 @@ public class SnakeView extends Application implements IView {
         settingsButton.getStyleClass().add("menu-button-size");
         StackPane.setAlignment(settingsButton, javafx.geometry.Pos.TOP_CENTER);
         // Add to pane
-        M_MenuPane.getChildren().add(settingsButton);
+        menuPane.getChildren().add(settingsButton);
         settingsButton.setTranslateY(325);
 
         // Create a exit button that exits the game.
@@ -368,21 +382,26 @@ public class SnakeView extends Application implements IView {
         exitButton.getStyleClass().add("menu-button-size");
         StackPane.setAlignment(exitButton, javafx.geometry.Pos.TOP_CENTER);
         // Add to pane
-        M_MenuPane.getChildren().add(exitButton);
+        menuPane.getChildren().add(exitButton);
         exitButton.setTranslateY(425);
 
         // Set the scene and show the page.
-        M_PrimaryStage.setScene(M_MenuScene);
+        M_PrimaryStage.setScene(menuScene);
         M_PrimaryStage.show();
     }
     private void setGameScene(){
+        // Stop any music that is already playing.
+        if(m_SnakeMusic != null) {
+            m_SnakeMusic.stopMusic();
+        }
+
         M_SnakePane = new StackPane();
 
-        M_SnakeScene = new Scene(M_SnakePane, m_Controller.m_Model.getWidth(),
+        Scene m_SnakeScene = new Scene(M_SnakePane, m_Controller.m_Model.getWidth(),
                 m_Controller.m_Model.getHeight());
 
         // Load the CSS file
-        M_SnakeScene.getStylesheets().add(getClass().getResource
+        m_SnakeScene.getStylesheets().add(getClass().getResource
                 ("/SnakeStyle.css").toExternalForm());
 
         // Add an image view to the pane
@@ -432,17 +451,21 @@ public class SnakeView extends Application implements IView {
         M_Timeline.play();
 
         // Create a new SnakeMusic to be used to play music.
-        m_SnakeMusic = new SnakeMusic(SnakeMusic.class.getResource("/sound/frogger.mp3").toString());
+        m_SnakeMusic = new SnakeMusic(SnakeMusicUtil.getMedia("frogger"));
         // Play the music
         m_SnakeMusic.playMusic();
         // Sets the music to loop until it is told otherwise.
         m_SnakeMusic.setLooping(true);
 
-        M_SnakeScene.setOnKeyPressed(event -> m_Controller.handleKeyPress(event.getCode()));
+        m_SnakeScene.setOnKeyPressed(event -> m_Controller.handleKeyPress(event.getCode()));
 
         // Set the scene and show the page.
-        M_PrimaryStage.setScene(M_SnakeScene);
+        M_PrimaryStage.setScene(m_SnakeScene);
         M_PrimaryStage.show();
+    }
+
+    private void setSettingsScene(){
+
     }
 
 

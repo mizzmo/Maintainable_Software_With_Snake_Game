@@ -141,3 +141,8 @@
 - Added UI elements to the menu. 
 - Added a settings button and a exit button.
 - Added CSS to customise button size.
+- Added new class SnakeMusicUtil to handle music files going forward.
+- Added music to the menu.
+- Added methods to SnakeMusic, "setVolume, volumeMute, increaseVolume, decreaseVolume, pauseMusic".
+- Reworked stopMusic so that it disposes of the old media player once done.
+- Fixed a bug with restartGame where it would interfere with the menu music.
