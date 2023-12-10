@@ -20,7 +20,7 @@ public class SnakeModel implements IModel {
         this.m_Height = height;
         this.m_Width = width;
         this.m_Score = 0;
-        this.m_Length = 0;
+        this.m_Length = 3;
         this.m_Finished = false;
         this.m_Alive = 1;
     }

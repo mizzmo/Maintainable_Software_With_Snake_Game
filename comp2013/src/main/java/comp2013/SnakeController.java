@@ -6,8 +6,6 @@ import javafx.scene.input.KeyCode;
 public class SnakeController implements IController {
     SnakeModel m_Model;
     SnakeView m_View;
-
-    private int snakeSpacing;
     // Stores constants for the key codes for WSAD and Arrow Keys.
     private static final int W = 87, S = 83, A = 65, D = 68;
     private static final int UP = 38, DOWN = 39, LEFT = 37, RIGHT = 40;
@@ -26,11 +24,7 @@ public class SnakeController implements IController {
 
         // Create a new snake and pass it the values for the center of the screen.
         m_Snake = new SnakeObject(m_Model.getLength()/2, m_Model.getWidth()/2);
-        // Tells the model that the snake is alive.
-        m_Model.setAlive(1);
-        // Sets initial direction to RIGHT
-        m_Snake.setDirection(SnakeObject.RIGHT);
-        m_Model.setLength(5);
+
     }
     /**
      * Sets the view of the controller.
@@ -199,7 +193,13 @@ public class SnakeController implements IController {
 
     @Override
     public void restartGame() {
-        return;
+        // Reset the model to default.
+        m_Model = new SnakeModel(m_Model.getWidth(), m_Model.getHeight());
+        // Reset the snake.
+        m_Snake = new SnakeObject(m_Model.getLength()/2, m_Model.getWidth()/2);
+        // Restart the UI.
+        m_View.restartGame();
+
     }
 
 

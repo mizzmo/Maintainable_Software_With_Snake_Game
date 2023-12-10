@@ -29,7 +29,7 @@ public interface IView {
      * Sets the background image of the game.
      * @param imageView ImageView that holds the image.
      */
-    public void setBackgroundImage(ImageView imageView);
+    void setBackgroundImage(ImageView imageView, String imageID);
 
     /**
      * Draws the current score of the game.
@@ -44,5 +44,10 @@ public interface IView {
     /**
      * Handles what happens to the view when a game over condition is met.
      */
-    public void gameOverScreen();
+    void gameOverScreen();
+
+    /**
+     * Restarts the game by resetting the UI.
+     */
+    void restartGame();
 }

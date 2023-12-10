@@ -122,3 +122,22 @@
 - Added code to SnakeView that calls the SnakeMusic class.
 - Added a proper end screen which show the final score, and has a countdown to when the game will restart.
 - Updated how the game ending is handled, moved to moveSnake method.
+
+### 10/12/23
+- Added mechanism for restarting the game in Controller. Method restartGame.
+- Added method to view restartGame that resets the UI elements.
+- Added two buttons to the end screen to restart the game and to go back to the main menu. (Not yet implemented.)
+- Added CSS to the buttons to style them.
+- Commented CSS.
+- Implemented Restart Button.
+- Renamed Stages and Scenes, made Private Class Vairables.
+- Added new method to View, setMenuScene that will change the scene to the menu.
+- Added new image "jungle-background".
+- Renamed image "cloud-background"
+- Removed theEnd image.
+- Added method to View, setGameScene.
+- Moved the snake game scene from start to setGameScene.
+- Reworked how start operates.
+- Added UI elements to the menu. 
+- Added a settings button and a exit button.
+- Added CSS to customise button size.
