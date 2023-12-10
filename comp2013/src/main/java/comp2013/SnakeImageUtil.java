@@ -25,11 +25,11 @@ public class SnakeImageUtil
 	static
 	{
 		// Game Scenes
-		m_SnakeImages.put("background", new Image(SnakeImageUtil.class.getResource
-				("/images/UI-background.png").toExternalForm()));
+		m_SnakeImages.put("cloud-background", new Image(SnakeImageUtil.class.getResource
+				("/images/cloud-background.png").toExternalForm()));
 
-		m_SnakeImages.put("endImage", new Image(SnakeImageUtil.class.getResource
-				("/images/theEnd.jpg").toExternalForm()));
+		m_SnakeImages.put("jungle-background", new Image(SnakeImageUtil.class.getResource
+				("/images/jungle-background.jpg").toExternalForm()));
 
 		m_SnakeImages.put("snakeIcon", new Image(SnakeImageUtil.class.getResource
 				("/images/snake-logo.png").toExternalForm()));

@@ -5,8 +5,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -22,8 +20,10 @@ import java.util.List;
 public class SnakeView extends Application implements IView {
     // Store references to the controller
     public SnakeController m_Controller;
+    private Stage M_PrimaryStage;
+    private Scene M_SnakeScene, M_MenuScene;
     public SnakeMusic m_SnakeMusic;
-    private StackPane M_SnakePane;
+    private StackPane M_SnakePane, M_MenuPane;
     public Canvas m_SnakeCanvas;
     public Canvas m_FoodCanvas;
     private Image M_SnakeHeadImg;
@@ -93,30 +93,31 @@ public class SnakeView extends Application implements IView {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        this.M_PrimaryStage = primaryStage;
         // Set title of screen.
-        primaryStage.setTitle("Snake!");
+        M_PrimaryStage.setTitle("Snake!");
         // Set the icon of the window.
         Image icon = SnakeImageUtil.getImage("snakeIcon");
-        primaryStage.getIcons().add(icon);
+        M_PrimaryStage.getIcons().add(icon);
 
         // Set the event handler for the window-closing event
-        primaryStage.setOnCloseRequest(event -> {
+        M_PrimaryStage.setOnCloseRequest(event -> {
             Platform.exit();});
 
         M_SnakePane = new StackPane();
 
-        Scene scene = new Scene(M_SnakePane, m_Controller.m_Model.getWidth(),
+        M_SnakeScene = new Scene(M_SnakePane, m_Controller.m_Model.getWidth(),
                 m_Controller.m_Model.getHeight());
 
         // Load the CSS file
-        scene.getStylesheets().add(getClass().getResource
+        M_SnakeScene.getStylesheets().add(getClass().getResource
                 ("/SnakeStyle.css").toExternalForm());
 
         // Add an image view to the pane
         ImageView imageView = new ImageView();
 
         // Set the background of the image.
-        this.setBackgroundImage(imageView);
+        this.setBackgroundImage(imageView, "cloud-background");
         // Add the background to the pane.
         M_SnakePane.getChildren().add(imageView);
 
@@ -165,11 +166,11 @@ public class SnakeView extends Application implements IView {
         // Sets the music to loop until it is told otherwise.
         m_SnakeMusic.setLooping(true);
 
-        scene.setOnKeyPressed(event -> m_Controller.handleKeyPress(event.getCode()));
+        M_SnakeScene.setOnKeyPressed(event -> m_Controller.handleKeyPress(event.getCode()));
 
         // Set the scene and show the page.
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        M_PrimaryStage.setScene(M_SnakeScene);
+        M_PrimaryStage.show();
     }
 
     @Override
@@ -218,10 +219,8 @@ public class SnakeView extends Application implements IView {
         }
     }
     @Override
-    public void setBackgroundImage(ImageView imageView){
-        Image background = new Image
-                (getClass().getResourceAsStream("/images/UI-Background.png"));
-
+    public void setBackgroundImage(ImageView imageView, String imageID){
+        Image background = SnakeImageUtil.getImage(imageID);
         imageView.setImage(background);
     }
 
@@ -277,13 +276,17 @@ public class SnakeView extends Application implements IView {
         // Create a button that skips the countdown timer and
         // restarts the game.
         M_RestartButton = new Button("Restart");
+        // Set what happens when button is clicked.
         M_RestartButton.setOnAction(event -> {
             // Restart the game.
             m_Controller.restartGame();
         });
         // Create a button that returns to the main menu.
         M_MenuReturnButton = new Button("Main Menu");
-        M_MenuReturnButton.setOnAction(event -> { return; });
+        // Set what happens when button is clicked.
+        M_MenuReturnButton.setOnAction(event -> {
+            this.setMenuScene();
+        });
         // Set the location of the buttons.
         StackPane.setAlignment(M_RestartButton, javafx.geometry.Pos.TOP_CENTER);
         StackPane.setAlignment(M_MenuReturnButton, javafx.geometry.Pos.TOP_CENTER);
@@ -334,7 +337,7 @@ public class SnakeView extends Application implements IView {
         timeline.setCycleCount(6);
         timeline.play();
     }
-
+    @Override
     public void restartGame(){
         // Set the timer to -1 so that the timeline loop doesnt do anything.
         M_TimerLength = -1;
@@ -358,6 +361,27 @@ public class SnakeView extends Application implements IView {
         m_SnakeMusic.playMusic(0);
         // Play the music on a loop.
         m_SnakeMusic.setLooping(true);
+    }
+
+    private void setMenuScene(){
+        // Initialise the menu scene and stack pane.
+        M_MenuPane = new StackPane();
+        M_MenuScene = new Scene(M_MenuPane, m_Controller.m_Model.getWidth(),
+                m_Controller.m_Model.getHeight());
+        // Add the CSS to the scene.
+        M_MenuScene.getStylesheets().add(getClass().getResource
+                ("/SnakeStyle.css").toExternalForm());
+
+        // Add an image view to the pane
+        ImageView imageView = new ImageView();
+        // Set the background of the image.
+        this.setBackgroundImage(imageView, "jungle-background");
+        // Add the background to the pane.
+        M_MenuPane.getChildren().add(imageView);
+
+        // Set the scene and show the page.
+        M_PrimaryStage.setScene(M_MenuScene);
+        M_PrimaryStage.show();
     }
 
 

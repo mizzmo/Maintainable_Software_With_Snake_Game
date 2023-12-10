@@ -130,3 +130,8 @@
 - Added CSS to the buttons to style them.
 - Commented CSS.
 - Implemented Restart Button.
+- Renamed Stages and Scenes, made Private Class Vairables.
+- Added new method to View, setMenuScene that will change the scene to the menu.
+- Added new image "jungle-background".
+- Renamed image "cloud-background"
+- Removed theEnd image.
