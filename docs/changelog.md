@@ -153,3 +153,5 @@
 - Removed getters and setters for finished variable from model.
 - Added a slider that changes the volume to the settings page.
 - Updated setVoulme type to double from float.
+- Fixed bug with Volume slider where the volume would reset when you switch scenes.
+- Added new method to SnakeMusic, "getVolume".

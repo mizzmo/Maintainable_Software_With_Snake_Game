@@ -17,7 +17,6 @@ public class SnakeMusic implements IMusic
 		this.M_FileName = filename;
 		this.M_MusicMedia = new Media(M_FileName);
 		this.M_MediaPlayer = new MediaPlayer(M_MusicMedia);
-		this.M_CurrentVolume = 1;
 	}
 
 	// Sets the music that you want to play
@@ -33,6 +32,8 @@ public class SnakeMusic implements IMusic
 			this.M_MediaPlayer = new MediaPlayer(M_MusicMedia);
 			// Play the song.
 			this.M_MediaPlayer.play();
+			// Set the voulme.
+			this.M_MediaPlayer.setVolume(this.M_CurrentVolume);
 		}
 		else { this.M_FileName = null; }
 	}
@@ -49,9 +50,11 @@ public class SnakeMusic implements IMusic
 		// Update the volume variable
 		this.M_CurrentVolume = volume;
 		// Set the new volume of the player
-		M_MediaPlayer.setVolume(M_CurrentVolume);
+		this.M_MediaPlayer.setVolume(M_CurrentVolume);
 
 	}
+	@Override
+	public double getVolume(){ return this.M_CurrentVolume;}
 	@Override
 	public void increaseVolume(){
 		if(this.M_CurrentVolume <= 1){
@@ -59,7 +62,7 @@ public class SnakeMusic implements IMusic
 			this.M_CurrentVolume += 0.1F;
 		}
 		// If volume is already max, doesnt increase it.
-		M_MediaPlayer.setVolume(M_CurrentVolume);
+		this.M_MediaPlayer.setVolume(M_CurrentVolume);
 	}
 
 	@Override
@@ -69,7 +72,7 @@ public class SnakeMusic implements IMusic
 			this.M_CurrentVolume -= 0.1F;
 		}
 		// If volume is already min, doesnt decrease it.
-		M_MediaPlayer.setVolume(M_CurrentVolume);
+		this.M_MediaPlayer.setVolume(M_CurrentVolume);
 	}
 
 	@Override
@@ -99,8 +102,10 @@ public class SnakeMusic implements IMusic
 	// Plays the currently loaded song.
 	@Override
 	public void playMusic() {
-		if(M_MediaPlayer.getStatus() != MediaPlayer.Status.PLAYING){
-			M_MediaPlayer.play();
+		if(this.M_MediaPlayer.getStatus() != MediaPlayer.Status.PLAYING){
+			this.M_MediaPlayer.play();
+			// Set the voulme.
+			this.M_MediaPlayer.setVolume(this.M_CurrentVolume);
 		}
 	}
 
@@ -110,24 +115,25 @@ public class SnakeMusic implements IMusic
 	public void playMusic(int timeStamp) {
 		// Set the number of seconds from the timestamp.
 		Duration seekTime = Duration.seconds(timeStamp);
-		M_MediaPlayer.seek(seekTime);
-		M_MediaPlayer.play();
+		this.M_MediaPlayer.seek(seekTime);
+		this.M_MediaPlayer.play();
+		this.M_MediaPlayer.setVolume(this.M_CurrentVolume);
 	}
 
 	// Stops the music from playing
 	@Override
 	public void pauseMusic() {
-		if(M_MediaPlayer.getStatus() == MediaPlayer.Status.PLAYING){
-			M_MediaPlayer.pause();
+		if(this.M_MediaPlayer.getStatus() == MediaPlayer.Status.PLAYING){
+			this.M_MediaPlayer.pause();
 		}
 	}
 
 	@Override
 	public void stopMusic() {
-		if(M_MediaPlayer.getStatus() == MediaPlayer.Status.PLAYING){
-			M_MediaPlayer.pause();
+		if(this.M_MediaPlayer.getStatus() == MediaPlayer.Status.PLAYING){
+			this.M_MediaPlayer.pause();
 			// Remove the previous object
-			M_MediaPlayer.dispose();
+			this.M_MediaPlayer.dispose();
 		}
 	}
 

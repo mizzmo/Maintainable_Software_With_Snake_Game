@@ -31,8 +31,14 @@ public interface IMusic {
     void setVolume(double newVolume);
 
     /**
+     * Returns the current volume.
+     * @return Current volume of music.
+     */
+    double getVolume();
+    /**
      * Increase the volume by a fixed amount.
      */
+
     void increaseVolume();
 
     /**

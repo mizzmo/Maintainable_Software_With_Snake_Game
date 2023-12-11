@@ -39,8 +39,9 @@ public class SnakeView extends Application implements IView {
     // Used if the restart button has been pressed,
     // so the timeline doesnt call restart over and over.
     private static final int NO_RESTART = -1;
-
     private static SnakeView m_Instance;
+    private double M_MusicVolume = 0.2;
+
     public SnakeView() {
         // Constructor gets the instance of controller.
         m_Controller = SnakeController.getInstance();
@@ -310,10 +311,10 @@ public class SnakeView extends Application implements IView {
         m_SnakeMusic = new SnakeMusic(SnakeMusicUtil.getMedia("retroFunk"));
         m_SnakeMusic.playMusic();
 
+        // Set the volume
+        m_SnakeMusic.setVolume(this.M_MusicVolume);
         // Set the music to loop
         m_SnakeMusic.setLooping(true);
-        // Set the volume of the music
-        m_SnakeMusic.setVolume(0.2);
 
         // Initialise the menu scene and stack pane.
         StackPane menuPane = new StackPane();
@@ -456,7 +457,7 @@ public class SnakeView extends Application implements IView {
         // Play the music
         m_SnakeMusic.playMusic();
         // Set the volume
-        m_SnakeMusic.setVolume(0.5);
+        m_SnakeMusic.setVolume(this.M_MusicVolume);
         // Sets the music to loop until it is told otherwise.
         m_SnakeMusic.setLooping(true);
 
@@ -498,16 +499,20 @@ public class SnakeView extends Application implements IView {
         settingsLabel.setTranslateY(50);
 
         // Create a label to display the slider value
-        Label volumeLevelLabel = new Label("Slider Value: 0");
+        Label volumeLevelLabel = new Label("Volume: " + (int)(this.M_MusicVolume * 100) + "%");
 
         // Create a horizontal slider
-        Slider volumeSlider = new Slider(0, 100, 50); // min, max, initial value
+        Slider volumeSlider = new Slider(0, 100, this.M_MusicVolume * 100); // min, max, initial value
         volumeSlider.setShowTickMarks(true);
 
         // Add a listener to respond to changes in the slider value and update the volume.
         volumeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
-                volumeLevelLabel.setText(String.format("Volume: %.0f", newValue));
+                volumeLevelLabel.setText(String.format("Volume: %.0f%%", newValue));
+                // Update the local variable so that all music is synced
+                this.M_MusicVolume = (double) newValue / 100;
+                // Update the music object itself
                 m_SnakeMusic.setVolume(((double)newValue / 100));
+
         });
 
         // Set the size of the slider.
@@ -519,8 +524,24 @@ public class SnakeView extends Application implements IView {
         // Add styling
         volumeLevelLabel.getStyleClass().add("label-with-padding");
         volumeLevelLabel.setStyle("-fx-text-fill: white;"); // Set the text to be white.
+
+        // Create a button that returns to the main menu.
+        Button menuButton = new Button("Main Menu");
+        // Set what happens when button is clicked.
+        menuButton.setOnAction(event -> {
+            // Go to the menu
+            this.setMenuScene();
+        });
+        // Add styling and set location
+        menuButton.getStyleClass().add("snake-button");
+        // Set the size of the
+        menuButton.setMinHeight((int)(m_Controller.m_Model.getHeight() / 9));
+        menuButton.setMinWidth((int)(m_Controller.m_Model.getWidth() / 7));
+
+        menuButton.setMaxHeight((int)(m_Controller.m_Model.getHeight() / 9));
+        menuButton.setMaxWidth((int)(m_Controller.m_Model.getWidth() / 7));
         // Add to the pane.
-        settingsPane.getChildren().addAll(volumeLevelLabel, volumeSlider);
+        settingsPane.getChildren().addAll(volumeLevelLabel, volumeSlider, menuButton);
 
         volumeLevelLabel.setTranslateY(-110);
         volumeSlider.setTranslateY(-75);
