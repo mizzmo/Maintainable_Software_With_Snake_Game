@@ -194,7 +194,9 @@ public class SnakeController implements IController {
     @Override
     public void restartGame() {
         // Reset the model to default.
-        m_Model = new SnakeModel(m_Model.getWidth(), m_Model.getHeight());
+        m_Model.setScore(0);
+        m_Model.setLength(3);
+        m_Model.setAlive(1);
         // Reset the snake.
         m_Snake = new SnakeObject(m_Model.getLength()/2, m_Model.getWidth()/2);
         // Restart the UI.

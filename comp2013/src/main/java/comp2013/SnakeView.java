@@ -10,7 +10,10 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
+import javafx.scene.control.SplitPane;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -241,8 +244,6 @@ public class SnakeView extends Application implements IView {
         M_ScoreLabel.setTranslateY(275);
         // Update the text.
         M_ScoreLabel.setText("Final Score: " + m_Controller.m_Model.getScore());
-        // Stop the music playing after its last loop.
-        m_SnakeMusic.setLooping(false);
 
         M_CountDownLabel = new Label("Restart in: 5");
         M_CountDownLabel.getStyleClass().add("label-with-padding");
@@ -312,7 +313,7 @@ public class SnakeView extends Application implements IView {
         // Set the music to loop
         m_SnakeMusic.setLooping(true);
         // Set the volume of the music
-        m_SnakeMusic.setVolume(0.2F);
+        m_SnakeMusic.setVolume(0.2);
 
         // Initialise the menu scene and stack pane.
         StackPane menuPane = new StackPane();
@@ -362,7 +363,7 @@ public class SnakeView extends Application implements IView {
         // Create a settings button to access the games settings.
         Button settingsButton = new Button("Settings");
         settingsButton.setOnAction(event -> {
-            return;
+            this.setSettingsScene();
         });
         // Add styling and set location
         settingsButton.getStyleClass().add("snake-button");
@@ -454,6 +455,8 @@ public class SnakeView extends Application implements IView {
         m_SnakeMusic = new SnakeMusic(SnakeMusicUtil.getMedia("frogger"));
         // Play the music
         m_SnakeMusic.playMusic();
+        // Set the volume
+        m_SnakeMusic.setVolume(0.5);
         // Sets the music to loop until it is told otherwise.
         m_SnakeMusic.setLooping(true);
 
@@ -465,7 +468,68 @@ public class SnakeView extends Application implements IView {
     }
 
     private void setSettingsScene(){
+        // Initialise the menu scene and stack pane.
+        StackPane settingsPane = new StackPane();
+        Scene settingsScene = new Scene(settingsPane, m_Controller.m_Model.getWidth(),
+                m_Controller.m_Model.getHeight());
+        // Add the CSS to the scene.
+        settingsScene.getStylesheets().add(getClass().getResource
+                ("/SnakeStyle.css").toExternalForm());
 
+        // Add an image view to the pane
+        ImageView imageView = new ImageView();
+        // Set the background of the image.
+        this.setBackgroundImage(imageView, "jungle-background");
+        // Add the background to the pane.
+        settingsPane.getChildren().add(imageView);
+        // Create a transparent VBox that goes over the top of the jungle
+        // image so that it isnt so glaring.
+        VBox darkBox = new VBox(10);
+        // Set the box background to be transparent black.
+        darkBox.setStyle("-fx-background-color: rgba(0, 0, 0, 0.6);");
+        settingsPane.getChildren().add(darkBox);
+        // New label for the settings screen
+        Label settingsLabel = new Label("Settings");
+        settingsLabel.getStyleClass().add("label-with-padding");
+        settingsLabel.setStyle("-fx-text-fill: white;"); // Set the text to be white.
+        // Set the position of the label
+        StackPane.setAlignment(settingsLabel, javafx.geometry.Pos.TOP_CENTER);
+        settingsPane.getChildren().add(settingsLabel);
+        settingsLabel.setTranslateY(50);
+
+        // Create a label to display the slider value
+        Label volumeLevelLabel = new Label("Slider Value: 0");
+
+        // Create a horizontal slider
+        Slider volumeSlider = new Slider(0, 100, 50); // min, max, initial value
+        volumeSlider.setShowTickMarks(true);
+
+        // Add a listener to respond to changes in the slider value and update the volume.
+        volumeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+                volumeLevelLabel.setText(String.format("Volume: %.0f", newValue));
+                m_SnakeMusic.setVolume(((double)newValue / 100));
+        });
+
+        // Set the size of the slider.
+        volumeSlider.setMinHeight((int)(m_Controller.m_Model.getHeight() / 20));
+        volumeSlider.setMinWidth((int)(m_Controller.m_Model.getWidth() / 2));
+
+        volumeSlider.setMaxHeight((int)(m_Controller.m_Model.getHeight() / 20));
+        volumeSlider.setMaxWidth((int)(m_Controller.m_Model.getWidth() / 2));
+        // Add styling
+        volumeLevelLabel.getStyleClass().add("label-with-padding");
+        volumeLevelLabel.setStyle("-fx-text-fill: white;"); // Set the text to be white.
+        // Add to the pane.
+        settingsPane.getChildren().addAll(volumeLevelLabel, volumeSlider);
+
+        volumeLevelLabel.setTranslateY(-110);
+        volumeSlider.setTranslateY(-75);
+
+
+
+        // Set the scene and show the page.
+        M_PrimaryStage.setScene(settingsScene);
+        M_PrimaryStage.show();
     }
 
 

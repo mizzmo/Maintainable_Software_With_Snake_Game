@@ -21,7 +21,6 @@ public class SnakeModel implements IModel {
         this.m_Width = width;
         this.m_Score = 0;
         this.m_Length = 3;
-        this.m_Finished = false;
         this.m_Alive = 1;
     }
     /**
@@ -100,20 +99,6 @@ public class SnakeModel implements IModel {
         // Update the value stored in model.
         this.m_Width = m_Width;
     }
-
-    // Check if the game is over or not.
-    @Override
-    public boolean hasFinished() {
-        return this.m_Finished;
-    }
-
-
-    //Set the game to be finished
-    @Override
-    public void setFinished(boolean finished) {
-        this.m_Finished = finished;
-    }
-
 
     // Restart the game from the beginning.
     @Override

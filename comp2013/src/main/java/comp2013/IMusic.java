@@ -28,7 +28,7 @@ public interface IMusic {
      * @param newVolume The volume that you want to set to
      *                  0 is off. 1 is full.
      */
-    void setVolume(float newVolume);
+    void setVolume(double newVolume);
 
     /**
      * Increase the volume by a fixed amount.

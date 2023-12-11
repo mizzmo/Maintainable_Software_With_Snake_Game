@@ -66,17 +66,7 @@ public interface IModel {
      * @param m_Width Width of the screen in pixels
      */
     void setWidth(int m_Width);
-    /**
-     * Check if the game is over or not.
-     * @return true: Game has finished, False: Game is in progress.
-     */
-    boolean hasFinished();
 
-    /**
-     * Set the game to be finished
-     * @param m_Finished stores if the game is over.
-     */
-    void setFinished(boolean m_Finished);
 
     /**
      * Restart the game from the beginning.
