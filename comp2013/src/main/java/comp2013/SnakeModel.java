@@ -9,6 +9,8 @@ public class SnakeModel implements IModel {
     // Store the length of the snake.
     // Store the alive status of the snake.
     private int m_Width, m_Height, m_Score, m_Length, m_Alive;
+    // Stores the initial length of the snake set in the settings.
+    public int m_InitialLength;
     // Stores status on whether game is finished.
     private boolean m_Finished;
     // Gets and instance of the Model
@@ -20,7 +22,8 @@ public class SnakeModel implements IModel {
         this.m_Height = height;
         this.m_Width = width;
         this.m_Score = 0;
-        this.m_Length = 3;
+        this.m_Length = 2;
+        this.m_InitialLength = 2;
         this.m_Alive = 1;
     }
     /**
@@ -40,6 +43,12 @@ public class SnakeModel implements IModel {
     // Set the life status of the snake.
     @Override
     public void setAlive(int status) { this.m_Alive = status;}
+
+    @Override
+    public void setInitialLength(int length){
+        this.m_InitialLength = length;
+        this.m_Length = length;
+    }
 
     //Get the score of the game.
     @Override

@@ -23,7 +23,7 @@ public class SnakeController implements IController {
         m_Model.setController(this);
 
         // Create a new snake and pass it the values for the center of the screen.
-        m_Snake = new SnakeObject(m_Model.getLength()/2, m_Model.getWidth()/2);
+        m_Snake = new SnakeObject(m_Model.getWidth()/2, m_Model.getHeight()/2);
 
     }
     /**
@@ -188,14 +188,13 @@ public class SnakeController implements IController {
     @Override
     public void handleGameOver() {
         m_View.gameOverScreen();
-        return;
     }
 
     @Override
     public void restartGame() {
         // Reset the model to default.
         m_Model.setScore(0);
-        m_Model.setLength(3);
+        m_Model.setLength(m_Model.m_InitialLength);
         m_Model.setAlive(1);
         // Reset the snake.
         m_Snake = new SnakeObject(m_Model.getLength()/2, m_Model.getWidth()/2);

@@ -21,9 +21,8 @@ public interface IView {
 
     /**
      * Build the snake at the beginning of the game.
-     * @param length Length of the snake to build.
      */
-    void buildSnake(int length);
+    void buildSnake();
 
     /**
      * Sets the background image of the game.

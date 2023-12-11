@@ -155,3 +155,7 @@
 - Updated setVoulme type to double from float.
 - Fixed bug with Volume slider where the volume would reset when you switch scenes.
 - Added new method to SnakeMusic, "getVolume".
+- Added SnakeLength slider.
+- Implemented SnakeLength slider.
+- Reworked how the snake is build and refereshed to suit this new slider.
+- Added InitialLength to Model.

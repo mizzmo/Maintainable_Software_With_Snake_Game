@@ -40,6 +40,12 @@ public interface IModel {
     void setLength(int m_Length);
 
     /**
+     * Sets the initial length of the snake to be referred back to
+     * @param length Length of the snake.
+     */
+    void setInitialLength(int length);
+
+    /**
      * Adds one to the length of the snake.
      */
     void incrementLength();

@@ -85,7 +85,6 @@ public class SnakeView extends Application implements IView {
         gc.drawImage(M_SnakeHeadImg, snakeBody.getFirst().getX(), snakeBody.getFirst().getY());
         // Draw the rest of the body.
         for (int i = 1; i < m_Controller.m_Model.getLength(); i++) {
-
             // Draws the body at the new location
             gc.drawImage(M_SnakeBodyImg, snakeBody.get(i).getX(), snakeBody.get(i).getY());
             if(i == m_Controller.m_Model.getLength()-1 && addSegment){
@@ -113,7 +112,7 @@ public class SnakeView extends Application implements IView {
     }
 
     @Override
-    public void buildSnake(int length){
+    public void buildSnake(){
         // Get the center of the screen.
         int canvasCenterHorizontal = m_Controller.m_Model.getWidth() / 2;
         int canvasCenterVertical = m_Controller.m_Model.getHeight() / 2;
@@ -124,6 +123,7 @@ public class SnakeView extends Application implements IView {
         // Coordinate value to add onto the coordinates
         int horizontalAdd = 25;
         int verticalAdd = 25;
+        int length = m_Controller.m_Model.getLength();
 
         // Get the image of the snake head.
         this.changeHeadDirection();
@@ -291,7 +291,7 @@ public class SnakeView extends Application implements IView {
         // Update its text back to default.
         M_ScoreLabel.setText("Score: " + m_Controller.m_Model.getScore());
         // Build the snake again.
-        this.buildSnake(m_Controller.m_Model.getLength());
+        this.buildSnake();
         // Create a new food and draw it.
         M_SnakeFood = new SnakeFood();
         M_SnakeFood.drawFruit(m_FoodCanvas);
@@ -304,7 +304,6 @@ public class SnakeView extends Application implements IView {
     private void setMenuScene(){
         // Stops music if there is any, and plays a new one.
         if(m_SnakeMusic != null) {
-            System.out.printf("Here\n");
             m_SnakeMusic.stopMusic();
         }
 
@@ -438,7 +437,7 @@ public class SnakeView extends Application implements IView {
         M_SnakePane.getChildren().add(M_ScoreLabel);
 
         // Build the initial snake.
-        this.buildSnake(m_Controller.m_Model.getLength());
+        this.buildSnake();
         // Create a new food and draw it.
         M_SnakeFood = new SnakeFood();
         M_SnakeFood.drawFruit(m_FoodCanvas);
@@ -525,6 +524,31 @@ public class SnakeView extends Application implements IView {
         volumeLevelLabel.getStyleClass().add("label-with-padding");
         volumeLevelLabel.setStyle("-fx-text-fill: white;"); // Set the text to be white.
 
+        // Create a label to display the slider value
+        Label snakeLengthLabel = new Label("Snake Size: " + m_Controller.m_Model.getLength());
+
+        // Create a horizontal slider
+        Slider snakeLengthSlider = new Slider(2, 10, m_Controller.m_Model.getLength()); // min, max, initial value
+        snakeLengthSlider.setShowTickMarks(true);
+
+        // Add a listener to respond to changes in the slider value and update the volume.
+        snakeLengthSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            snakeLengthLabel.setText(String.format("Snake Size: %d", newValue.intValue()));
+            m_Controller.m_Model.setInitialLength(newValue.intValue());
+        });
+
+        // Set the size of the slider.
+        snakeLengthSlider.setMinHeight((int)(m_Controller.m_Model.getHeight() / 20));
+        snakeLengthSlider.setMinWidth((int)(m_Controller.m_Model.getWidth() / 2));
+
+        snakeLengthSlider.setMaxHeight((int)(m_Controller.m_Model.getHeight() / 20));
+        snakeLengthSlider.setMaxWidth((int)(m_Controller.m_Model.getWidth() / 2));
+        // Add styling
+        snakeLengthLabel.getStyleClass().add("label-with-padding");
+        snakeLengthLabel.setStyle("-fx-text-fill: white;"); // Set the text to be white.
+
+
+
         // Create a button that returns to the main menu.
         Button menuButton = new Button("Main Menu");
         // Set what happens when button is clicked.
@@ -541,21 +565,18 @@ public class SnakeView extends Application implements IView {
         menuButton.setMaxHeight((int)(m_Controller.m_Model.getHeight() / 9));
         menuButton.setMaxWidth((int)(m_Controller.m_Model.getWidth() / 7));
         // Add to the pane.
-        settingsPane.getChildren().addAll(volumeLevelLabel, volumeSlider, menuButton);
+        settingsPane.getChildren().addAll(volumeLevelLabel, volumeSlider, snakeLengthLabel, snakeLengthSlider, menuButton);
 
         volumeLevelLabel.setTranslateY(-110);
         volumeSlider.setTranslateY(-75);
 
+        snakeLengthLabel.setTranslateY(0);
+        snakeLengthSlider.setTranslateY(50);
 
+        menuButton.setTranslateY(100);
 
         // Set the scene and show the page.
         M_PrimaryStage.setScene(settingsScene);
         M_PrimaryStage.show();
     }
-
-
-
-
-
-
 }
