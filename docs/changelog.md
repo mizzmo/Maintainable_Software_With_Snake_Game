@@ -167,3 +167,5 @@
 - Added method, initialiseMenuScreen, to reduce duplicate code. This method initialises a default screen for menu pages.
 - Updated View methods to use this new method.
 - Added class variables, M_DefaultPane, M_DefaultLabel to allow control of the label and stackpane after its addition in the method.
+- Added new background images "ocean-background", "grass-background"
+- Updated SnakeImageUtil.

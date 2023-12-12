@@ -359,7 +359,7 @@ public class SnakeView extends Application implements IView {
         // the high score page.
         Button leaderboardButton = new Button("Leaderboard");
         leaderboardButton.setOnAction(event -> {
-            Platform.exit();
+            this.setSelectScene();
         });
         // Add styling and set location
         leaderboardButton.getStyleClass().add("snake-button");
@@ -554,6 +554,47 @@ public class SnakeView extends Application implements IView {
         // Initialise the menu scene and stack pane.
         Scene mapSelectScene = this.initialiseMenuScreen("Map Select");
         StackPane mapSelectPane = this.M_DefaultPane;
+
+        // Create a button that returns to the main menu.
+        Button menuButton = new Button("Back");
+        // Set what happens when button is clicked.
+        menuButton.setOnAction(event -> {
+            // Go to the menu
+            this.setMenuScene();
+        });
+        // Add styling and set location
+        menuButton.getStyleClass().add("snake-button");
+        // Set the size of the
+        menuButton.setMinHeight((int)(m_Controller.m_Model.getHeight() / 9));
+        menuButton.setMinWidth((int)(m_Controller.m_Model.getWidth() / 7));
+
+        menuButton.setMaxHeight((int)(m_Controller.m_Model.getHeight() / 9));
+        menuButton.setMaxWidth((int)(m_Controller.m_Model.getWidth() / 7));
+
+        ImageView mapSelectCloud = new ImageView();
+        this.setBackgroundImage(mapSelectCloud, "cloud-background");
+        // Set the size of the image view.
+        mapSelectCloud.setFitHeight((int)(m_Controller.m_Model.getHeight() / 4));
+        mapSelectCloud.setFitWidth((int)(m_Controller.m_Model.getWidth() / 4));
+
+        ImageView mapSelectGrass = new ImageView();
+        this.setBackgroundImage(mapSelectGrass, "grass-background");
+        // Set the size of the image view.
+        mapSelectGrass.setFitHeight((int)(m_Controller.m_Model.getHeight() / 4));
+        mapSelectGrass.setFitWidth((int)(m_Controller.m_Model.getWidth() / 4));
+
+        ImageView mapSelectOcean = new ImageView();
+        this.setBackgroundImage(mapSelectOcean, "ocean-background");
+        // Set the size of the image view.
+        mapSelectOcean.setFitHeight((int)(m_Controller.m_Model.getHeight() / 4));
+        mapSelectOcean.setFitWidth((int)(m_Controller.m_Model.getWidth() / 4));
+
+        // Add to the pane.
+        mapSelectPane.getChildren().addAll(menuButton, mapSelectCloud, mapSelectGrass, mapSelectOcean);
+        menuButton.setTranslateY(200);
+        mapSelectCloud.setTranslateX(-275);
+        mapSelectGrass.setTranslateX(0);
+        mapSelectOcean.setTranslateX(275);
 
         // Set the scene and show the page.
         M_PrimaryStage.setScene(mapSelectScene);
