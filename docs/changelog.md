@@ -162,3 +162,4 @@
 
 ### 12/12/23
 - Created spritesheet for Fruit and Snake assets.
+- Added Leaderboard button to main menu.

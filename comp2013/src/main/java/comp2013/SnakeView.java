@@ -5,6 +5,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -340,7 +341,7 @@ public class SnakeView extends Application implements IView {
         titleLabel.getStyleClass().add("label-with-padding");
         titleLabel.getStyleClass().add("snake-title-label");
         // Set the position of the label
-        StackPane.setAlignment(titleLabel, javafx.geometry.Pos.TOP_CENTER);
+        StackPane.setAlignment(titleLabel, Pos.TOP_CENTER);
         menuPane.getChildren().add(titleLabel);
         titleLabel.setTranslateY(100);
 
@@ -355,7 +356,7 @@ public class SnakeView extends Application implements IView {
         // Add styling and set location
         startButton.getStyleClass().add("snake-button");
         startButton.getStyleClass().add("menu-button-size");
-        StackPane.setAlignment(startButton, javafx.geometry.Pos.TOP_CENTER);
+        StackPane.setAlignment(startButton, Pos.TOP_CENTER);
         // Add to pane
         menuPane.getChildren().add(startButton);
         startButton.setTranslateY(225);
@@ -368,10 +369,24 @@ public class SnakeView extends Application implements IView {
         // Add styling and set location
         settingsButton.getStyleClass().add("snake-button");
         settingsButton.getStyleClass().add("menu-button-size");
-        StackPane.setAlignment(settingsButton, javafx.geometry.Pos.TOP_CENTER);
+        StackPane.setAlignment(settingsButton, Pos.TOP_CENTER);
         // Add to pane
         menuPane.getChildren().add(settingsButton);
-        settingsButton.setTranslateY(325);
+        settingsButton.setTranslateY(375);
+
+        // Create a leaderboard button that takes you to
+        // the high score page.
+        Button leaderboardButton = new Button("Leaderboard");
+        leaderboardButton.setOnAction(event -> {
+            Platform.exit();
+        });
+        // Add styling and set location
+        leaderboardButton.getStyleClass().add("snake-button");
+        leaderboardButton.getStyleClass().add("menu-button-size");
+        StackPane.setAlignment(leaderboardButton, Pos.TOP_CENTER);
+        // Add to pane
+        menuPane.getChildren().add(leaderboardButton);
+        leaderboardButton.setTranslateY(300);
 
         // Create a exit button that exits the game.
         Button exitButton = new Button("Exit");
@@ -381,10 +396,10 @@ public class SnakeView extends Application implements IView {
         // Add styling and set location
         exitButton.getStyleClass().add("snake-button");
         exitButton.getStyleClass().add("menu-button-size");
-        StackPane.setAlignment(exitButton, javafx.geometry.Pos.TOP_CENTER);
+        StackPane.setAlignment(exitButton, Pos.TOP_CENTER);
         // Add to pane
         menuPane.getChildren().add(exitButton);
-        exitButton.setTranslateY(425);
+        exitButton.setTranslateY(450);
 
         // Set the scene and show the page.
         M_PrimaryStage.setScene(menuScene);
@@ -550,7 +565,7 @@ public class SnakeView extends Application implements IView {
 
 
         // Create a button that returns to the main menu.
-        Button menuButton = new Button("Main Menu");
+        Button menuButton = new Button("Back");
         // Set what happens when button is clicked.
         menuButton.setOnAction(event -> {
             // Go to the menu
