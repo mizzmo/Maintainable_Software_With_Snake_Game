@@ -856,8 +856,10 @@ public class SnakeView extends Application implements IView {
         scrollPaneBorder.setFill(null); // Make the fill transparent
         scrollPaneBorder.setStrokeWidth(5); // Set the stroke width
         // Set the size of the rectangle
-        scrollPaneBorder.setWidth((double) m_Controller.m_Model.getWidth() / 2);
-        scrollPaneBorder.setHeight((double) m_Controller.m_Model.getHeight() / 1.5);
+        scrollPaneBorder.setWidth(
+                (double) m_Controller.m_Model.getWidth() / 2);
+        scrollPaneBorder.setHeight(
+                (double) m_Controller.m_Model.getHeight() / 1.5);
 
 
         try (BufferedReader reader = new BufferedReader
@@ -900,7 +902,8 @@ public class SnakeView extends Application implements IView {
         scrollingBoard.setMaxSize
                 ((double) m_Controller.m_Model.getWidth() / 2,
                         (double) m_Controller.m_Model.getHeight() / 1.5);
-        leaderboardPane.getChildren().addAll(scrollingBoard, menuButton, scrollPaneBorder);
+        leaderboardPane.getChildren().addAll(scrollingBoard,
+                menuButton, scrollPaneBorder);
 
 
         menuButton.setTranslateY(250);
