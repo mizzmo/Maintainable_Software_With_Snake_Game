@@ -171,3 +171,5 @@
 - Updated SnakeImageUtil.
 - Added other ImageViews to the screen.
 - Added a selection message and a border around the selected map.
+- Converted to 3000x2000 Resolution.
+- Added code that resizes the backgrounds so they work correctly.

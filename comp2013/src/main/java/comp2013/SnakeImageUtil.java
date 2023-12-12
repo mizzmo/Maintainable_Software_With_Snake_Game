@@ -30,17 +30,17 @@ public class SnakeImageUtil
 	{
 		// Game Scenes
 		m_SnakeImages.put("cloud-background", new Image(SnakeImageUtil.class.getResource
-				("/images/cloud-background.png").toExternalForm()));
+				("/images/cloudBackground.jpg").toExternalForm()));
 
 		m_SnakeImages.put("grass-background", new Image(SnakeImageUtil.class.getResource
-				("/images/grass-background.jpg").toExternalForm()));
+				("/images/grassBackground.jpg").toExternalForm()));
 
 		m_SnakeImages.put("ocean-background", new Image(SnakeImageUtil.class.getResource
-				("/images/ocean-background.jpg").toExternalForm()));
+				("/images/oceanBackground.jpg").toExternalForm()));
 
 		m_SnakeImages.put("jungle-background", new Image(SnakeImageUtil.class.getResource
-				("/images/jungle-background.jpg").toExternalForm()));
-
+				("/images/jungleBackground.jpg").toExternalForm()));
+		// Window Icon
 		m_SnakeImages.put("snakeIcon", new Image(SnakeImageUtil.class.getResource
 				("/images/snake-logo.png").toExternalForm()));
 
