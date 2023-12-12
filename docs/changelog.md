@@ -180,3 +180,5 @@
 - Add CSS for leaderboard entries.
 - Added code for a text box to enter a username.
 - Added a button in the end game that saves the entry of the text box into a txt file and saves the score next to it.
+- Updated View class so that line length is shorter than 80 characters.
+- Added styling to the text field and button.
