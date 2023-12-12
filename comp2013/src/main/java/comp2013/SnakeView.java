@@ -33,7 +33,7 @@ public class SnakeView extends Application implements IView {
     private Image M_SnakeHeadImg;
     private Image M_SnakeBodyImg;
     private SnakeFood M_SnakeFood;
-    private Label M_ScoreLabel, M_CountDownLabel, M_GameOverLabel;
+    private Label M_ScoreLabel, M_CountDownLabel, M_GameOverLabel, M_DefaultLabel;
     private Timeline M_Timeline;
     private Button M_RestartButton, M_MenuReturnButton;
     private int M_TimerLength;
@@ -42,6 +42,8 @@ public class SnakeView extends Application implements IView {
     private static final int NO_RESTART = -1;
     private static SnakeView m_Instance;
     private double M_MusicVolume = 0.2;
+
+    private StackPane M_DefaultPane;
 
     public SnakeView() {
         // Constructor gets the instance of controller.
@@ -317,32 +319,11 @@ public class SnakeView extends Application implements IView {
         m_SnakeMusic.setLooping(true);
 
         // Initialise the menu scene and stack pane.
-        StackPane menuPane = new StackPane();
-        Scene menuScene = new Scene(menuPane, m_Controller.m_Model.getWidth(),
-                m_Controller.m_Model.getHeight());
-        // Add the CSS to the scene.
-        menuScene.getStylesheets().add(getClass().getResource
-                ("/SnakeStyle.css").toExternalForm());
+        Scene menuScene = this.initialiseMenuScreen("Snake!");
+        StackPane menuPane = this.M_DefaultPane;
 
-        // Add an image view to the pane
-        ImageView imageView = new ImageView();
-        // Set the background of the image.
-        this.setBackgroundImage(imageView, "jungle-background");
-        // Add the background to the pane.
-        menuPane.getChildren().add(imageView);
-        // Create a transparent VBox that goes over the top of the jungle
-        // image so that it isnt so glaring.
-        VBox darkBox = new VBox();
-        // Set the box background to be transparent black.
-        darkBox.setStyle("-fx-background-color: rgba(0, 0, 0, 0.6);");
-        menuPane.getChildren().add(darkBox);
-        // New label for the title screen
-        Label titleLabel = new Label("Snake!");
-        titleLabel.getStyleClass().add("label-with-padding");
+        Label titleLabel = this.M_DefaultLabel;
         titleLabel.getStyleClass().add("snake-title-label");
-        // Set the position of the label
-        StackPane.setAlignment(titleLabel, Pos.TOP_CENTER);
-        menuPane.getChildren().add(titleLabel);
         titleLabel.setTranslateY(100);
 
         // Button to start the game.
@@ -484,33 +465,8 @@ public class SnakeView extends Application implements IView {
 
     private void setSettingsScene(){
         // Initialise the menu scene and stack pane.
-        StackPane settingsPane = new StackPane();
-        Scene settingsScene = new Scene(settingsPane, m_Controller.m_Model.getWidth(),
-                m_Controller.m_Model.getHeight());
-        // Add the CSS to the scene.
-        settingsScene.getStylesheets().add(getClass().getResource
-                ("/SnakeStyle.css").toExternalForm());
-
-        // Add an image view to the pane
-        ImageView imageView = new ImageView();
-        // Set the background of the image.
-        this.setBackgroundImage(imageView, "jungle-background");
-        // Add the background to the pane.
-        settingsPane.getChildren().add(imageView);
-        // Create a transparent VBox that goes over the top of the jungle
-        // image so that it isnt so glaring.
-        VBox darkBox = new VBox(10);
-        // Set the box background to be transparent black.
-        darkBox.setStyle("-fx-background-color: rgba(0, 0, 0, 0.6);");
-        settingsPane.getChildren().add(darkBox);
-        // New label for the settings screen
-        Label settingsLabel = new Label("Settings");
-        settingsLabel.getStyleClass().add("label-with-padding");
-        settingsLabel.setStyle("-fx-text-fill: white;"); // Set the text to be white.
-        // Set the position of the label
-        StackPane.setAlignment(settingsLabel, javafx.geometry.Pos.TOP_CENTER);
-        settingsPane.getChildren().add(settingsLabel);
-        settingsLabel.setTranslateY(50);
+        Scene settingsScene = this.initialiseMenuScreen("Settings");
+        StackPane settingsPane = this.M_DefaultPane;
 
         // Create a label to display the slider value
         Label volumeLevelLabel = new Label("Volume: " + (int)(this.M_MusicVolume * 100) + "%");
@@ -593,5 +549,54 @@ public class SnakeView extends Application implements IView {
         // Set the scene and show the page.
         M_PrimaryStage.setScene(settingsScene);
         M_PrimaryStage.show();
+    }
+    private void setSelectScene(){
+        // Initialise the menu scene and stack pane.
+        Scene mapSelectScene = this.initialiseMenuScreen("Map Select");
+        StackPane mapSelectPane = this.M_DefaultPane;
+
+        // Set the scene and show the page.
+        M_PrimaryStage.setScene(mapSelectScene);
+        M_PrimaryStage.show();
+    }
+
+    /**
+     * Initialises a default menu screen.
+     * @param title Title you want at the top of the screen.
+     * @return Initialised Screen.
+     */
+    private Scene initialiseMenuScreen(String title){
+        // Initialise the menu scene and stack pane.
+        M_DefaultPane = new StackPane();
+        Scene defaultScene = new Scene(M_DefaultPane, m_Controller.m_Model.getWidth(),
+                m_Controller.m_Model.getHeight());
+        // Add the CSS to the scene.
+        defaultScene.getStylesheets().add(getClass().getResource
+                ("/SnakeStyle.css").toExternalForm());
+
+        // Add an image view to the pane
+        ImageView imageView = new ImageView();
+        // Set the background of the image.
+        this.setBackgroundImage(imageView, "jungle-background");
+        // Add the background to the pane.
+        M_DefaultPane.getChildren().add(imageView);
+        // Create a transparent VBox that goes over the top of the jungle
+        // image so that it isnt so glaring.
+        VBox darkBox = new VBox(10);
+        // Set the box background to be transparent black.
+        darkBox.setStyle("-fx-background-color: rgba(0, 0, 0, 0.6);");
+        M_DefaultPane.getChildren().add(darkBox);
+        // New label with the specified text.
+        M_DefaultLabel = new Label(title);
+        // Add the style to the text.
+        M_DefaultLabel.getStyleClass().add("label-with-padding");
+        // Set the text to be white.
+        M_DefaultLabel.setStyle("-fx-text-fill: white;");
+        // Set the position of the label
+        StackPane.setAlignment(M_DefaultLabel, Pos.TOP_CENTER);
+        M_DefaultPane.getChildren().add(M_DefaultLabel);
+        M_DefaultLabel.setTranslateY(50);
+        // Return the initialised scene to be used.
+        return defaultScene;
     }
 }
