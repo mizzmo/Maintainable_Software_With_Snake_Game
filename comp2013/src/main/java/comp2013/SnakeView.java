@@ -5,6 +5,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -12,14 +13,16 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.control.SplitPane;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import javafx.util.Duration;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.paint.Color;
+import java.awt.*;
 import java.util.List;
 
 public class SnakeView extends Application implements IView {
@@ -28,26 +31,25 @@ public class SnakeView extends Application implements IView {
     private Stage M_PrimaryStage;
     public SnakeMusic m_SnakeMusic;
     private StackPane M_SnakePane;
-    public Canvas m_SnakeCanvas;
-    public Canvas m_FoodCanvas;
-    private Image M_SnakeHeadImg;
-    private Image M_SnakeBodyImg;
+    public Canvas m_SnakeCanvas, m_FoodCanvas;
+    private Image M_SnakeHeadImg, M_SnakeBodyImg, M_BackgroundImage;
     private SnakeFood M_SnakeFood;
-    private Label M_ScoreLabel, M_CountDownLabel, M_GameOverLabel;
+    private Label M_ScoreLabel, M_CountDownLabel, M_GameOverLabel, M_DefaultLabel;
     private Timeline M_Timeline;
     private Button M_RestartButton, M_MenuReturnButton;
     private int M_TimerLength;
-    // Used if the restart button has been pressed,
-    // so the timeline doesnt call restart over and over.
-    private static final int NO_RESTART = -1;
     private static SnakeView m_Instance;
     private double M_MusicVolume = 0.2;
+    private StackPane M_DefaultPane;
+
 
     public SnakeView() {
         // Constructor gets the instance of controller.
         m_Controller = SnakeController.getInstance();
         // Set the controllers view to be this.
         m_Controller.setView(this);
+
+        M_BackgroundImage = SnakeImageUtil.getImage("grass-background");
 
     }
 
@@ -63,6 +65,15 @@ public class SnakeView extends Application implements IView {
      // Refreshes the snake at its new location.
     @Override
     public void refreshSnake() {
+        // Sets the time interval to 200 miliseconds;
+        double timeRate = 1;
+        // Time interval decreases as the user gets a higher score.
+        if(m_Controller.m_Model.getScore() > 0){
+            timeRate *= 1 + (double) m_Controller.m_Model.getScore() / 1000;
+            // Update the speed of the Timeline
+            M_Timeline.setRate(timeRate);
+        }
+
         // Get the list of snake body parts
         List<SnakeBody> snakeBody = m_Controller.m_Snake.m_SnakeBody;
         // Tells the loop if it needs to add a new segment or not.
@@ -280,6 +291,7 @@ public class SnakeView extends Application implements IView {
     }
     @Override
     public void restartGame(){
+        M_Timeline.stop();
         // Set the timer to -1 so that the timeline loop doesnt do anything.
         M_TimerLength = -1;
         // Remove the game over labels from the screen.
@@ -317,41 +329,17 @@ public class SnakeView extends Application implements IView {
         m_SnakeMusic.setLooping(true);
 
         // Initialise the menu scene and stack pane.
-        StackPane menuPane = new StackPane();
-        Scene menuScene = new Scene(menuPane, m_Controller.m_Model.getWidth(),
-                m_Controller.m_Model.getHeight());
-        // Add the CSS to the scene.
-        menuScene.getStylesheets().add(getClass().getResource
-                ("/SnakeStyle.css").toExternalForm());
+        Scene menuScene = this.initialiseMenuScreen("Snake!");
+        StackPane menuPane = this.M_DefaultPane;
 
-        // Add an image view to the pane
-        ImageView imageView = new ImageView();
-        // Set the background of the image.
-        this.setBackgroundImage(imageView, "jungle-background");
-        // Add the background to the pane.
-        menuPane.getChildren().add(imageView);
-        // Create a transparent VBox that goes over the top of the jungle
-        // image so that it isnt so glaring.
-        VBox darkBox = new VBox();
-        // Set the box background to be transparent black.
-        darkBox.setStyle("-fx-background-color: rgba(0, 0, 0, 0.6);");
-        menuPane.getChildren().add(darkBox);
-        // New label for the title screen
-        Label titleLabel = new Label("Snake!");
-        titleLabel.getStyleClass().add("label-with-padding");
+        Label titleLabel = this.M_DefaultLabel;
         titleLabel.getStyleClass().add("snake-title-label");
-        // Set the position of the label
-        StackPane.setAlignment(titleLabel, Pos.TOP_CENTER);
-        menuPane.getChildren().add(titleLabel);
         titleLabel.setTranslateY(100);
 
         // Button to start the game.
         Button startButton = new Button("Start Game");
         startButton.setOnAction(event -> {
-            // Set the new scene
-            this.setGameScene();
-            // Reset the game to default.
-            m_Controller.restartGame();
+            this.setSelectScene();
         });
         // Add styling and set location
         startButton.getStyleClass().add("snake-button");
@@ -378,7 +366,7 @@ public class SnakeView extends Application implements IView {
         // the high score page.
         Button leaderboardButton = new Button("Leaderboard");
         leaderboardButton.setOnAction(event -> {
-            Platform.exit();
+            return;
         });
         // Add styling and set location
         leaderboardButton.getStyleClass().add("snake-button");
@@ -424,7 +412,10 @@ public class SnakeView extends Application implements IView {
         ImageView imageView = new ImageView();
 
         // Set the background of the image.
-        this.setBackgroundImage(imageView, "cloud-background");
+        imageView.setImage(M_BackgroundImage);
+        // Set the size of the image view.
+        imageView.setFitHeight((int)(m_Controller.m_Model.getHeight()));
+        imageView.setFitWidth((int)(m_Controller.m_Model.getWidth()));
         // Add the background to the pane.
         M_SnakePane.getChildren().add(imageView);
 
@@ -457,7 +448,8 @@ public class SnakeView extends Application implements IView {
         M_SnakeFood = new SnakeFood();
         M_SnakeFood.drawFruit(m_FoodCanvas);
 
-        M_Timeline = new Timeline(new KeyFrame(Duration.millis((double) 200),
+        // Define the timeline that controlls how the snake moves.
+        M_Timeline = new Timeline(new KeyFrame(Duration.millis(200),
                 event -> {
                     refreshSnake();
                     m_Controller.moveSnake();
@@ -484,33 +476,8 @@ public class SnakeView extends Application implements IView {
 
     private void setSettingsScene(){
         // Initialise the menu scene and stack pane.
-        StackPane settingsPane = new StackPane();
-        Scene settingsScene = new Scene(settingsPane, m_Controller.m_Model.getWidth(),
-                m_Controller.m_Model.getHeight());
-        // Add the CSS to the scene.
-        settingsScene.getStylesheets().add(getClass().getResource
-                ("/SnakeStyle.css").toExternalForm());
-
-        // Add an image view to the pane
-        ImageView imageView = new ImageView();
-        // Set the background of the image.
-        this.setBackgroundImage(imageView, "jungle-background");
-        // Add the background to the pane.
-        settingsPane.getChildren().add(imageView);
-        // Create a transparent VBox that goes over the top of the jungle
-        // image so that it isnt so glaring.
-        VBox darkBox = new VBox(10);
-        // Set the box background to be transparent black.
-        darkBox.setStyle("-fx-background-color: rgba(0, 0, 0, 0.6);");
-        settingsPane.getChildren().add(darkBox);
-        // New label for the settings screen
-        Label settingsLabel = new Label("Settings");
-        settingsLabel.getStyleClass().add("label-with-padding");
-        settingsLabel.setStyle("-fx-text-fill: white;"); // Set the text to be white.
-        // Set the position of the label
-        StackPane.setAlignment(settingsLabel, javafx.geometry.Pos.TOP_CENTER);
-        settingsPane.getChildren().add(settingsLabel);
-        settingsLabel.setTranslateY(50);
+        Scene settingsScene = this.initialiseMenuScreen("Settings");
+        StackPane settingsPane = this.M_DefaultPane;
 
         // Create a label to display the slider value
         Label volumeLevelLabel = new Label("Volume: " + (int)(this.M_MusicVolume * 100) + "%");
@@ -593,5 +560,170 @@ public class SnakeView extends Application implements IView {
         // Set the scene and show the page.
         M_PrimaryStage.setScene(settingsScene);
         M_PrimaryStage.show();
+    }
+    private void setSelectScene(){
+        // Initialise the menu scene and stack pane.
+        Scene mapSelectScene = this.initialiseMenuScreen("Map Select");
+        StackPane mapSelectPane = this.M_DefaultPane;
+
+        // Create a button that returns to the main menu.
+        Button menuButton = new Button("Back");
+        // Set what happens when button is clicked.
+        menuButton.setOnAction(event -> {
+            // Go to the menu
+            this.setMenuScene();
+        });
+        // Add styling and set location
+        menuButton.getStyleClass().add("snake-button");
+        // Set the size of the
+        menuButton.setMinHeight((int)(m_Controller.m_Model.getHeight() / 9));
+        menuButton.setMinWidth((int)(m_Controller.m_Model.getWidth() / 7));
+
+        menuButton.setMaxHeight((int)(m_Controller.m_Model.getHeight() / 9));
+        menuButton.setMaxWidth((int)(m_Controller.m_Model.getWidth() / 7));
+
+        // Create a button that returns to the main menu.
+        Button startButton = new Button("Start Game!");
+        // Set what happens when button is clicked.
+        startButton.setOnAction(event -> {
+            // Set the new scene
+            this.setGameScene();
+            // Reset the game to default.
+            m_Controller.restartGame();
+        });
+        // Add styling and set location
+        startButton.getStyleClass().add("snake-button");
+        // Set the size of the
+        startButton.setMinHeight((int)(m_Controller.m_Model.getHeight() / 9));
+        startButton.setMinWidth((int)(m_Controller.m_Model.getWidth() / 7));
+
+        startButton.setMaxHeight((int)(m_Controller.m_Model.getHeight() / 9));
+        startButton.setMaxWidth((int)(m_Controller.m_Model.getWidth() / 7));
+
+        Label selectLabel = new Label("Selected: Grassy Plains");
+        selectLabel.getStyleClass().add("label-with-padding");
+        selectLabel.setStyle("-fx-text-fill: WHITE; -fx-font-size: 20;");
+        // Create a Rectangle for an outline that is slightly
+        // bigger than the image view.
+        Rectangle selectOutline = new Rectangle(
+                (int)(m_Controller.m_Model.getWidth() / 4) + 20,
+                (int)(m_Controller.m_Model.getHeight() / 4) + 20
+        );
+        selectOutline.setFill(null); // No fill
+        selectOutline.setStroke(Color.WHITE); // Set the color of the outline
+        selectOutline.setStrokeWidth(5);
+
+
+        ImageView mapSelectCloud = new ImageView();
+        this.setBackgroundImage(mapSelectCloud, "cloud-background");
+        // Set the size of the image view.
+        mapSelectCloud.setFitHeight((int)(m_Controller.m_Model.getHeight() / 4));
+        mapSelectCloud.setFitWidth((int)(m_Controller.m_Model.getWidth() / 4));
+        // Set an event handler for the click event
+        mapSelectCloud.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                M_BackgroundImage = SnakeImageUtil.getImage("cloud-background");
+                selectOutline.setTranslateX(-275);
+                selectLabel.setTranslateX(-275);
+                selectLabel.setText("Selected: Sky High");
+            }
+        });
+
+        ImageView mapSelectGrass = new ImageView();
+        this.setBackgroundImage(mapSelectGrass, "grass-background");
+        // Set the size of the image view.
+        mapSelectGrass.setFitHeight((int)(m_Controller.m_Model.getHeight() / 4));
+        mapSelectGrass.setFitWidth((int)(m_Controller.m_Model.getWidth() / 4));
+
+        mapSelectGrass.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                M_BackgroundImage = SnakeImageUtil.getImage("grass-background");
+                selectOutline.setTranslateX(0);
+                selectLabel.setTranslateX(0);
+                selectLabel.setText("Selected: Grassy Plains");
+            }
+        });
+
+        ImageView mapSelectOcean = new ImageView();
+        this.setBackgroundImage(mapSelectOcean, "ocean-background");
+        // Set the size of the image view.
+        mapSelectOcean.setFitHeight((int)(m_Controller.m_Model.getHeight() / 4));
+        mapSelectOcean.setFitWidth((int)(m_Controller.m_Model.getWidth() / 4));
+
+        mapSelectOcean.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                M_BackgroundImage = SnakeImageUtil.getImage("ocean-background");
+                selectOutline.setTranslateX(275);
+                selectLabel.setTranslateX(275);
+                selectLabel.setText("Selected: Ocean Dive");
+            }
+        });
+
+        // Add to the pane.
+        mapSelectPane.getChildren().addAll(
+                menuButton, mapSelectCloud, mapSelectGrass,
+                mapSelectOcean, selectOutline, selectLabel,
+                startButton
+        );
+        // Set the locations of the elements.
+        menuButton.setTranslateY(225);
+        menuButton.setTranslateX(-100);
+        startButton.setTranslateY(225);
+        startButton.setTranslateX(100);
+        mapSelectCloud.setTranslateX(-275);
+        mapSelectGrass.setTranslateX(0);
+        mapSelectOcean.setTranslateX(275);
+        selectLabel.setTranslateY(-100);
+
+
+        // Set the scene and show the page.
+        M_PrimaryStage.setScene(mapSelectScene);
+        M_PrimaryStage.show();
+    }
+
+    /**
+     * Initialises a default menu screen.
+     * @param title Title you want at the top of the screen.
+     * @return Initialised Screen.
+     */
+    private Scene initialiseMenuScreen(String title){
+        // Initialise the menu scene and stack pane.
+        M_DefaultPane = new StackPane();
+        Scene defaultScene = new Scene(M_DefaultPane, m_Controller.m_Model.getWidth(),
+                m_Controller.m_Model.getHeight());
+        // Add the CSS to the scene.
+        defaultScene.getStylesheets().add(getClass().getResource
+                ("/SnakeStyle.css").toExternalForm());
+
+        // Add an image view to the pane
+        ImageView imageView = new ImageView();
+        // Set the background of the image.
+        this.setBackgroundImage(imageView, "jungle-background");
+
+        imageView.setFitHeight((int)(m_Controller.m_Model.getHeight()));
+        imageView.setFitWidth((int)(m_Controller.m_Model.getWidth()));
+        // Add the background to the pane.
+        M_DefaultPane.getChildren().add(imageView);
+        // Create a transparent VBox that goes over the top of the jungle
+        // image so that it isnt so glaring.
+        VBox darkBox = new VBox(10);
+        // Set the box background to be transparent black.
+        darkBox.setStyle("-fx-background-color: rgba(0, 0, 0, 0.6);");
+        M_DefaultPane.getChildren().add(darkBox);
+        // New label with the specified text.
+        M_DefaultLabel = new Label(title);
+        // Add the style to the text.
+        M_DefaultLabel.getStyleClass().add("label-with-padding");
+        // Set the text to be white.
+        M_DefaultLabel.setStyle("-fx-text-fill: white;");
+        // Set the position of the label
+        StackPane.setAlignment(M_DefaultLabel, Pos.TOP_CENTER);
+        M_DefaultPane.getChildren().add(M_DefaultLabel);
+        M_DefaultLabel.setTranslateY(50);
+        // Return the initialised scene to be used.
+        return defaultScene;
     }
 }

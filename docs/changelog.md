@@ -163,3 +163,15 @@
 ### 12/12/23
 - Created spritesheet for Fruit and Snake assets.
 - Added Leaderboard button to main menu.
+- Added method to view, setSelectScene.
+- Added method, initialiseMenuScreen, to reduce duplicate code. This method initialises a default screen for menu pages.
+- Updated View methods to use this new method.
+- Added class variables, M_DefaultPane, M_DefaultLabel to allow control of the label and stackpane after its addition in the method.
+- Added new background images "ocean-background", "grass-background"
+- Updated SnakeImageUtil.
+- Added other ImageViews to the screen.
+- Added a selection message and a border around the selected map.
+- Converted to 3000x2000 Resolution.
+- Added code that resizes the backgrounds so they work correctly.
+- Implemented Map Select Screen so it is now functional.
+- Implemented Speed Increase mechanics, snake speed increases with each fruit consumed.
