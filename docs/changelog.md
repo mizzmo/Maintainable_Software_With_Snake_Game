@@ -177,3 +177,6 @@
 - Implemented Speed Increase mechanics, snake speed increases with each fruit consumed.
 - Added leaderboard page, method "setLeaderboardScene".
 - Implemented setLeaderboardScene.
+- Add CSS for leaderboard entries.
+- Added code for a text box to enter a username.
+- Added a button in the end game that saves the entry of the text box into a txt file and saves the score next to it.

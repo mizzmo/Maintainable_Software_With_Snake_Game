@@ -23,7 +23,11 @@ import javafx.scene.image.Image;
 import javafx.util.Duration;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
-import java.awt.*;
+import javafx.scene.control.TextField;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
 
 public class SnakeView extends Application implements IView {
@@ -242,6 +246,22 @@ public class SnakeView extends Application implements IView {
             // Go to the menu
             this.setMenuScene();
         });
+        // Create a new Text Field that the user can type in
+        TextField enterNameField = new TextField();
+        // Set the initial text in the box.
+        enterNameField.setPromptText("Enter Username: ");
+        // Set the size of the text bar
+        enterNameField.setMinSize((int)(m_Controller.m_Model.getWidth() / 3), (int)(m_Controller.m_Model.getHeight() / 15));
+        enterNameField.setMaxSize((int)(m_Controller.m_Model.getWidth() / 3), (int)(m_Controller.m_Model.getHeight() / 15));
+        // Add a button to save the entry to the text file.
+        Button saveButton = new Button("Confirm");
+        saveButton.setOnAction(event -> {
+            // Gets the user entry.
+            String userInput = enterNameField.getText();
+            // Saves the username and score to the text file.
+            saveToTextFile(userInput + "," + m_Controller.m_Model.getScore());
+        });
+
         // Set the location of the buttons.
         StackPane.setAlignment(M_RestartButton, javafx.geometry.Pos.TOP_CENTER);
         StackPane.setAlignment(M_MenuReturnButton, javafx.geometry.Pos.TOP_CENTER);
@@ -249,7 +269,7 @@ public class SnakeView extends Application implements IView {
         M_RestartButton.getStyleClass().add("snake-button");
         M_MenuReturnButton.getStyleClass().add("snake-button");
         // Add new buttons to the screen.
-        M_SnakePane.getChildren().addAll(M_RestartButton, M_MenuReturnButton);
+        M_SnakePane.getChildren().addAll(M_RestartButton, M_MenuReturnButton, enterNameField, saveButton);
         // Set the position of the buttons.
         M_RestartButton.setTranslateY(375);
         M_MenuReturnButton.setTranslateY(425);
@@ -259,7 +279,7 @@ public class SnakeView extends Application implements IView {
         // Update the text.
         M_ScoreLabel.setText("Final Score: " + m_Controller.m_Model.getScore());
 
-        M_CountDownLabel = new Label("Restart in: 5");
+        M_CountDownLabel = new Label("Restart in: 10");
         M_CountDownLabel.getStyleClass().add("label-with-padding");
         // Set alignment of the label within the StackPane
         StackPane.setAlignment(M_CountDownLabel, javafx.geometry.Pos.TOP_CENTER);
@@ -268,10 +288,19 @@ public class SnakeView extends Application implements IView {
         // Start the countdown timer.
         this.updateTimer();
     }
+    // Write the score to a text file.
+    private void saveToTextFile(String content) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("comp2013/output/highScores.txt", true))) {
+            writer.write(content + System.lineSeparator());
+            System.out.println("Text saved to file!");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     private void updateTimer() {
         // Countdown to restart
-        M_TimerLength = 5;
+        M_TimerLength = 10;
         Timeline timeline = new Timeline();
         timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1), event -> {
             Platform.runLater(() -> {
@@ -287,7 +316,7 @@ public class SnakeView extends Application implements IView {
                 }
             });
         }));
-        timeline.setCycleCount(6);
+        timeline.setCycleCount(11);
         timeline.play();
     }
     @Override
