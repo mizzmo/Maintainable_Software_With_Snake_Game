@@ -173,3 +173,5 @@
 - Added a selection message and a border around the selected map.
 - Converted to 3000x2000 Resolution.
 - Added code that resizes the backgrounds so they work correctly.
+- Implemented Map Select Screen so it is now functional.
+- Implemented Speed Increase mechanics, snake speed increases with each fruit consumed.

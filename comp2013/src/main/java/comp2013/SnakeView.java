@@ -49,6 +49,8 @@ public class SnakeView extends Application implements IView {
         // Set the controllers view to be this.
         m_Controller.setView(this);
 
+        M_BackgroundImage = SnakeImageUtil.getImage("grass-background");
+
     }
 
     public static SnakeView getInstance() {
@@ -63,6 +65,15 @@ public class SnakeView extends Application implements IView {
      // Refreshes the snake at its new location.
     @Override
     public void refreshSnake() {
+        // Sets the time interval to 200 miliseconds;
+        double timeRate = 1;
+        // Time interval decreases as the user gets a higher score.
+        if(m_Controller.m_Model.getScore() > 0){
+            timeRate *= 1 + (double) m_Controller.m_Model.getScore() / 1000;
+            // Update the speed of the Timeline
+            M_Timeline.setRate(timeRate);
+        }
+
         // Get the list of snake body parts
         List<SnakeBody> snakeBody = m_Controller.m_Snake.m_SnakeBody;
         // Tells the loop if it needs to add a new segment or not.
@@ -280,6 +291,7 @@ public class SnakeView extends Application implements IView {
     }
     @Override
     public void restartGame(){
+        M_Timeline.stop();
         // Set the timer to -1 so that the timeline loop doesnt do anything.
         M_TimerLength = -1;
         // Remove the game over labels from the screen.
@@ -327,10 +339,7 @@ public class SnakeView extends Application implements IView {
         // Button to start the game.
         Button startButton = new Button("Start Game");
         startButton.setOnAction(event -> {
-            // Set the new scene
-            this.setGameScene();
-            // Reset the game to default.
-            m_Controller.restartGame();
+            this.setSelectScene();
         });
         // Add styling and set location
         startButton.getStyleClass().add("snake-button");
@@ -357,7 +366,7 @@ public class SnakeView extends Application implements IView {
         // the high score page.
         Button leaderboardButton = new Button("Leaderboard");
         leaderboardButton.setOnAction(event -> {
-            this.setSelectScene();
+            return;
         });
         // Add styling and set location
         leaderboardButton.getStyleClass().add("snake-button");
@@ -439,7 +448,8 @@ public class SnakeView extends Application implements IView {
         M_SnakeFood = new SnakeFood();
         M_SnakeFood.drawFruit(m_FoodCanvas);
 
-        M_Timeline = new Timeline(new KeyFrame(Duration.millis((double) 200),
+        // Define the timeline that controlls how the snake moves.
+        M_Timeline = new Timeline(new KeyFrame(Duration.millis(200),
                 event -> {
                     refreshSnake();
                     m_Controller.moveSnake();
