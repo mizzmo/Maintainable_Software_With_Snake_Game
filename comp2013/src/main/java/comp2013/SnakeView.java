@@ -12,6 +12,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -366,7 +367,7 @@ public class SnakeView extends Application implements IView {
         // the high score page.
         Button leaderboardButton = new Button("Leaderboard");
         leaderboardButton.setOnAction(event -> {
-            return;
+            this.setLeaderboardScene();
         });
         // Add styling and set location
         leaderboardButton.getStyleClass().add("snake-button");
@@ -681,6 +682,60 @@ public class SnakeView extends Application implements IView {
 
         // Set the scene and show the page.
         M_PrimaryStage.setScene(mapSelectScene);
+        M_PrimaryStage.show();
+    }
+
+    private void setLeaderboardScene(){
+        // Initialise the leaderboard scene and stack pane.
+        Scene leaderboardScene = this.initialiseMenuScreen("Leaderboard!");
+        StackPane leaderboardPane = this.M_DefaultPane;
+
+        // Create a button that returns to the main menu.
+        Button menuButton = new Button("Back");
+        // Set what happens when button is clicked.
+        menuButton.setOnAction(event -> {
+            // Go to the menu
+            this.setMenuScene();
+        });
+        // Add styling and set location
+        menuButton.getStyleClass().add("snake-button");
+        // Set the size of the
+        menuButton.setMinHeight((int)(m_Controller.m_Model.getHeight() / 9));
+        menuButton.setMinWidth((int)(m_Controller.m_Model.getWidth() / 7));
+
+        menuButton.setMaxHeight((int)(m_Controller.m_Model.getHeight() / 9));
+        menuButton.setMaxWidth((int)(m_Controller.m_Model.getWidth() / 7));
+        // Create a header label
+        Label boardHeader = new Label("Name                                     Score");
+        // Add some styling
+        boardHeader.getStyleClass().add("label-with-padding");
+        boardHeader.setStyle("-fx-text-fill: BLACK");
+        // Create a stack pane to add leaderboard elements to
+        VBox leaderboard = new VBox();
+        leaderboard.getChildren().addAll(boardHeader);
+        leaderboard.setAlignment(Pos.CENTER); // Center items horizontally
+        leaderboard.setSpacing(10); // Set spacing between items
+        leaderboard.setStyle("-fx-background-color: white;");
+
+        // Add some sample leaderboard items
+        for (int i = 1; i <= 20; i++) {
+            Label leaderboardItem = new Label("Player:" + i + ":                                       Score " + (1000 - i * 50));
+            leaderboardItem.getStyleClass().add("leaderboard-item");
+            leaderboard.getChildren().add(leaderboardItem);
+        }
+
+        ScrollPane scrollingBoard = new ScrollPane(leaderboard);
+        // Set the background of the ScrollPane to be transparent
+        scrollingBoard.setStyle("-fx-background-color: white;");
+        scrollingBoard.setMinSize((double) m_Controller.m_Model.getWidth() / 2, (double) m_Controller.m_Model.getHeight() / 2);
+        scrollingBoard.setMaxSize((double) m_Controller.m_Model.getWidth() / 2, (double) m_Controller.m_Model.getHeight() / 1.5);
+        leaderboardPane.getChildren().addAll(scrollingBoard, menuButton);
+
+
+        menuButton.setTranslateY(250);
+
+
+        M_PrimaryStage.setScene(leaderboardScene);
         M_PrimaryStage.show();
     }
 

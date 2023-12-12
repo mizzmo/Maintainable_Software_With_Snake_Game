@@ -10,6 +10,13 @@
     -fx-text-fill: red;
 }
 
+.leaderboard-item{
+    -fx-padding: 10; /* Add Padding */
+    -fx-font-size: 20; /* Change font size */
+    -fx-font-family: "Calibri"; /* Change font to Calibri */
+    -fx-text-fill: BLACK;
+}
+
 .snake-title-label {
     -fx-font-size: 60; /* Change font size */
     -fx-text-fill: white; /* Set text to white */
@@ -54,4 +61,5 @@
     -fx-padding: 10 15 13 15; /* Top, Right, Bottom, Left padding */
     -fx-background-insets: 2 0 0 0, 2 0 3 0, 2 0 4 0, 2 0 5 0; /* Insets for background layers */
 }
+
 
