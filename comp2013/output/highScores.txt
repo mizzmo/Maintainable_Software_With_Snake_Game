@@ -1,2 +1,5 @@
-
-Mizzmo!!,200
+Bingo,222
+Bongo,555
+Bish,444
+Bash,111
+Bosh,54

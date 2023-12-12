@@ -25,9 +25,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
 import javafx.scene.control.TextField;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
 
 public class SnakeView extends Application implements IView {
@@ -815,7 +813,7 @@ public class SnakeView extends Application implements IView {
         Scene leaderboardScene = this.initialiseMenuScreen
                 ("Leaderboard!");
         StackPane leaderboardPane = this.M_DefaultPane;
-
+        Label leaderboardLabel = M_DefaultLabel;
         // Create a button that returns to the main menu.
         Button menuButton = new Button("Back");
         // Set what happens when button is clicked.
@@ -837,41 +835,76 @@ public class SnakeView extends Application implements IView {
                 (m_Controller.m_Model.getWidth() / 7));
         // Create a header label
         Label boardHeader = new Label
-                ("Name                                     Score");
+                ("Name          Score");
         // Add some styling
         boardHeader.getStyleClass().add("label-with-padding");
         boardHeader.setStyle("-fx-text-fill: BLACK");
-        // Create a stack pane to add leaderboard elements to
+        // Create a VBox to add leaderboard elements to
         VBox leaderboard = new VBox();
+        // Set the size of the Vbox
+        leaderboard.setMinSize
+                ((double) m_Controller.m_Model.getWidth() / 2,
+                        (double) m_Controller.m_Model.getHeight() / 1.5);
         leaderboard.getChildren().addAll(boardHeader);
         leaderboard.setAlignment(Pos.CENTER); // Center items horizontally
         leaderboard.setSpacing(10); // Set spacing between items
         leaderboard.setStyle("-fx-background-color: white;");
 
-        // Add some sample leaderboard items
-        for (int i = 1; i <= 20; i++) {
-            Label leaderboardItem = new Label
-                    ("Player:" + i +
-                            ":                                       " +
-                            "Score " + (1000 - i * 50));
-            leaderboardItem.getStyleClass().add("leaderboard-item");
-            leaderboard.getChildren().add(leaderboardItem);
+        // Create a Rectangle with stroke for the VBox
+        Rectangle scrollPaneBorder = new Rectangle();
+        scrollPaneBorder.setStroke(Color.BLACK); // Set the stroke color
+        scrollPaneBorder.setFill(null); // Make the fill transparent
+        scrollPaneBorder.setStrokeWidth(5); // Set the stroke width
+        // Set the size of the rectangle
+        scrollPaneBorder.setWidth((double) m_Controller.m_Model.getWidth() / 2);
+        scrollPaneBorder.setHeight((double) m_Controller.m_Model.getHeight() / 1.5);
+
+
+        try (BufferedReader reader = new BufferedReader
+                (new FileReader("comp2013/output/highScores.txt"))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                // Splits the data based on the comma.
+                String[] splitReading = line.split(",");
+                // Print the data to the VBox without any whitespace
+                // Also truncate the length of the string so that
+                // only 30 chars can be used.
+                String username;
+                // If the length is more than the maximum
+                if(splitReading[0].trim().length() > 30) {
+                    // Truncate
+                    username = splitReading[0].trim().substring(0, 30);
+                }
+                // Else just store it trimmed as is.
+                else{ username = splitReading[0].trim();}
+                // Add it to a label and add that to the scoreboard
+                Label leaderboardItem = new Label
+                        ( username + "        " + splitReading[1]);
+                // Add some styling
+                leaderboardItem.getStyleClass().add("leaderboard-item");
+                // Add to scoreboard
+                leaderboard.getChildren().add(leaderboardItem);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
         ScrollPane scrollingBoard = new ScrollPane(leaderboard);
         // Set the background of the ScrollPane to be transparent
         scrollingBoard.setStyle("-fx-background-color: white;");
+        // Make it so you cant scroll horizontally
+        scrollingBoard.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollingBoard.setMinSize
                 ((double) m_Controller.m_Model.getWidth() / 2,
                         (double) m_Controller.m_Model.getHeight() / 2);
         scrollingBoard.setMaxSize
                 ((double) m_Controller.m_Model.getWidth() / 2,
                         (double) m_Controller.m_Model.getHeight() / 1.5);
-        leaderboardPane.getChildren().addAll(scrollingBoard, menuButton);
+        leaderboardPane.getChildren().addAll(scrollingBoard, menuButton, scrollPaneBorder);
 
 
         menuButton.setTranslateY(250);
-
+        leaderboardLabel.setTranslateY(25);
 
         M_PrimaryStage.setScene(leaderboardScene);
         M_PrimaryStage.show();

@@ -182,3 +182,6 @@
 - Added a button in the end game that saves the entry of the text box into a txt file and saves the score next to it.
 - Updated View class so that line length is shorter than 80 characters.
 - Added styling to the text field and button.
+- Implementing functionality that reads the text file, parses the output and adds it to the scoreboard.
+- Add a border to the scoreboard.
+- Move the header into a better position.
