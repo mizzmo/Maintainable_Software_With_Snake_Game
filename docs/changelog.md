@@ -159,3 +159,6 @@
 - Implemented SnakeLength slider.
 - Reworked how the snake is build and refereshed to suit this new slider.
 - Added InitialLength to Model.
+
+### 12/12/23
+- Created spritesheet for Fruit and Snake assets.
