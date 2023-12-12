@@ -141,3 +141,25 @@
 - Added UI elements to the menu. 
 - Added a settings button and a exit button.
 - Added CSS to customise button size.
+- Added new class SnakeMusicUtil to handle music files going forward.
+- Added music to the menu.
+- Added methods to SnakeMusic, "setVolume, volumeMute, increaseVolume, decreaseVolume, pauseMusic".
+- Reworked stopMusic so that it disposes of the old media player once done.
+- Fixed a bug with restartGame where it would interfere with the menu music.
+
+### 11/12/23
+- Reworked how the controller restartGame method works. No longer creates a new model.
+- Removed the finished variable from model.
+- Removed getters and setters for finished variable from model.
+- Added a slider that changes the volume to the settings page.
+- Updated setVoulme type to double from float.
+- Fixed bug with Volume slider where the volume would reset when you switch scenes.
+- Added new method to SnakeMusic, "getVolume".
+- Added SnakeLength slider.
+- Implemented SnakeLength slider.
+- Reworked how the snake is build and refereshed to suit this new slider.
+- Added InitialLength to Model.
+
+### 12/12/23
+- Created spritesheet for Fruit and Snake assets.
+- Added Leaderboard button to main menu.

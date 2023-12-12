@@ -40,6 +40,12 @@ public interface IModel {
     void setLength(int m_Length);
 
     /**
+     * Sets the initial length of the snake to be referred back to
+     * @param length Length of the snake.
+     */
+    void setInitialLength(int length);
+
+    /**
      * Adds one to the length of the snake.
      */
     void incrementLength();
@@ -66,17 +72,7 @@ public interface IModel {
      * @param m_Width Width of the screen in pixels
      */
     void setWidth(int m_Width);
-    /**
-     * Check if the game is over or not.
-     * @return true: Game has finished, False: Game is in progress.
-     */
-    boolean hasFinished();
 
-    /**
-     * Set the game to be finished
-     * @param m_Finished stores if the game is over.
-     */
-    void setFinished(boolean m_Finished);
 
     /**
      * Restart the game from the beginning.

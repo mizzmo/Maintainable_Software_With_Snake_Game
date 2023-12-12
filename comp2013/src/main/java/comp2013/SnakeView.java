@@ -5,12 +5,16 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
+import javafx.scene.control.SplitPane;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -22,9 +26,8 @@ public class SnakeView extends Application implements IView {
     // Store references to the controller
     public SnakeController m_Controller;
     private Stage M_PrimaryStage;
-    private Scene M_SnakeScene, M_MenuScene;
     public SnakeMusic m_SnakeMusic;
-    private StackPane M_SnakePane, M_MenuPane;
+    private StackPane M_SnakePane;
     public Canvas m_SnakeCanvas;
     public Canvas m_FoodCanvas;
     private Image M_SnakeHeadImg;
@@ -37,8 +40,9 @@ public class SnakeView extends Application implements IView {
     // Used if the restart button has been pressed,
     // so the timeline doesnt call restart over and over.
     private static final int NO_RESTART = -1;
-
     private static SnakeView m_Instance;
+    private double M_MusicVolume = 0.2;
+
     public SnakeView() {
         // Constructor gets the instance of controller.
         m_Controller = SnakeController.getInstance();
@@ -82,7 +86,6 @@ public class SnakeView extends Application implements IView {
         gc.drawImage(M_SnakeHeadImg, snakeBody.getFirst().getX(), snakeBody.getFirst().getY());
         // Draw the rest of the body.
         for (int i = 1; i < m_Controller.m_Model.getLength(); i++) {
-
             // Draws the body at the new location
             gc.drawImage(M_SnakeBodyImg, snakeBody.get(i).getX(), snakeBody.get(i).getY());
             if(i == m_Controller.m_Model.getLength()-1 && addSegment){
@@ -110,7 +113,7 @@ public class SnakeView extends Application implements IView {
     }
 
     @Override
-    public void buildSnake(int length){
+    public void buildSnake(){
         // Get the center of the screen.
         int canvasCenterHorizontal = m_Controller.m_Model.getWidth() / 2;
         int canvasCenterVertical = m_Controller.m_Model.getHeight() / 2;
@@ -121,6 +124,7 @@ public class SnakeView extends Application implements IView {
         // Coordinate value to add onto the coordinates
         int horizontalAdd = 25;
         int verticalAdd = 25;
+        int length = m_Controller.m_Model.getLength();
 
         // Get the image of the snake head.
         this.changeHeadDirection();
@@ -221,6 +225,9 @@ public class SnakeView extends Application implements IView {
         M_MenuReturnButton = new Button("Main Menu");
         // Set what happens when button is clicked.
         M_MenuReturnButton.setOnAction(event -> {
+            // Stop the timeline
+            M_Timeline.stop();
+            // Go to the menu
             this.setMenuScene();
         });
         // Set the location of the buttons.
@@ -239,8 +246,6 @@ public class SnakeView extends Application implements IView {
         M_ScoreLabel.setTranslateY(275);
         // Update the text.
         M_ScoreLabel.setText("Final Score: " + m_Controller.m_Model.getScore());
-        // Stop the music playing after its last loop.
-        m_SnakeMusic.setLooping(false);
 
         M_CountDownLabel = new Label("Restart in: 5");
         M_CountDownLabel.getStyleClass().add("label-with-padding");
@@ -287,25 +292,36 @@ public class SnakeView extends Application implements IView {
         // Update its text back to default.
         M_ScoreLabel.setText("Score: " + m_Controller.m_Model.getScore());
         // Build the snake again.
-        this.buildSnake(m_Controller.m_Model.getLength());
+        this.buildSnake();
         // Create a new food and draw it.
         M_SnakeFood = new SnakeFood();
         M_SnakeFood.drawFruit(m_FoodCanvas);
-        // Start the timeline again.
-        M_Timeline.play();
-        // Play the music again from the beginning.
-        m_SnakeMusic.playMusic(0);
         // Play the music on a loop.
         m_SnakeMusic.setLooping(true);
+        // Start the timeline again.
+        M_Timeline.play();
     }
 
     private void setMenuScene(){
+        // Stops music if there is any, and plays a new one.
+        if(m_SnakeMusic != null) {
+            m_SnakeMusic.stopMusic();
+        }
+
+        m_SnakeMusic = new SnakeMusic(SnakeMusicUtil.getMedia("retroFunk"));
+        m_SnakeMusic.playMusic();
+
+        // Set the volume
+        m_SnakeMusic.setVolume(this.M_MusicVolume);
+        // Set the music to loop
+        m_SnakeMusic.setLooping(true);
+
         // Initialise the menu scene and stack pane.
-        M_MenuPane = new StackPane();
-        M_MenuScene = new Scene(M_MenuPane, m_Controller.m_Model.getWidth(),
+        StackPane menuPane = new StackPane();
+        Scene menuScene = new Scene(menuPane, m_Controller.m_Model.getWidth(),
                 m_Controller.m_Model.getHeight());
         // Add the CSS to the scene.
-        M_MenuScene.getStylesheets().add(getClass().getResource
+        menuScene.getStylesheets().add(getClass().getResource
                 ("/SnakeStyle.css").toExternalForm());
 
         // Add an image view to the pane
@@ -313,20 +329,20 @@ public class SnakeView extends Application implements IView {
         // Set the background of the image.
         this.setBackgroundImage(imageView, "jungle-background");
         // Add the background to the pane.
-        M_MenuPane.getChildren().add(imageView);
+        menuPane.getChildren().add(imageView);
         // Create a transparent VBox that goes over the top of the jungle
         // image so that it isnt so glaring.
         VBox darkBox = new VBox();
         // Set the box background to be transparent black.
         darkBox.setStyle("-fx-background-color: rgba(0, 0, 0, 0.6);");
-        M_MenuPane.getChildren().add(darkBox);
+        menuPane.getChildren().add(darkBox);
         // New label for the title screen
         Label titleLabel = new Label("Snake!");
         titleLabel.getStyleClass().add("label-with-padding");
         titleLabel.getStyleClass().add("snake-title-label");
         // Set the position of the label
-        StackPane.setAlignment(titleLabel, javafx.geometry.Pos.TOP_CENTER);
-        M_MenuPane.getChildren().add(titleLabel);
+        StackPane.setAlignment(titleLabel, Pos.TOP_CENTER);
+        menuPane.getChildren().add(titleLabel);
         titleLabel.setTranslateY(100);
 
         // Button to start the game.
@@ -340,23 +356,37 @@ public class SnakeView extends Application implements IView {
         // Add styling and set location
         startButton.getStyleClass().add("snake-button");
         startButton.getStyleClass().add("menu-button-size");
-        StackPane.setAlignment(startButton, javafx.geometry.Pos.TOP_CENTER);
+        StackPane.setAlignment(startButton, Pos.TOP_CENTER);
         // Add to pane
-        M_MenuPane.getChildren().add(startButton);
+        menuPane.getChildren().add(startButton);
         startButton.setTranslateY(225);
 
         // Create a settings button to access the games settings.
         Button settingsButton = new Button("Settings");
         settingsButton.setOnAction(event -> {
-            return;
+            this.setSettingsScene();
         });
         // Add styling and set location
         settingsButton.getStyleClass().add("snake-button");
         settingsButton.getStyleClass().add("menu-button-size");
-        StackPane.setAlignment(settingsButton, javafx.geometry.Pos.TOP_CENTER);
+        StackPane.setAlignment(settingsButton, Pos.TOP_CENTER);
         // Add to pane
-        M_MenuPane.getChildren().add(settingsButton);
-        settingsButton.setTranslateY(325);
+        menuPane.getChildren().add(settingsButton);
+        settingsButton.setTranslateY(375);
+
+        // Create a leaderboard button that takes you to
+        // the high score page.
+        Button leaderboardButton = new Button("Leaderboard");
+        leaderboardButton.setOnAction(event -> {
+            Platform.exit();
+        });
+        // Add styling and set location
+        leaderboardButton.getStyleClass().add("snake-button");
+        leaderboardButton.getStyleClass().add("menu-button-size");
+        StackPane.setAlignment(leaderboardButton, Pos.TOP_CENTER);
+        // Add to pane
+        menuPane.getChildren().add(leaderboardButton);
+        leaderboardButton.setTranslateY(300);
 
         // Create a exit button that exits the game.
         Button exitButton = new Button("Exit");
@@ -366,23 +396,28 @@ public class SnakeView extends Application implements IView {
         // Add styling and set location
         exitButton.getStyleClass().add("snake-button");
         exitButton.getStyleClass().add("menu-button-size");
-        StackPane.setAlignment(exitButton, javafx.geometry.Pos.TOP_CENTER);
+        StackPane.setAlignment(exitButton, Pos.TOP_CENTER);
         // Add to pane
-        M_MenuPane.getChildren().add(exitButton);
-        exitButton.setTranslateY(425);
+        menuPane.getChildren().add(exitButton);
+        exitButton.setTranslateY(450);
 
         // Set the scene and show the page.
-        M_PrimaryStage.setScene(M_MenuScene);
+        M_PrimaryStage.setScene(menuScene);
         M_PrimaryStage.show();
     }
     private void setGameScene(){
+        // Stop any music that is already playing.
+        if(m_SnakeMusic != null) {
+            m_SnakeMusic.stopMusic();
+        }
+
         M_SnakePane = new StackPane();
 
-        M_SnakeScene = new Scene(M_SnakePane, m_Controller.m_Model.getWidth(),
+        Scene m_SnakeScene = new Scene(M_SnakePane, m_Controller.m_Model.getWidth(),
                 m_Controller.m_Model.getHeight());
 
         // Load the CSS file
-        M_SnakeScene.getStylesheets().add(getClass().getResource
+        m_SnakeScene.getStylesheets().add(getClass().getResource
                 ("/SnakeStyle.css").toExternalForm());
 
         // Add an image view to the pane
@@ -417,7 +452,7 @@ public class SnakeView extends Application implements IView {
         M_SnakePane.getChildren().add(M_ScoreLabel);
 
         // Build the initial snake.
-        this.buildSnake(m_Controller.m_Model.getLength());
+        this.buildSnake();
         // Create a new food and draw it.
         M_SnakeFood = new SnakeFood();
         M_SnakeFood.drawFruit(m_FoodCanvas);
@@ -432,22 +467,131 @@ public class SnakeView extends Application implements IView {
         M_Timeline.play();
 
         // Create a new SnakeMusic to be used to play music.
-        m_SnakeMusic = new SnakeMusic(SnakeMusic.class.getResource("/sound/frogger.mp3").toString());
+        m_SnakeMusic = new SnakeMusic(SnakeMusicUtil.getMedia("frogger"));
         // Play the music
         m_SnakeMusic.playMusic();
+        // Set the volume
+        m_SnakeMusic.setVolume(this.M_MusicVolume);
         // Sets the music to loop until it is told otherwise.
         m_SnakeMusic.setLooping(true);
 
-        M_SnakeScene.setOnKeyPressed(event -> m_Controller.handleKeyPress(event.getCode()));
+        m_SnakeScene.setOnKeyPressed(event -> m_Controller.handleKeyPress(event.getCode()));
 
         // Set the scene and show the page.
-        M_PrimaryStage.setScene(M_SnakeScene);
+        M_PrimaryStage.setScene(m_SnakeScene);
         M_PrimaryStage.show();
     }
 
+    private void setSettingsScene(){
+        // Initialise the menu scene and stack pane.
+        StackPane settingsPane = new StackPane();
+        Scene settingsScene = new Scene(settingsPane, m_Controller.m_Model.getWidth(),
+                m_Controller.m_Model.getHeight());
+        // Add the CSS to the scene.
+        settingsScene.getStylesheets().add(getClass().getResource
+                ("/SnakeStyle.css").toExternalForm());
+
+        // Add an image view to the pane
+        ImageView imageView = new ImageView();
+        // Set the background of the image.
+        this.setBackgroundImage(imageView, "jungle-background");
+        // Add the background to the pane.
+        settingsPane.getChildren().add(imageView);
+        // Create a transparent VBox that goes over the top of the jungle
+        // image so that it isnt so glaring.
+        VBox darkBox = new VBox(10);
+        // Set the box background to be transparent black.
+        darkBox.setStyle("-fx-background-color: rgba(0, 0, 0, 0.6);");
+        settingsPane.getChildren().add(darkBox);
+        // New label for the settings screen
+        Label settingsLabel = new Label("Settings");
+        settingsLabel.getStyleClass().add("label-with-padding");
+        settingsLabel.setStyle("-fx-text-fill: white;"); // Set the text to be white.
+        // Set the position of the label
+        StackPane.setAlignment(settingsLabel, javafx.geometry.Pos.TOP_CENTER);
+        settingsPane.getChildren().add(settingsLabel);
+        settingsLabel.setTranslateY(50);
+
+        // Create a label to display the slider value
+        Label volumeLevelLabel = new Label("Volume: " + (int)(this.M_MusicVolume * 100) + "%");
+
+        // Create a horizontal slider
+        Slider volumeSlider = new Slider(0, 100, this.M_MusicVolume * 100); // min, max, initial value
+        volumeSlider.setShowTickMarks(true);
+
+        // Add a listener to respond to changes in the slider value and update the volume.
+        volumeSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+                volumeLevelLabel.setText(String.format("Volume: %.0f%%", newValue));
+                // Update the local variable so that all music is synced
+                this.M_MusicVolume = (double) newValue / 100;
+                // Update the music object itself
+                m_SnakeMusic.setVolume(((double)newValue / 100));
+
+        });
+
+        // Set the size of the slider.
+        volumeSlider.setMinHeight((int)(m_Controller.m_Model.getHeight() / 20));
+        volumeSlider.setMinWidth((int)(m_Controller.m_Model.getWidth() / 2));
+
+        volumeSlider.setMaxHeight((int)(m_Controller.m_Model.getHeight() / 20));
+        volumeSlider.setMaxWidth((int)(m_Controller.m_Model.getWidth() / 2));
+        // Add styling
+        volumeLevelLabel.getStyleClass().add("label-with-padding");
+        volumeLevelLabel.setStyle("-fx-text-fill: white;"); // Set the text to be white.
+
+        // Create a label to display the slider value
+        Label snakeLengthLabel = new Label("Snake Size: " + m_Controller.m_Model.getLength());
+
+        // Create a horizontal slider
+        Slider snakeLengthSlider = new Slider(2, 10, m_Controller.m_Model.getLength()); // min, max, initial value
+        snakeLengthSlider.setShowTickMarks(true);
+
+        // Add a listener to respond to changes in the slider value and update the volume.
+        snakeLengthSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            snakeLengthLabel.setText(String.format("Snake Size: %d", newValue.intValue()));
+            m_Controller.m_Model.setInitialLength(newValue.intValue());
+        });
+
+        // Set the size of the slider.
+        snakeLengthSlider.setMinHeight((int)(m_Controller.m_Model.getHeight() / 20));
+        snakeLengthSlider.setMinWidth((int)(m_Controller.m_Model.getWidth() / 2));
+
+        snakeLengthSlider.setMaxHeight((int)(m_Controller.m_Model.getHeight() / 20));
+        snakeLengthSlider.setMaxWidth((int)(m_Controller.m_Model.getWidth() / 2));
+        // Add styling
+        snakeLengthLabel.getStyleClass().add("label-with-padding");
+        snakeLengthLabel.setStyle("-fx-text-fill: white;"); // Set the text to be white.
 
 
 
+        // Create a button that returns to the main menu.
+        Button menuButton = new Button("Back");
+        // Set what happens when button is clicked.
+        menuButton.setOnAction(event -> {
+            // Go to the menu
+            this.setMenuScene();
+        });
+        // Add styling and set location
+        menuButton.getStyleClass().add("snake-button");
+        // Set the size of the
+        menuButton.setMinHeight((int)(m_Controller.m_Model.getHeight() / 9));
+        menuButton.setMinWidth((int)(m_Controller.m_Model.getWidth() / 7));
 
+        menuButton.setMaxHeight((int)(m_Controller.m_Model.getHeight() / 9));
+        menuButton.setMaxWidth((int)(m_Controller.m_Model.getWidth() / 7));
+        // Add to the pane.
+        settingsPane.getChildren().addAll(volumeLevelLabel, volumeSlider, snakeLengthLabel, snakeLengthSlider, menuButton);
 
+        volumeLevelLabel.setTranslateY(-110);
+        volumeSlider.setTranslateY(-75);
+
+        snakeLengthLabel.setTranslateY(0);
+        snakeLengthSlider.setTranslateY(50);
+
+        menuButton.setTranslateY(100);
+
+        // Set the scene and show the page.
+        M_PrimaryStage.setScene(settingsScene);
+        M_PrimaryStage.show();
+    }
 }

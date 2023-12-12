@@ -21,7 +21,35 @@ public interface IMusic {
      * Sets the song to loop infinitely.
      * @param loop True if music is looping, false to stop looping.
      */
-    public void setLooping(boolean loop);
+    void setLooping(boolean loop);
+
+    /**
+     * Set the volume to a specific value.
+     * @param newVolume The volume that you want to set to
+     *                  0 is off. 1 is full.
+     */
+    void setVolume(double newVolume);
+
+    /**
+     * Returns the current volume.
+     * @return Current volume of music.
+     */
+    double getVolume();
+    /**
+     * Increase the volume by a fixed amount.
+     */
+
+    void increaseVolume();
+
+    /**
+     * Decrease the volume by a fixed amount
+     */
+    void decreaseVolume();
+
+    /**
+     * Set the volume to 0.
+     */
+    void muteVolume();
 
     /**
      * Plays the currently loaded song.
@@ -35,8 +63,12 @@ public interface IMusic {
     void playMusic(int timeStamp);
 
     /**
-     * Stops the music from playing
-     * @return Timestamp of the song that was playing
+     * Pause the song.
+     */
+    void pauseMusic();
+
+    /**
+     * Stops the music from playing, disposes of the MediaPlayer
      */
     void stopMusic();
 }

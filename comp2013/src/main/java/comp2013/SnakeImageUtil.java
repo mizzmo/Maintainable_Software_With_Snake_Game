@@ -1,10 +1,14 @@
 package comp2013;
 
 import javafx.scene.image.Image;
+import javafx.scene.media.Media;
 
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Contains a hashmap that holds all of the image files for the game.
+ */
 public class SnakeImageUtil
 {
 	/**

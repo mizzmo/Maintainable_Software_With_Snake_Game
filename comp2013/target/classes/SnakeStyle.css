@@ -21,7 +21,7 @@
     -fx-min-width: 150px; /* Set the minimum width */
     -fx-min-height: 60px; /* Set the minimum height */
     -fx-pref-width: 200px; /* Set the preferred width */
-    -fx-pref-height: 80px; /* Set the preferred height */
+    -fx-pref-height: 60px; /* Set the preferred height */
 }
 
 /* Default style for the snake-button */
