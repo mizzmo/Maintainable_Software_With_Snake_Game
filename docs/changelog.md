@@ -169,3 +169,5 @@
 - Added class variables, M_DefaultPane, M_DefaultLabel to allow control of the label and stackpane after its addition in the method.
 - Added new background images "ocean-background", "grass-background"
 - Updated SnakeImageUtil.
+- Added other ImageViews to the screen.
+- Added a selection message and a border around the selected map.

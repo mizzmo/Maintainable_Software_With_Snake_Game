@@ -12,14 +12,15 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.control.SplitPane;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import javafx.util.Duration;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.paint.Color;
+import java.awt.*;
 import java.util.List;
 
 public class SnakeView extends Application implements IView {
@@ -571,6 +572,20 @@ public class SnakeView extends Application implements IView {
         menuButton.setMaxHeight((int)(m_Controller.m_Model.getHeight() / 9));
         menuButton.setMaxWidth((int)(m_Controller.m_Model.getWidth() / 7));
 
+        Label selectedLabel = new Label("Selected: Grassy Plains");
+        selectedLabel.getStyleClass().add("label-with-padding");
+        selectedLabel.setStyle("-fx-text-fill: WHITE; -fx-font-size: 20;");
+        // Create a Rectangle for an outline that is slightly
+        // bigger than the image view.
+        Rectangle selectOutline = new Rectangle(
+                (int)(m_Controller.m_Model.getWidth() / 4) + 20,
+                (int)(m_Controller.m_Model.getHeight() / 4) + 20
+        );
+        selectOutline.setFill(null); // No fill
+        selectOutline.setStroke(Color.WHITE); // Set the color of the outline
+        selectOutline.setStrokeWidth(5);
+
+
         ImageView mapSelectCloud = new ImageView();
         this.setBackgroundImage(mapSelectCloud, "cloud-background");
         // Set the size of the image view.
@@ -590,8 +605,12 @@ public class SnakeView extends Application implements IView {
         mapSelectOcean.setFitWidth((int)(m_Controller.m_Model.getWidth() / 4));
 
         // Add to the pane.
-        mapSelectPane.getChildren().addAll(menuButton, mapSelectCloud, mapSelectGrass, mapSelectOcean);
-        menuButton.setTranslateY(200);
+        mapSelectPane.getChildren().addAll(
+                menuButton, mapSelectCloud, mapSelectGrass,
+                mapSelectOcean, selectOutline, selectedLabel
+        );
+
+        menuButton.setTranslateY(225);
         mapSelectCloud.setTranslateX(-275);
         mapSelectGrass.setTranslateX(0);
         mapSelectOcean.setTranslateX(275);
