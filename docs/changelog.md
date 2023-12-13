@@ -214,3 +214,5 @@
 - Added variable M_GameOver to track if the game is over or not.
 - Added M_GameOver to be false as a condition of the pause menu appearing.
 - Fixed a bug with the Fruit timeline where it wouldnt stop after the bonus fruit was eaten.
+- Added variable to model "m_ColourMode"
+- Added getters and setters for m_ColourMode.
