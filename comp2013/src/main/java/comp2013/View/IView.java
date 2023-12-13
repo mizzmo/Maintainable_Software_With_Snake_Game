@@ -49,4 +49,10 @@ public interface IView {
      * Restarts the game by resetting the UI.
      */
     void restartGame();
+
+
+    /**
+     * Pause the game when ESC is pressed.
+     */
+    void pauseGame();
 }

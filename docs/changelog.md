@@ -202,3 +202,9 @@
 - Added timeline that waits 5 seconds before removing the bonus fruit.
 - Fixed issue where timeline would generate a new fruit after game over if you died while it was still running.
 - Removed melon image as it is too big and the wrong aspect ratio.
+- Add a KeyListner to get when ESC is pressed.
+- Added a case to the Controller to handle when ESC is pressed.
+- Added method to view "pauseGame" to handle what happens when the game is paused.
+- Added variable M_GamePaused to track if the game is paused.
+- Added a volume slider to the pausemenu.
+- Added feature where if you press ESC again, it takes you out of the menu.

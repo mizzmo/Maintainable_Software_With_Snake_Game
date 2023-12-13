@@ -189,6 +189,9 @@ public class SnakeController implements IController {
                     m_Snake.setDirection(SnakeObject.RIGHT);
                 }
                 break;
+            case KeyCode.ESCAPE:
+                    m_View.pauseGame();
+                break;
             default:
                 break;
         }
