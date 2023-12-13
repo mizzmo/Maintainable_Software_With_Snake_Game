@@ -201,3 +201,4 @@
 - Added functionality to bonus fruits, golden is +500 score, rotten is -100 score.
 - Added timeline that waits 5 seconds before removing the bonus fruit.
 - Fixed issue where timeline would generate a new fruit after game over if you died while it was still running.
+- Removed melon image as it is too big and the wrong aspect ratio.
