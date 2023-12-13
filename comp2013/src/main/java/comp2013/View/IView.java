@@ -55,4 +55,9 @@ public interface IView {
      * Pause the game when ESC is pressed.
      */
     void pauseGame();
+
+    /**
+     * Handles the clearing of the pause UI when the game is unpaused.
+     */
+    void unpauseGame();
 }

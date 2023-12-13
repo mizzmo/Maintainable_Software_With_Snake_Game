@@ -42,7 +42,8 @@ public class SnakeView extends Application implements IView {
     private SnakeFood M_SnakeFood;
     private Label M_ScoreLabel, M_CountDownLabel,
             M_GameOverLabel, M_DefaultLabel,
-            M_PausedLabel, M_PauseVolumeLabel;
+            M_PausedLabel, M_PauseVolumeLabel,
+            M_PauseResumeLabel;
     private Timeline M_Timeline;
     private Button M_RestartButton, M_MenuReturnButton,
             M_EnterNameButton;
@@ -341,12 +342,8 @@ public class SnakeView extends Application implements IView {
         M_RestartButton.setTranslateY(425);
         M_RestartButton.setMinSize((double)m_Controller.m_Model.getWidth()/6,
                 (double)m_Controller.m_Model.getHeight()/10);
-        M_MenuReturnButton.setMaxSize((double)m_Controller.m_Model.getWidth()/6,
-                (double) m_Controller.m_Model.getHeight()/10);
         M_MenuReturnButton.setTranslateY(500);
         M_MenuReturnButton.setMinSize((double)m_Controller.m_Model.getWidth()/6,
-                (double) m_Controller.m_Model.getHeight()/10);
-        M_MenuReturnButton.setMaxSize((double)m_Controller.m_Model.getWidth()/6,
                 (double) m_Controller.m_Model.getHeight()/10);
 
         M_EnterNameButton.setTranslateX(125);
@@ -456,24 +453,68 @@ public class SnakeView extends Application implements IView {
             // Set the text to be white.
             M_PauseVolumeLabel.setStyle("-fx-text-fill: white;");
 
+            M_PauseResumeLabel = new Label("Press ESC Again To Resume");
+            M_PauseResumeLabel.getStyleClass().add("label-with-padding");
+            M_PauseResumeLabel.setStyle("-fx-font-size: 15; " +
+                    "-fx-text-fill: grey; -fx-underline: true");
+
+            // Create a button that returns to the main menu.
+            M_MenuReturnButton = new Button("Main Menu");
+            // Set what happens when button is clicked.
+            M_MenuReturnButton.setOnAction(event -> {
+                // Go to the menu
+                this.setMenuScene();
+            });
+
+            // Restart the game.
+            M_RestartButton = new Button("Restart");
+            // Set what happens when button is clicked.
+            M_RestartButton.setOnAction(event -> {
+                // Restart the game.
+                m_Controller.restartGame();
+            });
+
+            M_MenuReturnButton.setMinSize((double)m_Controller.m_Model.getWidth()/6,
+                    (double) m_Controller.m_Model.getHeight()/10);
+            M_RestartButton.setMinSize((double)m_Controller.m_Model.getWidth()/6,
+                    (double) m_Controller.m_Model.getHeight()/10);
+
+            M_RestartButton.getStyleClass().add("snake-button");
+            M_MenuReturnButton.getStyleClass().add("snake-button");
+
             M_SnakePane.getChildren().addAll(M_DarkStripVbox, M_PausedLabel,
-                    M_PauseVolumeLabel, M_PauseVolumeSlider);
+                    M_PauseVolumeLabel, M_PauseVolumeSlider, M_PauseResumeLabel,
+                    M_MenuReturnButton, M_RestartButton);
             // Set the position
             M_PausedLabel.setTranslateY(-200);
-            M_PauseVolumeLabel.setTranslateY(-150);
-            M_PauseVolumeSlider.setTranslateY(-100);
+            M_PauseVolumeLabel.setTranslateY(-125);
+            M_PauseVolumeSlider.setTranslateY(-75);
+            M_PauseResumeLabel.setTranslateY(200);
+            M_MenuReturnButton.setTranslateY(0);
+            M_RestartButton.setTranslateY(100);
         }
         else{
-            M_GamePaused = false;
-            M_SnakePane.getChildren().removeAll(M_DarkStripVbox, M_PausedLabel,
-                    M_PauseVolumeLabel, M_PauseVolumeSlider);
-            M_Timeline.play();
+            this.unpauseGame();
         }
+    }
+
+
+    public void unpauseGame(){
+        M_GamePaused = false;
+        M_SnakePane.getChildren().removeAll(M_DarkStripVbox, M_PausedLabel,
+                M_PauseVolumeLabel, M_PauseVolumeSlider, M_PauseResumeLabel,
+                M_MenuReturnButton, M_RestartButton);
+        // Play the timeline again
+        M_Timeline.play();
     }
 
 
     @Override
     public void restartGame(){
+        // If the game is paused, unpause it.
+        if(M_GamePaused){
+            this.unpauseGame();
+        }
         // Reset the rate of the timeline.
         M_Timeline.setRate(1);
         M_Timeline.stop();

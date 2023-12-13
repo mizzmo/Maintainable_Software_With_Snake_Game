@@ -208,3 +208,5 @@
 - Added variable M_GamePaused to track if the game is paused.
 - Added a volume slider to the pausemenu.
 - Added feature where if you press ESC again, it takes you out of the menu.
+- Added Restart Button to pause menu.
+- Added Main Menu button to pause menu.
