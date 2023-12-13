@@ -185,3 +185,8 @@
 - Implementing functionality that reads the text file, parses the output and adds it to the scoreboard.
 - Add a border to the scoreboard.
 - Move the header into a better position.
+
+### 13/12/23
+- Created a new high resolution sprite for the snake.
+- Replaced the old sprites with the new ones in imageUtil.
+- Updated gc.drawImage to include height and width restrictions.

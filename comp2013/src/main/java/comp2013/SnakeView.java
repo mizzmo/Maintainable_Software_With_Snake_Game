@@ -102,12 +102,12 @@ public class SnakeView extends Application implements IView {
         }
         // Draw the head at its new coordinates and rotation.
         gc.drawImage(M_SnakeHeadImg, snakeBody.getFirst().getX(),
-                snakeBody.getFirst().getY());
+                snakeBody.getFirst().getY(), 32, 32);
         // Draw the rest of the body.
         for (int i = 1; i < m_Controller.m_Model.getLength(); i++) {
             // Draws the body at the new location
             gc.drawImage(M_SnakeBodyImg, snakeBody.get(i).getX(),
-                    snakeBody.get(i).getY());
+                    snakeBody.get(i).getY(), 32, 32);
             if(i == m_Controller.m_Model.getLength()-1 && addSegment){
                 m_Controller.addSegment(snakeBody.get(i).getX()+1,
                         snakeBody.get(i).getY()+1, true);
@@ -144,7 +144,6 @@ public class SnakeView extends Application implements IView {
         SnakeBody snakeHead;
         // Coordinate value to add onto the coordinates
         int horizontalAdd = 25;
-        int verticalAdd = 25;
         int length = m_Controller.m_Model.getLength();
 
         // Get the image of the snake head.
@@ -154,7 +153,7 @@ public class SnakeView extends Application implements IView {
         // Just build the head.
         GraphicsContext gc = m_SnakeCanvas.getGraphicsContext2D();
         gc.drawImage(M_SnakeHeadImg, canvasCenterHorizontal,
-                canvasCenterVertical);
+                canvasCenterVertical, 32,32);
 
         snakeBody = m_Controller.m_Snake.m_SnakeBody;
         // Get the head of the snake.
@@ -175,7 +174,7 @@ public class SnakeView extends Application implements IView {
                 // coordinate + a constant, creates a line of circles.
                 gc.drawImage(M_SnakeBodyImg,
                         canvasCenterHorizontal-horizontalAdd,
-                        canvasCenterVertical);
+                        canvasCenterVertical, 32, 32);
                 // Update and add a new segment of the snake.
                 m_Controller.addSegment
                         (canvasCenterHorizontal-horizontalAdd,
@@ -343,7 +342,6 @@ public class SnakeView extends Application implements IView {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter
                 ("comp2013/output/highScores.txt", true))) {
             writer.write(content + System.lineSeparator());
-            System.out.println("Text saved to file!");
         } catch (IOException e) {
             e.printStackTrace();
         }

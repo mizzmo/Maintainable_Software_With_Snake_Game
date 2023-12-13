@@ -46,19 +46,19 @@ public class SnakeImageUtil
 
 		// Snake Body Parts.
 		m_SnakeImages.put("snakeHeadRight", new Image(SnakeImageUtil.class.getResource
-				("/images/snake-head-right.png").toExternalForm()));
+				("/images/snakeHeadTexturedRight.png").toExternalForm()));
 
 		m_SnakeImages.put("snakeHeadLeft", new Image(SnakeImageUtil.class.getResource
-				("/images/snake-head-left.png").toExternalForm()));
+				("/images/snakeHeadTexturedLeft.png").toExternalForm()));
 
 		m_SnakeImages.put("snakeHeadUp", new Image(SnakeImageUtil.class.getResource
-				("/images/snake-head-up.png").toExternalForm()));
+				("/images/snakeHeadTexturedUp.png").toExternalForm()));
 
 		m_SnakeImages.put("snakeHeadDown", new Image(SnakeImageUtil.class.getResource
-				("/images/snake-head-down.png").toExternalForm()));
+				("/images/snakeHeadTexturedDown.png").toExternalForm()));
 
 		m_SnakeImages.put("snakeBody", new Image(SnakeImageUtil.class.getResource
-				("/images/snake-body.png").toExternalForm()));
+				("/images/snakeBodyTextured.png").toExternalForm()));
 
 		// Obstacles.
 		m_SnakeImages.put("0", new Image(SnakeImageUtil.class.getResource
@@ -114,7 +114,5 @@ public class SnakeImageUtil
 
 		m_SnakeImages.put("17", new Image(SnakeImageUtil.class.getResource
 				("/images/food-pitaya.png").toExternalForm()));
-
-
 	}
 }
