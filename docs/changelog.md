@@ -185,3 +185,8 @@
 - Implementing functionality that reads the text file, parses the output and adds it to the scoreboard.
 - Add a border to the scoreboard.
 - Move the header into a better position.
+
+### 13/12/23
+- Created a new high resolution spritesheet for the snake.
+- Added spritesheets to the SnakeImageUtil.
+- Added method to ImageUtil to get the sprite from the spritesheet "getSprite".
