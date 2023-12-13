@@ -52,6 +52,8 @@ public class SnakeView extends Application implements IView {
     private StackPane M_DefaultPane;
     private TextField M_EnterNameField;
 
+    private Timeline M_CountDownTimeline;
+
 
     public SnakeView() {
         // Constructor gets the instance of controller.
@@ -354,26 +356,34 @@ public class SnakeView extends Application implements IView {
     private void updateTimer() {
         // Countdown to restart
         M_TimerLength = 10;
-        Timeline timeline = new Timeline();
-        timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1), event -> {
-            Platform.runLater(() -> {
-                if(M_TimerLength > 0) {
-                    M_TimerLength--;
-                    M_CountDownLabel.setText("Restart in: " + M_TimerLength);
-                }
-                // Check if the countdown has reached zero
-                else if (M_TimerLength == 0) {
-                    // Stop the timeline before restarting the game
-                    m_Controller.restartGame();
-                    timeline.stop();
-                }
-            });
-        }));
-        timeline.setCycleCount(11);
-        timeline.play();
+        // If the timeline doesnt exist, make it.
+        if(M_CountDownTimeline == null) {
+            M_CountDownTimeline = new Timeline();
+            M_CountDownTimeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1), event -> {
+                Platform.runLater(() -> {
+                    if (M_TimerLength > 0) {
+                        M_TimerLength--;
+                        M_CountDownLabel.setText("Restart in: " + M_TimerLength);
+                    }
+                    // Check if the countdown has reached zero
+                    else if (M_TimerLength == 0) {
+                        // Stop the timeline before restarting the game
+                        m_Controller.restartGame();
+                        M_CountDownTimeline.stop();
+                    }
+                });
+            }));
+        }
+        // Else reset the cycle count
+        else{M_CountDownTimeline.setCycleCount(0);}
+        // Play the timeline.
+        M_CountDownTimeline.setCycleCount(11);
+        M_CountDownTimeline.play();
     }
     @Override
     public void restartGame(){
+        // Reset the rate of the timeline.
+        M_Timeline.setRate(1);
         M_Timeline.stop();
         // Set the timer to -1 so that the timeline loop doesnt do anything.
         M_TimerLength = -1;

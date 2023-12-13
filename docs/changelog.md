@@ -193,4 +193,6 @@
 - Removed Unused Images.
 - Added new packages for View, Model and Controller.
 - Sorted classes into these packages.
-- Refactored code to work with these new locations
+- Refactored code to work with these new locations.
+- Fixed issue where snake speed would not reset after a restart.
+- Fixed issue where Countdown would overlap with previous countdown.
