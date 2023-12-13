@@ -3,3 +3,4 @@ Bongo,555
 Bish,444
 Bash,111
 Bosh,54
+NewSprites,2700
