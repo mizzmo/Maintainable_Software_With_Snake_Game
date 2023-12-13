@@ -1,8 +1,7 @@
-package comp2013.Controller;
+package comp2013.View;
 
 import comp2013.Controller.SnakeController;
 import comp2013.Model.SnakeBody;
-import comp2013.View.SnakeImageUtil;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.canvas.Canvas;
@@ -12,7 +11,7 @@ import java.util.Random;
 public class SnakeFood
 {
 	private SnakeController M_Controller = SnakeController.getInstance();
-
+	public boolean m_BonusFruit =false, m_NegativeFruit =false;
 	public boolean m_Eaten;
 	private Image M_Image;
 	private double M_Width, M_Height;
@@ -25,8 +24,8 @@ public class SnakeFood
 		this.M_Width = M_Image.getWidth();
 		this.M_Height = M_Image.getHeight();
 		// Set a random location on the screen
-		this.M_X = (int) (Math.random() * (870 - M_Width - 10));
-		this.M_Y = (int) (Math.random() * (560 - M_Height - 40));
+		this.M_X = (int) (Math.random() * (M_Controller.m_Model.getWidth()*0.9 - M_Width));
+		this.M_Y = (int) (Math.random() * (M_Controller.m_Model.getHeight()*0.9 - M_Height));
 	}
 
 	/**
@@ -42,10 +41,22 @@ public class SnakeFood
 					this.M_X, this.M_Y, 32, 32);
 			// If intersecting, return true.
 			if(isIntersecting){
-				M_Controller.m_Model.setScore(M_Controller.m_Model.getScore()+100);
+				// If special fruit
+				if(m_BonusFruit){
+					// Increase the score by 500
+					M_Controller.m_Model.setScore(M_Controller.m_Model.getScore() + 500);
+				}
+				else if(m_NegativeFruit){
+					// Decrease the score by 100
+					M_Controller.m_Model.setScore(M_Controller.m_Model.getScore() - 100);
+				}
+				// If normal fruit.
+				else{M_Controller.m_Model.setScore(M_Controller.m_Model.getScore() + 100);}
+				this.m_Eaten = true;
 				return true;
 			}
 		}
+		this.m_Eaten = false;
 		return false;
 	}
 
@@ -66,14 +77,25 @@ public class SnakeFood
 	 * Change the fruit to a different type with a new location.
 	 */
 	public void newFruit(){
+		m_BonusFruit = false;
+		m_NegativeFruit = false;
+		int randomInt = new Random().nextInt(19);
+		// If a special fruit, set the boolean to true.
+		if(randomInt == 17){
+			m_NegativeFruit = true;
+		}
+		else if(randomInt == 18)
+		{
+			m_BonusFruit = true;
+		}
 		// Carries out the same as the constructor, but can be called by other functions.
-		this.M_Image = SnakeImageUtil.getImage(String.valueOf(new Random().nextInt(10)));
+		this.M_Image = SnakeImageUtil.getImage(String.valueOf(randomInt));
 		this.m_Eaten = false;
 		this.M_Width = M_Image.getWidth();
 		this.M_Height = M_Image.getHeight();
 		// Sets a x and y coordinate for the fruit that is at least 500 pixels away from the wall.
-		this.M_X = (int) (Math.random() * (M_Controller.m_Model.getWidth() - M_Width - 40));
-		this.M_Y = (int) (Math.random() * (M_Controller.m_Model.getHeight() - M_Height - 40));
+		this.M_X = (int) (Math.random() * (M_Controller.m_Model.getWidth()*0.9 - M_Width));
+		this.M_Y = (int) (Math.random() * (M_Controller.m_Model.getHeight()*0.9 - M_Height));
 	}
 
 	/**
