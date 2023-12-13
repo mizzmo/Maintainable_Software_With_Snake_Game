@@ -26,8 +26,8 @@ public class SnakeModel implements IModel {
         this.m_Height = height;
         this.m_Width = width;
         this.m_Score = 0;
-        this.m_Length = 2;
-        this.m_InitialLength = 2;
+        this.m_Length = 3;
+        this.m_InitialLength = 3;
         this.m_Alive = 1;
         this.m_ColourMode = 0;
     }

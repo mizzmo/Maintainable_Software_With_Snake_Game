@@ -218,3 +218,5 @@
 - Added getters and setters for m_ColourMode.
 - Created new checkbox for Colour Mode in Settings.
 - Added CSS to the checkbox. Applied to Checkbox.
+- Removed the FXML file as it wasnt used.
+- Added the effect to the snake in SnakeView. 

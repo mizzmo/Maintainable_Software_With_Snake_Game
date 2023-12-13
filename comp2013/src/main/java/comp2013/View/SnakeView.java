@@ -23,6 +23,7 @@ import javafx.scene.image.Image;
 import javafx.util.Duration;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
+import javafx.scene.effect.ColorAdjust;
 
 import java.io.*;
 import java.util.List;
@@ -55,6 +56,7 @@ public class SnakeView extends Application implements IView {
     private boolean M_FirstEntry = true,
             M_GamePaused = false, M_GameOver = false;
 
+    private ColorAdjust M_ColorAdjust;
 
     public SnakeView() {
         // Constructor gets the instance of controller.
@@ -93,8 +95,13 @@ public class SnakeView extends Application implements IView {
         boolean addSegment = false;
         GraphicsContext gc = m_SnakeCanvas.getGraphicsContext2D();
         // Clear the canvas by filling it with a transparent color
+        // Remove the effect, otherwise it applys to the clear rectangle
+        gc.setEffect(null);
+        // Draw the clear rectangle
         gc.clearRect(0, 0, gc.getCanvas().getWidth(),
                 gc.getCanvas().getHeight());
+        // Add the effect back again
+        gc.setEffect(M_ColorAdjust);
         // If the food has been eaten, draw a new one to replace it.
         if(M_SnakeFood.eaten()){
             // Re-Roll the fruit.
@@ -147,6 +154,17 @@ public class SnakeView extends Application implements IView {
     @Override
     public void start(Stage primaryStage) throws Exception {
         this.M_PrimaryStage = primaryStage;
+        M_ColorAdjust = new ColorAdjust();
+        // Initialise the Accessablility Option
+        // Adjust brightness
+        M_ColorAdjust.setBrightness(0.2);
+        // Adjust contrast
+        M_ColorAdjust.setContrast(0.8);
+        // Adjust hue
+        M_ColorAdjust.setHue(-0.1);
+        // Adjust saturation
+        M_ColorAdjust.setSaturation(0.8);
+
         // Set title of screen.
         M_PrimaryStage.setTitle("Snake!");
         // Set the icon of the window.
@@ -180,6 +198,9 @@ public class SnakeView extends Application implements IView {
 
         // Just build the head.
         GraphicsContext gc = m_SnakeCanvas.getGraphicsContext2D();
+        if(m_Controller.m_Model.getColourMode() == 1){
+            gc.setEffect(M_ColorAdjust);
+        }
         gc.drawImage(M_SnakeHeadImg, canvasCenterHorizontal,
                 canvasCenterVertical, 32,32);
 
