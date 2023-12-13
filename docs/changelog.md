@@ -202,3 +202,15 @@
 - Added timeline that waits 5 seconds before removing the bonus fruit.
 - Fixed issue where timeline would generate a new fruit after game over if you died while it was still running.
 - Removed melon image as it is too big and the wrong aspect ratio.
+- Add a KeyListner to get when ESC is pressed.
+- Added a case to the Controller to handle when ESC is pressed.
+- Added method to view "pauseGame" to handle what happens when the game is paused.
+- Added variable M_GamePaused to track if the game is paused.
+- Added a volume slider to the pausemenu.
+- Added feature where if you press ESC again, it takes you out of the menu.
+- Added Restart Button to pause menu.
+- Added Main Menu button to pause menu.
+- Split the unpause functionality into a seperate method so that other methods can use it if need be.
+- Added variable M_GameOver to track if the game is over or not.
+- Added M_GameOver to be false as a condition of the pause menu appearing.
+- Fixed a bug with the Fruit timeline where it wouldnt stop after the bonus fruit was eaten.

@@ -9,7 +9,7 @@ import javafx.scene.input.KeyCode;
 
 public class SnakeController implements IController {
     public SnakeModel m_Model;
-    SnakeView m_View;
+    public SnakeView m_View;
     // Stores constants for the key codes for WSAD and Arrow Keys.
     private static final int W = 87, S = 83, A = 65, D = 68;
     private static final int UP = 38, DOWN = 39, LEFT = 37, RIGHT = 40;
@@ -188,6 +188,9 @@ public class SnakeController implements IController {
                 {
                     m_Snake.setDirection(SnakeObject.RIGHT);
                 }
+                break;
+            case KeyCode.ESCAPE:
+                    m_View.pauseGame();
                 break;
             default:
                 break;

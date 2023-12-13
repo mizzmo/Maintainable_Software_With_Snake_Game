@@ -41,7 +41,9 @@ public class SnakeView extends Application implements IView {
     private Image M_SnakeHeadImg, M_SnakeBodyImg, M_BackgroundImage;
     private SnakeFood M_SnakeFood;
     private Label M_ScoreLabel, M_CountDownLabel,
-            M_GameOverLabel, M_DefaultLabel;
+            M_GameOverLabel, M_DefaultLabel,
+            M_PausedLabel, M_PauseVolumeLabel,
+            M_PauseResumeLabel;
     private Timeline M_Timeline;
     private Button M_RestartButton, M_MenuReturnButton,
             M_EnterNameButton;
@@ -49,10 +51,13 @@ public class SnakeView extends Application implements IView {
     private static SnakeView m_Instance;
     private double M_MusicVolume = 0.2;
     private StackPane M_DefaultPane;
+    private VBox M_DarkStripVbox;
     private TextField M_EnterNameField;
     private Timeline M_CountDownTimeline;
-
-    private boolean M_FirstEntry = true;
+    public Timeline M_FoodTimeline;
+    private Slider M_PauseVolumeSlider;
+    private boolean M_FirstEntry = true,
+            M_GamePaused = false, M_GameOver = false;
 
 
     public SnakeView() {
@@ -109,8 +114,8 @@ public class SnakeView extends Application implements IView {
         if ((M_SnakeFood.m_NegativeFruit || M_SnakeFood.m_BonusFruit) && M_FirstEntry) {
             int counter = 5;
             // Create a new timeline that waits 5 seconds
-            Timeline timeline = new Timeline();
-            timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(5),
+            M_FoodTimeline = new Timeline();
+            M_FoodTimeline.getKeyFrames().add(new KeyFrame(Duration.seconds(5),
                     event ->
                     {
                         if (m_Controller.m_Model.getAlive() == 1){
@@ -121,8 +126,8 @@ public class SnakeView extends Application implements IView {
 
                     }));
             // Set cycle count to just 1 and play
-            timeline.setCycleCount(1);
-            timeline.play();
+            M_FoodTimeline.setCycleCount(1);
+            M_FoodTimeline.play();
             // Set to false so the loop isnt entered again
             M_FirstEntry = false;
         }
@@ -254,7 +259,7 @@ public class SnakeView extends Application implements IView {
     @Override
     public void gameOverScreen(){
         GraphicsContext gc;
-
+        M_GameOver = true;
         // Stop the timeline so the snake no longer moves.
         M_Timeline.stop();
         // Remove the food from the screen
@@ -339,12 +344,8 @@ public class SnakeView extends Application implements IView {
         M_RestartButton.setTranslateY(425);
         M_RestartButton.setMinSize((double)m_Controller.m_Model.getWidth()/6,
                 (double)m_Controller.m_Model.getHeight()/10);
-        M_MenuReturnButton.setMaxSize((double)m_Controller.m_Model.getWidth()/6,
-                (double) m_Controller.m_Model.getHeight()/10);
         M_MenuReturnButton.setTranslateY(500);
         M_MenuReturnButton.setMinSize((double)m_Controller.m_Model.getWidth()/6,
-                (double) m_Controller.m_Model.getHeight()/10);
-        M_MenuReturnButton.setMaxSize((double)m_Controller.m_Model.getWidth()/6,
                 (double) m_Controller.m_Model.getHeight()/10);
 
         M_EnterNameButton.setTranslateX(125);
@@ -402,7 +403,124 @@ public class SnakeView extends Application implements IView {
         M_CountDownTimeline.play();
     }
     @Override
+    public void pauseGame() {
+        if (!M_GamePaused && !M_GameOver) {
+            // Set the game to paused
+            M_GamePaused = true;
+            // Stop the timeline so the snake no longer moves.
+            M_Timeline.stop();
+            // Create a new vbox that acts as a transparent strip.
+            M_DarkStripVbox = new VBox(10);
+            M_DarkStripVbox.setStyle
+                    ("-fx-background-color: rgba(0, 0, 0, 0.6);");
+            // Set its size
+            M_DarkStripVbox.setMinSize((double) m_Controller.m_Model.getWidth() / 2,
+                    m_Controller.m_Model.getHeight());
+            M_DarkStripVbox.setMaxSize((double) m_Controller.m_Model.getWidth() / 2,
+                    m_Controller.m_Model.getHeight());
+
+            // Create a label for the pause screen
+            M_PausedLabel = new Label("Paused");;
+            // Add styling
+            M_PausedLabel.getStyleClass().add("label-with-padding");
+            M_PausedLabel.setStyle("-fx-text-fill: white;" +
+                    " -fx-font-size: 38; -fx-underline: true");
+
+            M_PauseVolumeLabel = new Label(String.format("Volume: %.0f%%", M_MusicVolume * 100));
+            M_PauseVolumeSlider = new Slider(0, 100,
+                    this.M_MusicVolume * 100); // min, max, initial value
+            M_PauseVolumeSlider.setShowTickMarks(true);
+
+            // Add a listener to respond to changes in the slider value and
+            // update the volume.
+            M_PauseVolumeSlider.valueProperty().addListener
+                    ((observable, oldValue, newValue) -> {
+                        M_PauseVolumeLabel.setText(String.format
+                                ("Volume: %.0f%%", newValue));
+                        // Update the local variable so that all music is synced
+                        this.M_MusicVolume = (double) newValue / 100;
+                        // Update the music object itself
+                        m_SnakeMusic.setVolume(((double)newValue / 100));
+
+                    });
+
+            // Set the size of the slider.
+            M_PauseVolumeSlider.setMinHeight((int)(m_Controller.m_Model.getHeight() / 20));
+            M_PauseVolumeSlider.setMinWidth((int)(m_Controller.m_Model.getWidth() / 3));
+
+            M_PauseVolumeSlider.setMaxHeight((int)(m_Controller.m_Model.getHeight() / 20));
+            M_PauseVolumeSlider.setMaxWidth((int)(m_Controller.m_Model.getWidth() / 3));
+            // Add styling
+            M_PauseVolumeLabel.getStyleClass().add("label-with-padding");
+            // Set the text to be white.
+            M_PauseVolumeLabel.setStyle("-fx-text-fill: white;");
+
+            M_PauseResumeLabel = new Label("Press ESC Again To Resume");
+            M_PauseResumeLabel.getStyleClass().add("label-with-padding");
+            M_PauseResumeLabel.setStyle("-fx-font-size: 15; " +
+                    "-fx-text-fill: white; -fx-underline: true");
+
+            // Create a button that returns to the main menu.
+            M_MenuReturnButton = new Button("Main Menu");
+            // Set what happens when button is clicked.
+            M_MenuReturnButton.setOnAction(event -> {
+                // Go to the menu
+                this.setMenuScene();
+            });
+
+            // Restart the game.
+            M_RestartButton = new Button("Restart");
+            // Set what happens when button is clicked.
+            M_RestartButton.setOnAction(event -> {
+                // Restart the game.
+                m_Controller.restartGame();
+            });
+
+            M_MenuReturnButton.setMinSize((double)m_Controller.m_Model.getWidth()/6,
+                    (double) m_Controller.m_Model.getHeight()/10);
+            M_RestartButton.setMinSize((double)m_Controller.m_Model.getWidth()/6,
+                    (double) m_Controller.m_Model.getHeight()/10);
+
+            M_RestartButton.getStyleClass().add("snake-button");
+            M_MenuReturnButton.getStyleClass().add("snake-button");
+
+            M_SnakePane.getChildren().addAll(M_DarkStripVbox, M_PausedLabel,
+                    M_PauseVolumeLabel, M_PauseVolumeSlider, M_PauseResumeLabel,
+                    M_MenuReturnButton, M_RestartButton);
+            // Set the position
+            M_PausedLabel.setTranslateY(-200);
+            M_PauseVolumeLabel.setTranslateY(-125);
+            M_PauseVolumeSlider.setTranslateY(-75);
+            M_PauseResumeLabel.setTranslateY(200);
+            M_MenuReturnButton.setTranslateY(0);
+            M_RestartButton.setTranslateY(100);
+        }
+        // Do nothing if the game is over.
+        else if(M_GameOver){return;}
+        // Unpause the game if called again
+        else{
+            this.unpauseGame();
+        }
+    }
+
+    @Override
+    public void unpauseGame(){
+        M_GamePaused = false;
+        M_SnakePane.getChildren().removeAll(M_DarkStripVbox, M_PausedLabel,
+                M_PauseVolumeLabel, M_PauseVolumeSlider, M_PauseResumeLabel,
+                M_MenuReturnButton, M_RestartButton);
+        // Play the timeline again
+        M_Timeline.play();
+    }
+
+
+    @Override
     public void restartGame(){
+        // If the game is paused, unpause it.
+        if(M_GamePaused){
+            this.unpauseGame();
+        }
+        M_GameOver = false;
         // Reset the rate of the timeline.
         M_Timeline.setRate(1);
         M_Timeline.stop();
