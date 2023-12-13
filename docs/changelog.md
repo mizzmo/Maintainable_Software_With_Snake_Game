@@ -210,3 +210,6 @@
 - Added feature where if you press ESC again, it takes you out of the menu.
 - Added Restart Button to pause menu.
 - Added Main Menu button to pause menu.
+- Split the unpause functionality into a seperate method so that other methods can use it if need be.
+- Added variable M_GameOver to track if the game is over or not.
+- Added M_GameOver to be false as a condition of the pause menu appearing.

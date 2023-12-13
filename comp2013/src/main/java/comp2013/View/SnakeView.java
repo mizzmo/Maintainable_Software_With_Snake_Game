@@ -55,7 +55,8 @@ public class SnakeView extends Application implements IView {
     private TextField M_EnterNameField;
     private Timeline M_CountDownTimeline;
     private Slider M_PauseVolumeSlider;
-    private boolean M_FirstEntry = true, M_GamePaused = false;
+    private boolean M_FirstEntry = true,
+            M_GamePaused = false, M_GameOver = false;
 
 
     public SnakeView() {
@@ -257,7 +258,7 @@ public class SnakeView extends Application implements IView {
     @Override
     public void gameOverScreen(){
         GraphicsContext gc;
-
+        M_GameOver = true;
         // Stop the timeline so the snake no longer moves.
         M_Timeline.stop();
         // Remove the food from the screen
@@ -402,7 +403,7 @@ public class SnakeView extends Application implements IView {
     }
     @Override
     public void pauseGame() {
-        if (!M_GamePaused) {
+        if (!M_GamePaused && !M_GameOver) {
             // Set the game to paused
             M_GamePaused = true;
             // Stop the timeline so the snake no longer moves.
@@ -456,7 +457,7 @@ public class SnakeView extends Application implements IView {
             M_PauseResumeLabel = new Label("Press ESC Again To Resume");
             M_PauseResumeLabel.getStyleClass().add("label-with-padding");
             M_PauseResumeLabel.setStyle("-fx-font-size: 15; " +
-                    "-fx-text-fill: grey; -fx-underline: true");
+                    "-fx-text-fill: white; -fx-underline: true");
 
             // Create a button that returns to the main menu.
             M_MenuReturnButton = new Button("Main Menu");
@@ -493,12 +494,15 @@ public class SnakeView extends Application implements IView {
             M_MenuReturnButton.setTranslateY(0);
             M_RestartButton.setTranslateY(100);
         }
+        // Do nothing if the game is over.
+        else if(M_GameOver){return;}
+        // Unpause the game if called again
         else{
             this.unpauseGame();
         }
     }
 
-
+    @Override
     public void unpauseGame(){
         M_GamePaused = false;
         M_SnakePane.getChildren().removeAll(M_DarkStripVbox, M_PausedLabel,
@@ -515,6 +519,7 @@ public class SnakeView extends Application implements IView {
         if(M_GamePaused){
             this.unpauseGame();
         }
+        M_GameOver = false;
         // Reset the rate of the timeline.
         M_Timeline.setRate(1);
         M_Timeline.stop();
