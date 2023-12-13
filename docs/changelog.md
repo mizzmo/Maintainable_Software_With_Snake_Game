@@ -214,3 +214,12 @@
 - Added variable M_GameOver to track if the game is over or not.
 - Added M_GameOver to be false as a condition of the pause menu appearing.
 - Fixed a bug with the Fruit timeline where it wouldnt stop after the bonus fruit was eaten.
+- Added variable to model "m_ColourMode"
+- Added getters and setters for m_ColourMode.
+- Created new checkbox for Colour Mode in Settings.
+- Added CSS to the checkbox. Applied to Checkbox.
+- Removed the FXML file as it wasnt used.
+- Added the effect to the snake in SnakeView. 
+- Added the effect to the fruit in drawFruit in SnakeFood.
+- Fixed issue where the effect would stop the screen being cleared.
+- Updated checkbox so that it will appear already checked if the colour mode has already been set.

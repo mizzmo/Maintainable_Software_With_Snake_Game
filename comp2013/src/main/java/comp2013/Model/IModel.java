@@ -73,11 +73,17 @@ public interface IModel {
      */
     void setWidth(int m_Width);
 
+    /**
+     * Get the colour mode to use for the game
+     * @return Int value for the colour mode.
+     */
+    int getColourMode();
 
     /**
-     * Restart the game from the beginning.
+     * Set the colour mode of the game.
+     * @param colourMode Int to determine which colour mode to use.
      */
-    void restart();
+    void setColourMode(int colourMode);
 
 
 }

@@ -13,10 +13,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.Slider;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
@@ -26,7 +23,7 @@ import javafx.scene.image.Image;
 import javafx.util.Duration;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
-import javafx.scene.control.TextField;
+import javafx.scene.effect.ColorAdjust;
 
 import java.io.*;
 import java.util.List;
@@ -59,6 +56,7 @@ public class SnakeView extends Application implements IView {
     private boolean M_FirstEntry = true,
             M_GamePaused = false, M_GameOver = false;
 
+    public ColorAdjust M_ColorAdjust;
 
     public SnakeView() {
         // Constructor gets the instance of controller.
@@ -97,8 +95,15 @@ public class SnakeView extends Application implements IView {
         boolean addSegment = false;
         GraphicsContext gc = m_SnakeCanvas.getGraphicsContext2D();
         // Clear the canvas by filling it with a transparent color
+        // Remove the effect, otherwise it applys to the clear rectangle
+        gc.setEffect(null);
+        // Draw the clear rectangle
         gc.clearRect(0, 0, gc.getCanvas().getWidth(),
                 gc.getCanvas().getHeight());
+        // Add the effect back again
+        if(m_Controller.m_Model.getColourMode() == 1) {
+            gc.setEffect(M_ColorAdjust);
+        }
         // If the food has been eaten, draw a new one to replace it.
         if(M_SnakeFood.eaten()){
             // Re-Roll the fruit.
@@ -151,6 +156,17 @@ public class SnakeView extends Application implements IView {
     @Override
     public void start(Stage primaryStage) throws Exception {
         this.M_PrimaryStage = primaryStage;
+        M_ColorAdjust = new ColorAdjust();
+        // Initialise the Accessablility Option
+        // Adjust brightness
+        M_ColorAdjust.setBrightness(0.2);
+        // Adjust contrast
+        M_ColorAdjust.setContrast(1);
+        // Adjust hue
+        M_ColorAdjust.setHue(-0.1);
+        // Adjust saturation
+        M_ColorAdjust.setSaturation(1);
+
         // Set title of screen.
         M_PrimaryStage.setTitle("Snake!");
         // Set the icon of the window.
@@ -184,6 +200,9 @@ public class SnakeView extends Application implements IView {
 
         // Just build the head.
         GraphicsContext gc = m_SnakeCanvas.getGraphicsContext2D();
+        if(m_Controller.m_Model.getColourMode() == 1){
+            gc.setEffect(M_ColorAdjust);
+        }
         gc.drawImage(M_SnakeHeadImg, canvasCenterHorizontal,
                 canvasCenterVertical, 32,32);
 
@@ -682,7 +701,7 @@ public class SnakeView extends Application implements IView {
         M_SnakeFood.drawFruit(m_FoodCanvas);
 
         // Define the timeline that controlls how the snake moves.
-        M_Timeline = new Timeline(new KeyFrame(Duration.millis(200),
+        M_Timeline = new Timeline(new KeyFrame(Duration.millis(150),
                 event -> {
                     refreshSnake();
                     m_Controller.moveSnake();
@@ -784,6 +803,24 @@ public class SnakeView extends Application implements IView {
         // Set the text to be white.
         snakeLengthLabel.setStyle("-fx-text-fill: white;");
 
+        // Create a checkbox for colour modes
+        CheckBox colourCheckBox = new CheckBox("High Contrast Mode");
+        // Set the box to be ticked if the colour mode has been set already
+        if(m_Controller.m_Model.getColourMode() == 1) {
+            colourCheckBox.setSelected(true);
+        }
+        // Add CSS
+        colourCheckBox.getStyleClass().add("checkbox-styling");
+
+        // Set a handler for the checkbox
+        colourCheckBox.setOnAction(event -> {
+            if(colourCheckBox.isSelected()) {
+                // Enable the contrast mode
+                m_Controller.m_Model.setColourMode(1);
+            }
+            // Otherwise disable the contrast mode
+            else{ m_Controller.m_Model.setColourMode(0);}
+        });
 
 
         // Create a button that returns to the main menu.
@@ -807,7 +844,8 @@ public class SnakeView extends Application implements IView {
                 (m_Controller.m_Model.getWidth() / 7));
         // Add to the pane.
         settingsPane.getChildren().addAll(volumeLevelLabel, volumeSlider,
-                snakeLengthLabel, snakeLengthSlider, menuButton);
+                snakeLengthLabel, snakeLengthSlider, menuButton,
+                colourCheckBox);
 
         volumeLevelLabel.setTranslateY(-110);
         volumeSlider.setTranslateY(-75);
@@ -815,7 +853,8 @@ public class SnakeView extends Application implements IView {
         snakeLengthLabel.setTranslateY(0);
         snakeLengthSlider.setTranslateY(50);
 
-        menuButton.setTranslateY(100);
+        menuButton.setTranslateY(175);
+        colourCheckBox.setTranslateY(100);
 
         // Set the scene and show the page.
         M_PrimaryStage.setScene(settingsScene);

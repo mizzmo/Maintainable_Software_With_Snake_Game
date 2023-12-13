@@ -17,6 +17,8 @@ public class SnakeModel implements IModel {
     private boolean m_Finished;
     // Gets and instance of the Model
     private static SnakeModel m_Instance;
+    // Sets the game to different colour modes.
+    private int m_ColourMode;
 
     // Initialise the model.
     public SnakeModel(int width, int height) {
@@ -24,9 +26,10 @@ public class SnakeModel implements IModel {
         this.m_Height = height;
         this.m_Width = width;
         this.m_Score = 0;
-        this.m_Length = 2;
-        this.m_InitialLength = 2;
+        this.m_Length = 3;
+        this.m_InitialLength = 3;
         this.m_Alive = 1;
+        this.m_ColourMode = 0;
     }
     /**
      * Returns an instance of the Model.
@@ -82,8 +85,6 @@ public class SnakeModel implements IModel {
         // Add one to the length of the snake.
         this.m_Length++;
     }
-
-
     // Gets the Height of the screen in pixels.
     @Override
     public int getHeight() {return this.m_Height;}
@@ -110,12 +111,15 @@ public class SnakeModel implements IModel {
         // Update the value stored in model.
         this.m_Width = m_Width;
     }
-
-    // Restart the game from the beginning.
+    // Set the colour mode.
     @Override
-    public void restart() {
-
+    public void setColourMode(int colourMode){
+        this.m_ColourMode = colourMode;
     }
+    // Get the colour mode
+    @Override
+    public int getColourMode(){return this.m_ColourMode;}
+
 
 
 }
