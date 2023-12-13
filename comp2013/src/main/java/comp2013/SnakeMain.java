@@ -1,9 +1,10 @@
 package comp2013;
 
+import comp2013.Controller.SnakeController;
+import comp2013.Model.SnakeModel;
+import comp2013.View.SnakeView;
 import javafx.application.Application;
 import javafx.stage.Stage;
-
-import javax.swing.text.View;
 
 public class SnakeMain extends Application {
     static SnakeModel M_Model;

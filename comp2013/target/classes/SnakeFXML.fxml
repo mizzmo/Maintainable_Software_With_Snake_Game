@@ -5,7 +5,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="comp2013.SnakeController">
+<AnchorPane prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="comp2013.Controller.SnakeController">
    <children>
       <ImageView fx:id="imageView" fitHeight="507.0" fitWidth="702.0" pickOnBounds="true" preserveRatio="true" />
       <Canvas fx:id="snakeCanvas" height="507.0" layoutX="6.0" width="695.0" />

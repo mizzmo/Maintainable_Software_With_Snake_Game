@@ -191,3 +191,6 @@
 - Replaced the old sprites with the new ones in imageUtil.
 - Updated gc.drawImage to include height and width restrictions.
 - Removed Unused Images.
+- Added new packages for View, Model and Controller.
+- Sorted classes into these packages.
+- Refactored code to work with these new locations
