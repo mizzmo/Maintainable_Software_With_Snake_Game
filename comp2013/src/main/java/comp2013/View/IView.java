@@ -1,0 +1,52 @@
+package comp2013.View;
+
+import comp2013.Controller.SnakeController;
+import javafx.scene.image.ImageView;
+
+/**
+ * The view is used to control visual aspects of the program.
+ */
+public interface IView {
+    /**
+     * Sets the controller to use.
+     * @param controller Controller to use.
+     */
+    void setController(SnakeController controller);
+
+
+    /**
+     * Draw the snake again from its new coordinates.
+     */
+    void refreshSnake();
+
+    /**
+     * Build the snake at the beginning of the game.
+     */
+    void buildSnake();
+
+    /**
+     * Sets the background image of the game.
+     * @param imageView ImageView that holds the image.
+     */
+    void setBackgroundImage(ImageView imageView, String imageID);
+
+    /**
+     * Draws the current score of the game.
+     */
+    public void drawScore();
+
+    /**
+     * Swaps the snake-head image depending on the direction of travel
+     */
+    void changeHeadDirection();
+
+    /**
+     * Handles what happens to the view when a game over condition is met.
+     */
+    void gameOverScreen();
+
+    /**
+     * Restarts the game by resetting the UI.
+     */
+    void restartGame();
+}
