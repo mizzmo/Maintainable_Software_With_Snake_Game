@@ -220,3 +220,6 @@
 - Added CSS to the checkbox. Applied to Checkbox.
 - Removed the FXML file as it wasnt used.
 - Added the effect to the snake in SnakeView. 
+- Added the effect to the fruit in drawFruit in SnakeFood.
+- Fixed issue where the effect would stop the screen being cleared.
+- Updated checkbox so that it will appear already checked if the colour mode has already been set.

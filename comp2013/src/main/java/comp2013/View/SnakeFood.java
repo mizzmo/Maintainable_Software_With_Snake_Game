@@ -71,8 +71,14 @@ public class SnakeFood
 	 */
 	public void drawFruit(Canvas canvas){
 		GraphicsContext gc = canvas.getGraphicsContext2D();
-		// Clear the canvas by filling it with a transparent color
-		gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
+		gc.setEffect(null);
+		// Draw the clear rectangle
+		gc.clearRect(0, 0, gc.getCanvas().getWidth(),
+				gc.getCanvas().getHeight());
+		// Add the effect back again
+		if(M_Controller.m_Model.getColourMode() == 1) {
+			gc.setEffect(M_Controller.m_View.M_ColorAdjust);
+		}
 		// Draw the fruit
 		gc.drawImage(this.M_Image, this.M_X, this.M_Y);
 		this.m_Eaten = false;

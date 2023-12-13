@@ -56,7 +56,7 @@ public class SnakeView extends Application implements IView {
     private boolean M_FirstEntry = true,
             M_GamePaused = false, M_GameOver = false;
 
-    private ColorAdjust M_ColorAdjust;
+    public ColorAdjust M_ColorAdjust;
 
     public SnakeView() {
         // Constructor gets the instance of controller.
@@ -101,7 +101,9 @@ public class SnakeView extends Application implements IView {
         gc.clearRect(0, 0, gc.getCanvas().getWidth(),
                 gc.getCanvas().getHeight());
         // Add the effect back again
-        gc.setEffect(M_ColorAdjust);
+        if(m_Controller.m_Model.getColourMode() == 1) {
+            gc.setEffect(M_ColorAdjust);
+        }
         // If the food has been eaten, draw a new one to replace it.
         if(M_SnakeFood.eaten()){
             // Re-Roll the fruit.
@@ -159,11 +161,11 @@ public class SnakeView extends Application implements IView {
         // Adjust brightness
         M_ColorAdjust.setBrightness(0.2);
         // Adjust contrast
-        M_ColorAdjust.setContrast(0.8);
+        M_ColorAdjust.setContrast(1);
         // Adjust hue
         M_ColorAdjust.setHue(-0.1);
         // Adjust saturation
-        M_ColorAdjust.setSaturation(0.8);
+        M_ColorAdjust.setSaturation(1);
 
         // Set title of screen.
         M_PrimaryStage.setTitle("Snake!");
@@ -699,7 +701,7 @@ public class SnakeView extends Application implements IView {
         M_SnakeFood.drawFruit(m_FoodCanvas);
 
         // Define the timeline that controlls how the snake moves.
-        M_Timeline = new Timeline(new KeyFrame(Duration.millis(200),
+        M_Timeline = new Timeline(new KeyFrame(Duration.millis(150),
                 event -> {
                     refreshSnake();
                     m_Controller.moveSnake();
@@ -803,6 +805,10 @@ public class SnakeView extends Application implements IView {
 
         // Create a checkbox for colour modes
         CheckBox colourCheckBox = new CheckBox("High Contrast Mode");
+        // Set the box to be ticked if the colour mode has been set already
+        if(m_Controller.m_Model.getColourMode() == 1) {
+            colourCheckBox.setSelected(true);
+        }
         // Add CSS
         colourCheckBox.getStyleClass().add("checkbox-styling");
 
