@@ -190,3 +190,4 @@
 - Created a new high resolution sprite for the snake.
 - Replaced the old sprites with the new ones in imageUtil.
 - Updated gc.drawImage to include height and width restrictions.
+- Removed Unused Images.
