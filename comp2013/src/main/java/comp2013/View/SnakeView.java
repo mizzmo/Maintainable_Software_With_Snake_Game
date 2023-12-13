@@ -1,7 +1,6 @@
 package comp2013.View;
 
 import comp2013.Controller.SnakeController;
-import comp2013.Controller.SnakeFood;
 import comp2013.Model.SnakeBody;
 import comp2013.Model.SnakeObject;
 import javafx.animation.Animation;
@@ -51,8 +50,9 @@ public class SnakeView extends Application implements IView {
     private double M_MusicVolume = 0.2;
     private StackPane M_DefaultPane;
     private TextField M_EnterNameField;
-
     private Timeline M_CountDownTimeline;
+
+    private boolean M_FirstEntry = true;
 
 
     public SnakeView() {
@@ -104,8 +104,29 @@ public class SnakeView extends Application implements IView {
             this.drawScore();
             // Add a new segment
             addSegment = true;
-
         }
+
+        if ((M_SnakeFood.m_NegativeFruit || M_SnakeFood.m_BonusFruit) && M_FirstEntry) {
+            int counter = 5;
+            // Create a new timeline that waits 5 seconds
+            Timeline timeline = new Timeline();
+            timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(5),
+                    event ->
+                    {
+                        if (m_Controller.m_Model.getAlive() == 1){
+                            M_SnakeFood.newFruit();
+                            M_SnakeFood.drawFruit(m_FoodCanvas);
+                        }
+                        M_FirstEntry = true;
+
+                    }));
+            // Set cycle count to just 1 and play
+            timeline.setCycleCount(1);
+            timeline.play();
+            // Set to false so the loop isnt entered again
+            M_FirstEntry = false;
+        }
+
         // Draw the head at its new coordinates and rotation.
         gc.drawImage(M_SnakeHeadImg, snakeBody.getFirst().getX(),
                 snakeBody.getFirst().getY(), 32, 32);

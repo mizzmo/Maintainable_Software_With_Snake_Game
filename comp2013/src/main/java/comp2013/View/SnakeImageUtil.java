@@ -106,12 +106,15 @@ public class SnakeImageUtil
 				("/images/food-strawberry.png").toExternalForm()));
 
 		m_SnakeImages.put("15", new Image(SnakeImageUtil.class.getResource
-				("/images/food-watermelon.png").toExternalForm()));
-
-		m_SnakeImages.put("16", new Image(SnakeImageUtil.class.getResource
 				("/images/food-lemon.png").toExternalForm()));
 
-		m_SnakeImages.put("17", new Image(SnakeImageUtil.class.getResource
+		m_SnakeImages.put("16", new Image(SnakeImageUtil.class.getResource
 				("/images/food-pitaya.png").toExternalForm()));
+
+		m_SnakeImages.put("17", new Image(SnakeImageUtil.class.getResource
+				("/images/rotten-apple.png").toExternalForm()));
+
+		m_SnakeImages.put("18", new Image(SnakeImageUtil.class.getResource
+				("/images/golden-apple.png").toExternalForm()));
 	}
 }

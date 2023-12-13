@@ -196,3 +196,8 @@
 - Refactored code to work with these new locations.
 - Fixed issue where snake speed would not reset after a restart.
 - Fixed issue where Countdown would overlap with previous countdown.
+- Updated where fruit can be placed on the screen.
+- Added images for golden fruit to ImageUtil.
+- Added functionality to bonus fruits, golden is +500 score, rotten is -100 score.
+- Added timeline that waits 5 seconds before removing the bonus fruit.
+- Fixed issue where timeline would generate a new fruit after game over if you died while it was still running.
