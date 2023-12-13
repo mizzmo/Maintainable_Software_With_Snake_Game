@@ -54,6 +54,7 @@ public class SnakeView extends Application implements IView {
     private VBox M_DarkStripVbox;
     private TextField M_EnterNameField;
     private Timeline M_CountDownTimeline;
+    public Timeline M_FoodTimeline;
     private Slider M_PauseVolumeSlider;
     private boolean M_FirstEntry = true,
             M_GamePaused = false, M_GameOver = false;
@@ -113,8 +114,8 @@ public class SnakeView extends Application implements IView {
         if ((M_SnakeFood.m_NegativeFruit || M_SnakeFood.m_BonusFruit) && M_FirstEntry) {
             int counter = 5;
             // Create a new timeline that waits 5 seconds
-            Timeline timeline = new Timeline();
-            timeline.getKeyFrames().add(new KeyFrame(Duration.seconds(5),
+            M_FoodTimeline = new Timeline();
+            M_FoodTimeline.getKeyFrames().add(new KeyFrame(Duration.seconds(5),
                     event ->
                     {
                         if (m_Controller.m_Model.getAlive() == 1){
@@ -125,8 +126,8 @@ public class SnakeView extends Application implements IView {
 
                     }));
             // Set cycle count to just 1 and play
-            timeline.setCycleCount(1);
-            timeline.play();
+            M_FoodTimeline.setCycleCount(1);
+            M_FoodTimeline.play();
             // Set to false so the loop isnt entered again
             M_FirstEntry = false;
         }

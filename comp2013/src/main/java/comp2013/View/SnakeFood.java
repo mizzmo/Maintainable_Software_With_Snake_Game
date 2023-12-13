@@ -53,6 +53,11 @@ public class SnakeFood
 				// If normal fruit.
 				else{M_Controller.m_Model.setScore(M_Controller.m_Model.getScore() + 100);}
 				this.m_Eaten = true;
+				// If the timeline in view is not finished
+				if(M_Controller.m_View.M_FoodTimeline != null && M_Controller.m_View.M_FoodTimeline.getCurrentTime().toSeconds() <= 5){
+					// Stop the timeline to prevent it resetting the new fruit
+					M_Controller.m_View.M_FoodTimeline.stop();
+				}
 				return true;
 			}
 		}
