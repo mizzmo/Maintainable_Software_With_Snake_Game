@@ -202,12 +202,8 @@ public class SnakeView extends Application implements IView {
         // image accordingly.
         switch (this.m_Controller.m_Snake.getDirection()) {
             case SnakeObject.UP: {
-                //M_SnakeHeadImg = SnakeImageUtil.getImage
-                       // ("snakeHeadUp");
-                M_SnakeHeadImg = SnakeImageUtil.getSprite
-                        ("headUp", false)
-                        .snapshot(null,
-                                null);
+                M_SnakeHeadImg = SnakeImageUtil.getImage
+                        ("snakeHeadUp");
             }
             break;
             case SnakeObject.DOWN: {
