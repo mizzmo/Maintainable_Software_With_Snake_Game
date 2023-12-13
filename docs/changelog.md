@@ -216,3 +216,5 @@
 - Fixed a bug with the Fruit timeline where it wouldnt stop after the bonus fruit was eaten.
 - Added variable to model "m_ColourMode"
 - Added getters and setters for m_ColourMode.
+- Created new checkbox for Colour Mode in Settings.
+- Added CSS to the checkbox. Applied to Checkbox.

@@ -13,10 +13,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.Slider;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
@@ -26,7 +23,6 @@ import javafx.scene.image.Image;
 import javafx.util.Duration;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
-import javafx.scene.control.TextField;
 
 import java.io.*;
 import java.util.List;
@@ -784,6 +780,20 @@ public class SnakeView extends Application implements IView {
         // Set the text to be white.
         snakeLengthLabel.setStyle("-fx-text-fill: white;");
 
+        // Create a checkbox for colour modes
+        CheckBox colourCheckBox = new CheckBox("High Contrast Mode");
+        // Add CSS
+        colourCheckBox.getStyleClass().add("checkbox-styling");
+
+        // Set a handler for the checkbox
+        colourCheckBox.setOnAction(event -> {
+            if(colourCheckBox.isSelected()) {
+                // Enable the contrast mode
+                m_Controller.m_Model.setColourMode(1);
+            }
+            // Otherwise disable the contrast mode
+            else{ m_Controller.m_Model.setColourMode(0);}
+        });
 
 
         // Create a button that returns to the main menu.
@@ -807,7 +817,8 @@ public class SnakeView extends Application implements IView {
                 (m_Controller.m_Model.getWidth() / 7));
         // Add to the pane.
         settingsPane.getChildren().addAll(volumeLevelLabel, volumeSlider,
-                snakeLengthLabel, snakeLengthSlider, menuButton);
+                snakeLengthLabel, snakeLengthSlider, menuButton,
+                colourCheckBox);
 
         volumeLevelLabel.setTranslateY(-110);
         volumeSlider.setTranslateY(-75);
@@ -815,7 +826,8 @@ public class SnakeView extends Application implements IView {
         snakeLengthLabel.setTranslateY(0);
         snakeLengthSlider.setTranslateY(50);
 
-        menuButton.setTranslateY(100);
+        menuButton.setTranslateY(175);
+        colourCheckBox.setTranslateY(100);
 
         // Set the scene and show the page.
         M_PrimaryStage.setScene(settingsScene);

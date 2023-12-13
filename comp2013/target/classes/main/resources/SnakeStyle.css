@@ -6,15 +6,15 @@
 }
 .game-over-label {
     -fx-font-size: 60; /* Change font size */
-    -fx-background-color: rgba(0, 0, 0, 0.5);
-    -fx-text-fill: red;
+    -fx-background-color: rgba(0, 0, 0, 0.5); /* Semi Transparent Background */
+    -fx-text-fill: red; /* Red Text */
 }
 
 .leaderboard-item{
     -fx-padding: 10; /* Add Padding */
     -fx-font-size: 20; /* Change font size */
     -fx-font-family: "Calibri"; /* Change font to Calibri */
-    -fx-text-fill: BLACK;
+    -fx-text-fill: BLACK; /* Change text to black */
 }
 
 .snake-title-label {
@@ -62,4 +62,11 @@
     -fx-background-insets: 2 0 0 0, 2 0 3 0, 2 0 4 0, 2 0 5 0; /* Insets for background layers */
 }
 
+.checkbox-styling {
+    -fx-text-fill: white; /* White text color */
+    -fx-padding: 5; /* Padding */
+    -fx-font-size: 20; /* Change text size */
+    -fx-font-weight: bold; /* Set bold */
+    -fx-font-family: "Calibri"; /* Change font to Calibri */
+}
 
