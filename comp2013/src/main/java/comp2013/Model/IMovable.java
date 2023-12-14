@@ -35,4 +35,6 @@ public interface IMovable
 	 * @return Integer that represents the direction of the snake.
 	 */
 	int getDirection();
+
+
 }

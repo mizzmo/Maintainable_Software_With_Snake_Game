@@ -37,7 +37,7 @@ public class SnakeFood
 			int snakeBodyX = snakePart.getX();
 			int snakeBodyY = snakePart.getY();
 			// Checks if the fruit is intersecting with any part of the snake
-			boolean isIntersecting = areImagesIntersecting(snakeBodyX, snakeBodyY, 25, 25,
+			boolean isIntersecting = imageIntersect(snakeBodyX, snakeBodyY, 25, 25,
 					this.M_X, this.M_Y, 32, 32);
 			// If intersecting, return true.
 			if(isIntersecting){
@@ -132,8 +132,8 @@ public class SnakeFood
 	 * @param h2 second image height
 	 * @return Returns true if the image are intersecting, false otherwise.
 	 */
-	public static boolean areImagesIntersecting(double x1, double y1, double w1, double h1,
-										  double x2, double y2, double w2, double h2) {
+	public static boolean imageIntersect(double x1, double y1, double w1, double h1,
+										 double x2, double y2, double w2, double h2) {
 		return (x1 < x2 + w2 && x1 + w1 > x2 && y1 < y2 + h2 && y1 + h1 > y2);
 	}
 }

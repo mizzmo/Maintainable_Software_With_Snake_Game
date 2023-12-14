@@ -122,9 +122,9 @@ public class SnakeModel implements IModel {
     // Get the colour mode
     @Override
     public int getColourMode(){return this.m_ColourMode;}
-
+    @Override
     public int getWallMode() {return this.m_WallMode;}
-
+    @Override
     public void setWallMode(int wallMode) {this.m_WallMode = wallMode;}
 
 }

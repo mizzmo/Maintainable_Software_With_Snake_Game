@@ -32,7 +32,7 @@ public class SnakeWall {
             int snakeBodyX = snakePart.getX();
             int snakeBodyY = snakePart.getY();
             // Checks if the wall is intersecting with any part of the snake
-            boolean isIntersecting = SnakeFood.areImagesIntersecting
+            boolean isIntersecting = SnakeFood.imageIntersect
                     (snakeBodyX, snakeBodyY, 32, 32,
                     this.M_X, this.M_Y, this.M_Width, this.M_Height);
             // If intersecting, return true.

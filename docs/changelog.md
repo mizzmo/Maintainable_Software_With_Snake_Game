@@ -251,3 +251,4 @@
 - Implemented Leaderboard Scene in its new class.
 - Implemented MapSelect Secne in its new class.
 - Refactored the View Class to follow the coding conventions.
+- Adding all class test classes and methods to be implemented.
