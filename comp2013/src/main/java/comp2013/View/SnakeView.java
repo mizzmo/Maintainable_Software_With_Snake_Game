@@ -34,7 +34,7 @@ public class SnakeView extends Application implements IView {
     private Stage M_PrimaryStage;
     public SnakeMusic m_SnakeMusic;
 
-    private SnakeWall M_SnakeWall;
+    public SnakeWall m_SnakeWall;
     private StackPane M_SnakePane;
     public Canvas m_SnakeCanvas, m_FoodCanvas, m_WallCanvas;
     private Image M_SnakeHeadImg, M_SnakeBodyImg, M_BackgroundImage;
@@ -43,7 +43,7 @@ public class SnakeView extends Application implements IView {
             M_GameOverLabel, M_DefaultLabel,
             M_PausedLabel, M_PauseVolumeLabel,
             M_PauseResumeLabel;
-    private Timeline M_Timeline;
+    private Timeline M_Timeline, M_WallTimeline;
     private Button M_RestartButton, M_MenuReturnButton,
             M_EnterNameButton;
     private int M_TimerLength;
@@ -159,7 +159,7 @@ public class SnakeView extends Application implements IView {
     public void start(Stage primaryStage) throws Exception {
         this.M_PrimaryStage = primaryStage;
         M_ColorAdjust = new ColorAdjust();
-        M_SnakeWall = new SnakeWall();
+        m_SnakeWall = new SnakeWall();
         // Initialise the Accessablility Option
         // Adjust brightness
         M_ColorAdjust.setBrightness(0.2);
@@ -431,6 +431,8 @@ public class SnakeView extends Application implements IView {
             M_GamePaused = true;
             // Stop the timeline so the snake no longer moves.
             M_Timeline.stop();
+            // Stop new walls generating.
+            M_WallTimeline.stop();
             // Create a new vbox that acts as a transparent strip.
             M_DarkStripVbox = new VBox(10);
             M_DarkStripVbox.setStyle
@@ -533,6 +535,7 @@ public class SnakeView extends Application implements IView {
                 M_MenuReturnButton, M_RestartButton);
         // Play the timeline again
         M_Timeline.play();
+        M_WallTimeline.play();
     }
 
 
@@ -545,7 +548,9 @@ public class SnakeView extends Application implements IView {
         M_GameOver = false;
         // Reset the rate of the timeline.
         M_Timeline.setRate(1);
+        // Stop the timelines.
         M_Timeline.stop();
+        M_WallTimeline.stop();
         // Set the timer to -1 so that the timeline loop doesnt do anything.
         M_TimerLength = -1;
         // Remove the game over labels from the screen.
@@ -565,6 +570,7 @@ public class SnakeView extends Application implements IView {
         m_SnakeMusic.setLooping(true);
         // Start the timeline again.
         M_Timeline.play();
+        M_WallTimeline.play();
     }
 
     private void setMenuScene(){
@@ -695,7 +701,7 @@ public class SnakeView extends Application implements IView {
         M_ScoreLabel.getStyleClass().add("label-with-padding");
 
         // Set alignment of the label within the StackPane
-        StackPane.setAlignment(M_ScoreLabel, javafx.geometry.Pos.TOP_CENTER);
+        StackPane.setAlignment(M_ScoreLabel, Pos.TOP_CENTER);
 
         // Add the label to the StackPane
         M_SnakePane.getChildren().add(M_ScoreLabel);
@@ -706,8 +712,18 @@ public class SnakeView extends Application implements IView {
         M_SnakeFood = new SnakeFood();
         M_SnakeFood.drawFruit(m_FoodCanvas);
         // Create a wall and draw it on the wall canvas
-        M_SnakeWall = new SnakeWall();
-        M_SnakeWall.drawWall(m_WallCanvas);
+        m_SnakeWall = new SnakeWall();
+        m_SnakeWall.drawWall(m_WallCanvas);
+
+        M_WallTimeline = new Timeline(new KeyFrame(Duration.seconds(5),
+                event -> {
+                    // Generate and draw a new wall every 5 seconds.
+                    m_SnakeWall.newWall();
+                    m_SnakeWall.drawWall(m_WallCanvas);
+                }));
+
+        M_WallTimeline.setCycleCount(Animation.INDEFINITE);
+        M_WallTimeline.play();
 
         // Define the timeline that controlls how the snake moves.
         M_Timeline = new Timeline(new KeyFrame(Duration.millis(150),
