@@ -246,3 +246,4 @@
 - Update code that removes the wall after a game over.
 - Added new classes for each scene in a new directory "SnakeScenes".
 - Implemented MainMenuScene in its new class.
+- Implemented GameScene in its new class.

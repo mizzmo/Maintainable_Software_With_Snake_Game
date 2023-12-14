@@ -12,7 +12,7 @@ public class SnakeWall {
 
     private SnakeController M_Controller = SnakeController.getInstance();
 
-    SnakeWall(){
+    public SnakeWall(){
         // Get the width and height of the image.
         this.M_Width = 128;
         this.M_Height = 32;

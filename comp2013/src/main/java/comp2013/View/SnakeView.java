@@ -3,8 +3,8 @@ package comp2013.View;
 import comp2013.Controller.SnakeController;
 import comp2013.Model.SnakeBody;
 import comp2013.Model.SnakeObject;
+import comp2013.View.SnakeScenes.GameScene;
 import comp2013.View.SnakeScenes.MainMenuScene;
-import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -36,24 +36,24 @@ public class SnakeView extends Application implements IView {
     public SnakeMusic m_SnakeMusic;
 
     public SnakeWall m_SnakeWall;
-    private StackPane M_SnakePane;
+    public StackPane M_SnakePane;
     public Canvas m_SnakeCanvas, m_FoodCanvas, m_WallCanvas;
     private Image M_SnakeHeadImg;
     private Image M_SnakeBodyImg;
     public Image M_BackgroundImage;
-    private SnakeFood M_SnakeFood;
-    private Label M_ScoreLabel;
+    public SnakeFood M_SnakeFood;
+    public Label M_ScoreLabel;
     private Label M_CountDownLabel;
     private Label M_GameOverLabel;
     public Label M_DefaultLabel;
     private Label M_PausedLabel;
     private Label M_PauseVolumeLabel;
     private Label M_PauseResumeLabel;
-    private Timeline M_Timeline, M_WallTimeline;
+    public Timeline M_Timeline;
+    public Timeline M_WallTimeline;
     private Button M_RestartButton, M_MenuReturnButton,
             M_EnterNameButton;
     private int M_TimerLength;
-    private static SnakeView m_Instance;
     public double M_MusicVolume = 0.2;
     public StackPane M_DefaultPane;
     private VBox M_DarkStripVbox;
@@ -68,6 +68,8 @@ public class SnakeView extends Application implements IView {
 
     private MainMenuScene M_MainMenuScene;
 
+    private GameScene M_GameScene;
+
     public SnakeView() {
         // Constructor gets the instance of controller.
         m_Controller = SnakeController.getInstance();
@@ -76,10 +78,6 @@ public class SnakeView extends Application implements IView {
         M_BackgroundImage = SnakeImageUtil.getImage
                 ("grass-background");
 
-    }
-
-    public static SnakeView getInstance() {
-        return m_Instance;
     }
 
     public void setController(SnakeController controller){
@@ -127,7 +125,6 @@ public class SnakeView extends Application implements IView {
         }
 
         if ((M_SnakeFood.m_NegativeFruit || M_SnakeFood.m_BonusFruit) && M_FirstEntry) {
-            int counter = 5;
             // Create a new timeline that waits 5 seconds
             M_FoodTimeline = new Timeline();
             M_FoodTimeline.getKeyFrames().add(new KeyFrame(Duration.seconds(5),
@@ -164,10 +161,15 @@ public class SnakeView extends Application implements IView {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage)  {
         this.M_PrimaryStage = primaryStage;
+
+        // Initialise all of the scenes
         M_MainMenuScene = new MainMenuScene(this);
+        M_GameScene = new GameScene(this);
+        // Initialise the colour adjust
         M_ColorAdjust = new ColorAdjust();
+        // Initialise the snake wall
         m_SnakeWall = new SnakeWall();
         // Initialise the Accessablility Option
         // Adjust brightness
@@ -593,106 +595,7 @@ public class SnakeView extends Application implements IView {
     }
 
 
-    private void setGameScene(){
-        // Stop any music that is already playing.
-        if(m_SnakeMusic != null) {
-            m_SnakeMusic.stopMusic();
-        }
 
-        M_SnakePane = new StackPane();
-
-        Scene m_SnakeScene = new Scene(M_SnakePane,
-                m_Controller.m_Model.getWidth(),
-                m_Controller.m_Model.getHeight());
-
-        // Load the CSS file
-        m_SnakeScene.getStylesheets().add(getClass().getResource
-                ("/SnakeStyle.css").toExternalForm());
-
-        // Add an image view to the pane
-        ImageView imageView = new ImageView();
-
-        // Set the background of the image.
-        imageView.setImage(M_BackgroundImage);
-        // Set the size of the image view.
-        imageView.setFitHeight((int)(m_Controller.m_Model.getHeight()));
-        imageView.setFitWidth((int)(m_Controller.m_Model.getWidth()));
-        // Add the background to the pane.
-        M_SnakePane.getChildren().add(imageView);
-
-        // Create a canvas that will be used to draw on the snake.
-        m_SnakeCanvas = new Canvas(m_Controller.m_Model.getWidth(),
-                m_Controller.m_Model.getHeight());
-        // Create a seperate canvas for the food.
-        m_FoodCanvas = new Canvas(m_Controller.m_Model.getWidth(),
-                m_Controller.m_Model.getHeight());
-        // Create a new canvas for the wall.
-        m_WallCanvas = new Canvas(m_Controller.m_Model.getWidth(),
-                m_Controller.m_Model.getHeight());
-
-        // Add both of the canvases to the screen
-        M_SnakePane.getChildren().addAll(m_FoodCanvas, m_SnakeCanvas,
-                m_WallCanvas);
-
-
-        M_ScoreLabel = new Label("Score: 0");
-
-        // Apply the CSS style to the Label
-        M_ScoreLabel.getStyleClass().add("label-with-padding");
-
-        // Set alignment of the label within the StackPane
-        StackPane.setAlignment(M_ScoreLabel, Pos.TOP_CENTER);
-
-        // Add the label to the StackPane
-        M_SnakePane.getChildren().add(M_ScoreLabel);
-
-        // Build the initial snake.
-        this.buildSnake();
-        // Create a new food and draw it.
-        M_SnakeFood = new SnakeFood();
-        M_SnakeFood.drawFruit(m_FoodCanvas);
-        // Create a wall and draw it on the wall canvas
-        m_SnakeWall = new SnakeWall();
-
-        M_WallTimeline = new Timeline(new KeyFrame(Duration.seconds(5),
-                event -> {
-                    // Generate and draw a new wall every 5 seconds.
-                    // Draw a new wall if option is active.
-                    if(m_Controller.m_Model.getWallMode() == 1) {
-                        m_SnakeWall.newWall();
-                        m_SnakeWall.drawWall(m_WallCanvas);
-                    }
-                }));
-        M_WallTimeline.setCycleCount(Animation.INDEFINITE);
-        M_WallTimeline.play();
-
-        // Define the timeline that controlls how the snake moves.
-        M_Timeline = new Timeline(new KeyFrame(Duration.millis(150),
-                event -> {
-                    refreshSnake();
-                    m_Controller.moveSnake();
-                }));
-
-        M_Timeline.setCycleCount(Animation.INDEFINITE);
-        M_Timeline.play();
-
-        // Create a new SnakeMusic to be used to play music.
-        m_SnakeMusic = new SnakeMusic(SnakeMusicUtil.getMedia
-                ("frogger"));
-        // Play the music
-        m_SnakeMusic.playMusic();
-        // Set the volume
-        m_SnakeMusic.setVolume(this.M_MusicVolume);
-        // Sets the music to loop until it is told otherwise.
-        m_SnakeMusic.setLooping(true);
-
-        m_SnakeScene.setOnKeyPressed(event ->
-                m_Controller.handleKeyPress(event.getCode()));
-
-        // Set the scene and show the page.
-        M_PrimaryStage.setScene(m_SnakeScene);
-        M_PrimaryStage.show();
-    }
 
     public void setSettingsScene(){
         // Initialise the menu scene and stack pane.
@@ -877,7 +780,7 @@ public class SnakeView extends Application implements IView {
         // Set what happens when button is clicked.
         startButton.setOnAction(event -> {
             // Set the new scene
-            this.setGameScene();
+            M_GameScene.setGameScene();
             // Reset the game to default.
             m_Controller.restartGame();
         });
