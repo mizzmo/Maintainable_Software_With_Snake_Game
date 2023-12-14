@@ -248,3 +248,5 @@
 - Implemented MainMenuScene in its new class.
 - Implemented GameScene in its new class.
 - Implemented SettingsScene in its new class.
+- Implemented Leaderboard Scene in its new class.
+- Implemented MapSelect Secne in its new class.

@@ -5,6 +5,8 @@ import comp2013.Model.SnakeBody;
 import comp2013.Model.SnakeObject;
 import comp2013.View.SnakeScenes.GameScene;
 import comp2013.View.SnakeScenes.MainMenuScene;
+import comp2013.View.SnakeScenes.MapSelectScene;
+import comp2013.View.SnakeScenes.SettingsScene;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -68,7 +70,11 @@ public class SnakeView extends Application implements IView {
 
     public MainMenuScene M_MainMenuScene;
 
-    private GameScene M_GameScene;
+    public GameScene M_GameScene;
+
+    public MapSelectScene m_MapSelectScene;
+
+    public SettingsScene m_SettingsScene;
 
     public SnakeView() {
         // Constructor gets the instance of controller.
@@ -164,9 +170,10 @@ public class SnakeView extends Application implements IView {
     public void start(Stage primaryStage)  {
         this.M_PrimaryStage = primaryStage;
 
-        // Initialise all of the scenes
+        // Initialise main menu scene
         M_MainMenuScene = new MainMenuScene(this);
-        M_GameScene = new GameScene(this);
+
+
         // Initialise the colour adjust
         M_ColorAdjust = new ColorAdjust();
         // Initialise the snake wall
@@ -593,254 +600,6 @@ public class SnakeView extends Application implements IView {
         M_Timeline.play();
         M_WallTimeline.play();
     }
-
-
-
-
-
-    public void setSelectScene(){
-        // Initialise the menu scene and stack pane.
-        Scene mapSelectScene = this.initialiseMenuScreen("Map Select");
-        StackPane mapSelectPane = this.M_DefaultPane;
-
-        // Create a button that returns to the main menu.
-        Button menuButton = new Button("Back");
-        // Set what happens when button is clicked.
-        menuButton.setOnAction(event -> {
-            // Go to the menu
-            M_MainMenuScene.setMenuScene();
-        });
-        // Add styling and set location
-        menuButton.getStyleClass().add("snake-button");
-        // Set the size of the
-        menuButton.setMinHeight((int)
-                (m_Controller.m_Model.getHeight() / 9));
-        menuButton.setMinWidth((int)
-                (m_Controller.m_Model.getWidth() / 7));
-
-        menuButton.setMaxHeight((int)(m_Controller.m_Model.getHeight() / 9));
-        menuButton.setMaxWidth((int)(m_Controller.m_Model.getWidth() / 7));
-
-        // Create a button that returns to the main menu.
-        Button startButton = new Button("Start Game!");
-        // Set what happens when button is clicked.
-        startButton.setOnAction(event -> {
-            // Set the new scene
-            M_GameScene.setGameScene();
-            // Reset the game to default.
-            m_Controller.restartGame();
-        });
-        // Add styling and set location
-        startButton.getStyleClass().add("snake-button");
-        // Set the size of the
-        startButton.setMinHeight((int)
-                (m_Controller.m_Model.getHeight() / 9));
-        startButton.setMinWidth((int)
-                (m_Controller.m_Model.getWidth() / 7));
-
-        startButton.setMaxHeight((int)
-                (m_Controller.m_Model.getHeight() / 9));
-        startButton.setMaxWidth((int)
-                (m_Controller.m_Model.getWidth() / 7));
-
-        Label selectLabel = new Label("Selected: Grassy Plains");
-        selectLabel.getStyleClass().add("label-with-padding");
-        selectLabel.setStyle("-fx-text-fill: WHITE; -fx-font-size: 20;");
-        // Create a Rectangle for an outline that is slightly
-        // bigger than the image view.
-        Rectangle selectOutline = new Rectangle(
-                (int)(m_Controller.m_Model.getWidth() / 4) + 20,
-                (int)(m_Controller.m_Model.getHeight() / 4) + 20
-        );
-        selectOutline.setFill(null); // No fill
-        selectOutline.setStroke(Color.WHITE); // Set the color of the outline
-        selectOutline.setStrokeWidth(5);
-
-
-        ImageView mapSelectCloud = new ImageView();
-        this.setBackgroundImage(mapSelectCloud, "cloud-background");
-        // Set the size of the image view.
-        mapSelectCloud.setFitHeight((int)
-                (m_Controller.m_Model.getHeight() / 4));
-        mapSelectCloud.setFitWidth((int)
-                (m_Controller.m_Model.getWidth() / 4));
-        // Set an event handler for the click event
-        mapSelectCloud.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                M_BackgroundImage = SnakeImageUtil.getImage
-                        ("cloud-background");
-                selectOutline.setTranslateX(-275);
-                selectLabel.setTranslateX(-275);
-                selectLabel.setText("Selected: Sky High");
-            }
-        });
-
-        ImageView mapSelectGrass = new ImageView();
-        this.setBackgroundImage(mapSelectGrass, "grass-background");
-        // Set the size of the image view.
-        mapSelectGrass.setFitHeight((int)
-                (m_Controller.m_Model.getHeight() / 4));
-        mapSelectGrass.setFitWidth((int)
-                (m_Controller.m_Model.getWidth() / 4));
-
-        mapSelectGrass.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                M_BackgroundImage = SnakeImageUtil.getImage
-                        ("grass-background");
-                selectOutline.setTranslateX(0);
-                selectLabel.setTranslateX(0);
-                selectLabel.setText("Selected: Grassy Plains");
-            }
-        });
-
-        ImageView mapSelectOcean = new ImageView();
-        this.setBackgroundImage(mapSelectOcean, "ocean-background");
-        // Set the size of the image view.
-        mapSelectOcean.setFitHeight((int)
-                (m_Controller.m_Model.getHeight() / 4));
-        mapSelectOcean.setFitWidth((int)
-                (m_Controller.m_Model.getWidth() / 4));
-
-        mapSelectOcean.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                M_BackgroundImage = SnakeImageUtil.getImage
-                        ("ocean-background");
-                selectOutline.setTranslateX(275);
-                selectLabel.setTranslateX(275);
-                selectLabel.setText("Selected: Ocean Dive");
-            }
-        });
-
-        // Add to the pane.
-        mapSelectPane.getChildren().addAll(
-                menuButton, mapSelectCloud, mapSelectGrass,
-                mapSelectOcean, selectOutline, selectLabel,
-                startButton
-        );
-        // Set the locations of the elements.
-        menuButton.setTranslateY(225);
-        menuButton.setTranslateX(-100);
-        startButton.setTranslateY(225);
-        startButton.setTranslateX(100);
-        mapSelectCloud.setTranslateX(-275);
-        mapSelectGrass.setTranslateX(0);
-        mapSelectOcean.setTranslateX(275);
-        selectLabel.setTranslateY(-100);
-
-
-        // Set the scene and show the page.
-        M_PrimaryStage.setScene(mapSelectScene);
-        M_PrimaryStage.show();
-    }
-
-    public void setLeaderboardScene(){
-        // Initialise the leaderboard scene and stack pane.
-        Scene leaderboardScene = this.initialiseMenuScreen
-                ("Leaderboard!");
-        StackPane leaderboardPane = this.M_DefaultPane;
-        Label leaderboardLabel = M_DefaultLabel;
-        // Create a button that returns to the main menu.
-        Button menuButton = new Button("Back");
-        // Set what happens when button is clicked.
-        menuButton.setOnAction(event -> {
-            // Go to the menu
-            M_MainMenuScene.setMenuScene();
-        });
-        // Add styling and set location
-        menuButton.getStyleClass().add("snake-button");
-        // Set the size of the
-        menuButton.setMinHeight((int)
-                (m_Controller.m_Model.getHeight() / 9));
-        menuButton.setMinWidth((int)
-                (m_Controller.m_Model.getWidth() / 7));
-
-        menuButton.setMaxHeight((int)
-                (m_Controller.m_Model.getHeight() / 9));
-        menuButton.setMaxWidth((int)
-                (m_Controller.m_Model.getWidth() / 7));
-        // Create a header label
-        Label boardHeader = new Label
-                ("Name          Score");
-        // Add some styling
-        boardHeader.getStyleClass().add("label-with-padding");
-        boardHeader.setStyle("-fx-text-fill: BLACK");
-        // Create a VBox to add leaderboard elements to
-        VBox leaderboard = new VBox();
-        // Set the size of the Vbox
-        leaderboard.setMinSize
-                ((double) m_Controller.m_Model.getWidth() / 2,
-                        (double) m_Controller.m_Model.getHeight() / 1.5);
-        leaderboard.getChildren().addAll(boardHeader);
-        leaderboard.setAlignment(Pos.CENTER); // Center items horizontally
-        leaderboard.setSpacing(10); // Set spacing between items
-        leaderboard.setStyle("-fx-background-color: white;");
-
-        // Create a Rectangle with stroke for the VBox
-        Rectangle scrollPaneBorder = new Rectangle();
-        scrollPaneBorder.setStroke(Color.BLACK); // Set the stroke color
-        scrollPaneBorder.setFill(null); // Make the fill transparent
-        scrollPaneBorder.setStrokeWidth(5); // Set the stroke width
-        // Set the size of the rectangle
-        scrollPaneBorder.setWidth(
-                (double) m_Controller.m_Model.getWidth() / 2);
-        scrollPaneBorder.setHeight(
-                (double) m_Controller.m_Model.getHeight() / 1.5);
-
-
-        try (BufferedReader reader = new BufferedReader
-                (new FileReader("comp2013/output/highScores.txt"))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                // Splits the data based on the comma.
-                String[] splitReading = line.split(",");
-                // Print the data to the VBox without any whitespace
-                // Also truncate the length of the string so that
-                // only 30 chars can be used.
-                String username;
-                // If the length is more than the maximum
-                if(splitReading[0].trim().length() > 30) {
-                    // Truncate
-                    username = splitReading[0].trim().substring(0, 30);
-                }
-                // Else just store it trimmed as is.
-                else{ username = splitReading[0].trim();}
-                // Add it to a label and add that to the scoreboard
-                Label leaderboardItem = new Label
-                        ( username + "        " + splitReading[1]);
-                // Add some styling
-                leaderboardItem.getStyleClass().add("leaderboard-item");
-                // Add to scoreboard
-                leaderboard.getChildren().add(leaderboardItem);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        ScrollPane scrollingBoard = new ScrollPane(leaderboard);
-        // Set the background of the ScrollPane to be transparent
-        scrollingBoard.setStyle("-fx-background-color: white;");
-        // Make it so you cant scroll horizontally
-        scrollingBoard.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollingBoard.setMinSize
-                ((double) m_Controller.m_Model.getWidth() / 2,
-                        (double) m_Controller.m_Model.getHeight() / 2);
-        scrollingBoard.setMaxSize
-                ((double) m_Controller.m_Model.getWidth() / 2,
-                        (double) m_Controller.m_Model.getHeight() / 1.5);
-        leaderboardPane.getChildren().addAll(scrollingBoard,
-                menuButton, scrollPaneBorder);
-
-
-        menuButton.setTranslateY(250);
-        leaderboardLabel.setTranslateY(25);
-
-        M_PrimaryStage.setScene(leaderboardScene);
-        M_PrimaryStage.show();
-    }
-
     /**
      * Initialises a default menu screen.
      * @param title Title you want at the top of the screen.

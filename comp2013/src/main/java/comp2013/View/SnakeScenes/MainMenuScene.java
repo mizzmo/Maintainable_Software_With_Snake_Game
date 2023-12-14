@@ -16,9 +16,15 @@ public class MainMenuScene {
     private SnakeView M_View;
 
     private SettingsScene M_SettingsScene;
+
+    private MapSelectScene M_MapSelectScreen;
+
+    private LeaderboardScene M_LeaderboardScene;
     public MainMenuScene(SnakeView view){
         M_View = view;
-        M_SettingsScene = new SettingsScene(M_View);
+        M_SettingsScene = new SettingsScene(view, this);
+        M_MapSelectScreen = new MapSelectScene(view, this);
+        M_LeaderboardScene = new LeaderboardScene(view, this);
     }
 
 
@@ -48,7 +54,7 @@ public class MainMenuScene {
         // Button to start the game.
         Button startButton = new Button("Start Game");
         startButton.setOnAction(event -> {
-            M_View.setSelectScene();
+            M_MapSelectScreen.setSelectScene();
         });
         // Add styling and set location
         startButton.getStyleClass().add("snake-button");
@@ -75,7 +81,7 @@ public class MainMenuScene {
         // the high score page.
         Button leaderboardButton = new Button("Leaderboard");
         leaderboardButton.setOnAction(event -> {
-            M_View.setLeaderboardScene();
+            M_LeaderboardScene.setLeaderboardScene();
         });
         // Add styling and set location
         leaderboardButton.getStyleClass().add("snake-button");

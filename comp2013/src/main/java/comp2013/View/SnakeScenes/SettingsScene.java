@@ -10,12 +10,14 @@ import javafx.scene.control.Slider;
 import javafx.scene.layout.StackPane;
 
 public class SettingsScene {
-
+    private MainMenuScene M_MainMenu;
     private SnakeView M_View;
     public SnakeController m_Controller;
-    public SettingsScene(SnakeView view){
+    public SettingsScene(SnakeView view, MainMenuScene menu){
         M_View = view;
         m_Controller = M_View.m_Controller;
+        M_MainMenu = menu;
+
 
     }
 
@@ -139,7 +141,7 @@ public class SettingsScene {
         // Set what happens when button is clicked.
         menuButton.setOnAction(event -> {
             // Go to the menu
-            M_View.M_MainMenuScene.setMenuScene();
+            M_MainMenu.setMenuScene();
         });
         // Add styling and set location
         menuButton.getStyleClass().add("snake-button");
