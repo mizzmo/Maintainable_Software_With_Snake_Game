@@ -231,3 +231,5 @@
 - Added new method to SnakeWall "checkHitWall" that checks if the snake has hit the wall.
 - Added method to SnakeWall, "drawWall" to draw the wall to the screen.
 - Added method "rotateWall" to SnakeWall, that will change the direction the wall is layed on.
+- Added private variable M_SnakeWall to View to store the snakeWall object.
+- Added a new canvas to View "m_WallCanvas", implemented the first wall drawing in view.

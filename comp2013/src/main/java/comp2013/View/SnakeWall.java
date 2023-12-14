@@ -17,8 +17,8 @@ public class SnakeWall {
         this.M_Width = 128;
         this.M_Height = 32;
         // Set a random location on the screen
-        this.M_X = (int) (Math.random() * (M_Controller.m_Model.getWidth()*0.9 - M_Width));
-        this.M_Y = (int) (Math.random() * (M_Controller.m_Model.getHeight()*0.9 - M_Height));
+        this.M_X = (int) (Math.random() * (M_Controller.m_Model.getWidth()*0.9));
+        this.M_Y = (int) (Math.random() * (M_Controller.m_Model.getHeight()*0.9));
     }
 
     /**
@@ -61,7 +61,8 @@ public class SnakeWall {
             gc.setEffect(M_Controller.m_View.M_ColorAdjust);
         }
         gc.setFill(Color.RED);
-        gc.fillRect(this.M_X, this.M_X, this.M_Width, this.M_Height);
+        gc.fillRect(this.M_X, this.M_Y, this.M_Width, this.M_Height);
+
     };
 
     /**

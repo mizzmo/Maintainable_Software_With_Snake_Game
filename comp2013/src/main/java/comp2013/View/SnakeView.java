@@ -33,8 +33,10 @@ public class SnakeView extends Application implements IView {
     public SnakeController m_Controller;
     private Stage M_PrimaryStage;
     public SnakeMusic m_SnakeMusic;
+
+    private SnakeWall M_SnakeWall;
     private StackPane M_SnakePane;
-    public Canvas m_SnakeCanvas, m_FoodCanvas;
+    public Canvas m_SnakeCanvas, m_FoodCanvas, m_WallCanvas;
     private Image M_SnakeHeadImg, M_SnakeBodyImg, M_BackgroundImage;
     private SnakeFood M_SnakeFood;
     private Label M_ScoreLabel, M_CountDownLabel,
@@ -157,6 +159,7 @@ public class SnakeView extends Application implements IView {
     public void start(Stage primaryStage) throws Exception {
         this.M_PrimaryStage = primaryStage;
         M_ColorAdjust = new ColorAdjust();
+        M_SnakeWall = new SnakeWall();
         // Initialise the Accessablility Option
         // Adjust brightness
         M_ColorAdjust.setBrightness(0.2);
@@ -677,10 +680,13 @@ public class SnakeView extends Application implements IView {
         // Create a seperate canvas for the food.
         m_FoodCanvas = new Canvas(m_Controller.m_Model.getWidth(),
                 m_Controller.m_Model.getHeight());
+        // Create a new canvas for the wall.
+        m_WallCanvas = new Canvas(m_Controller.m_Model.getWidth(),
+                m_Controller.m_Model.getHeight());
 
         // Add both of the canvases to the screen
-        M_SnakePane.getChildren().add(m_FoodCanvas);
-        M_SnakePane.getChildren().add(m_SnakeCanvas);
+        M_SnakePane.getChildren().addAll(m_FoodCanvas, m_SnakeCanvas,
+                m_WallCanvas);
 
 
         M_ScoreLabel = new Label("Score: 0");
@@ -699,6 +705,9 @@ public class SnakeView extends Application implements IView {
         // Create a new food and draw it.
         M_SnakeFood = new SnakeFood();
         M_SnakeFood.drawFruit(m_FoodCanvas);
+        // Create a wall and draw it on the wall canvas
+        M_SnakeWall = new SnakeWall();
+        M_SnakeWall.drawWall(m_WallCanvas);
 
         // Define the timeline that controlls how the snake moves.
         M_Timeline = new Timeline(new KeyFrame(Duration.millis(150),
