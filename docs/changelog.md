@@ -247,3 +247,4 @@
 - Added new classes for each scene in a new directory "SnakeScenes".
 - Implemented MainMenuScene in its new class.
 - Implemented GameScene in its new class.
+- Implemented SettingsScene in its new class.

@@ -14,8 +14,11 @@ import javafx.scene.layout.StackPane;
 
 public class MainMenuScene {
     private SnakeView M_View;
+
+    private SettingsScene M_SettingsScene;
     public MainMenuScene(SnakeView view){
         M_View = view;
+        M_SettingsScene = new SettingsScene(M_View);
     }
 
 
@@ -58,7 +61,7 @@ public class MainMenuScene {
         // Create a settings button to access the games settings.
         Button settingsButton = new Button("Settings");
         settingsButton.setOnAction(event -> {
-            M_View.setSettingsScene();
+            M_SettingsScene.setSettingsScene();
         });
         // Add styling and set location
         settingsButton.getStyleClass().add("snake-button");
