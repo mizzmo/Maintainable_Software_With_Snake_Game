@@ -223,3 +223,24 @@
 - Added the effect to the fruit in drawFruit in SnakeFood.
 - Fixed issue where the effect would stop the screen being cleared.
 - Updated checkbox so that it will appear already checked if the colour mode has already been set.
+
+### 14/12/23
+- Updated POM File.
+- Added new class "SnakeWall".
+- Added contructor to SnakeWall.
+- Added new method to SnakeWall "checkHitWall" that checks if the snake has hit the wall.
+- Added method to SnakeWall, "drawWall" to draw the wall to the screen.
+- Added method "rotateWall" to SnakeWall, that will change the direction the wall is layed on.
+- Added private variable M_SnakeWall to View to store the snakeWall object.
+- Added a new canvas to View "m_WallCanvas", implemented the first wall drawing in view.
+- Added new method to SnakeWall, "newWall" which generates new coordinates for the wall.
+- Added a check to drawWall which checks if the wall is about to be built ontop of the snake.
+- Added timeline to setGameScene which builds a new wall every 5 seconds.
+- Added checks to Controller which check every time the snake moves, if it has hit the wall or not.
+- Added checkbox to settings to toggle if you want to use walls or not.
+- Added variable to model "m_WallMode".
+- Added getters and setters for WallMode variable.
+- Added a check to newWall to stop the wall spawning ontop of the snake.
+- Fixed issue where the map wouldnt change back to default after going back to the main menu.
+- Added code to implemet the checkbox to disable the walls if not checked.
+- Update code that removes the wall after a game over.

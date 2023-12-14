@@ -104,6 +104,11 @@ public class SnakeController implements IController {
              this.handleGameOver();
              return;
          }
+         if(m_View.m_SnakeWall.checkHitWall())
+         {
+             this.handleGameOver();
+             return;
+         }
          // If the snake is still alive.
          if(m_Model.getAlive() == 1)
          {

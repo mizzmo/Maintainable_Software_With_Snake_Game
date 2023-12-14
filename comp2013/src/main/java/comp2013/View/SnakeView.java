@@ -33,15 +33,17 @@ public class SnakeView extends Application implements IView {
     public SnakeController m_Controller;
     private Stage M_PrimaryStage;
     public SnakeMusic m_SnakeMusic;
+
+    public SnakeWall m_SnakeWall;
     private StackPane M_SnakePane;
-    public Canvas m_SnakeCanvas, m_FoodCanvas;
+    public Canvas m_SnakeCanvas, m_FoodCanvas, m_WallCanvas;
     private Image M_SnakeHeadImg, M_SnakeBodyImg, M_BackgroundImage;
     private SnakeFood M_SnakeFood;
     private Label M_ScoreLabel, M_CountDownLabel,
             M_GameOverLabel, M_DefaultLabel,
             M_PausedLabel, M_PauseVolumeLabel,
             M_PauseResumeLabel;
-    private Timeline M_Timeline;
+    private Timeline M_Timeline, M_WallTimeline;
     private Button M_RestartButton, M_MenuReturnButton,
             M_EnterNameButton;
     private int M_TimerLength;
@@ -157,6 +159,7 @@ public class SnakeView extends Application implements IView {
     public void start(Stage primaryStage) throws Exception {
         this.M_PrimaryStage = primaryStage;
         M_ColorAdjust = new ColorAdjust();
+        m_SnakeWall = new SnakeWall();
         // Initialise the Accessablility Option
         // Adjust brightness
         M_ColorAdjust.setBrightness(0.2);
@@ -280,6 +283,7 @@ public class SnakeView extends Application implements IView {
         GraphicsContext gc;
         M_GameOver = true;
         // Stop the timeline so the snake no longer moves.
+        M_WallTimeline.stop();
         M_Timeline.stop();
         // Remove the food from the screen
         gc = m_FoodCanvas.getGraphicsContext2D();
@@ -287,6 +291,10 @@ public class SnakeView extends Application implements IView {
                 gc.getCanvas().getHeight());
         // Remove the Snake from the screen.
         gc = m_SnakeCanvas.getGraphicsContext2D();
+        gc.clearRect(0, 0, gc.getCanvas().getWidth(),
+                gc.getCanvas().getHeight());
+        // Clear any walls from the screen
+        gc = m_WallCanvas.getGraphicsContext2D();
         gc.clearRect(0, 0, gc.getCanvas().getWidth(),
                 gc.getCanvas().getHeight());
 
@@ -428,6 +436,8 @@ public class SnakeView extends Application implements IView {
             M_GamePaused = true;
             // Stop the timeline so the snake no longer moves.
             M_Timeline.stop();
+            // Stop new walls generating.
+            M_WallTimeline.stop();
             // Create a new vbox that acts as a transparent strip.
             M_DarkStripVbox = new VBox(10);
             M_DarkStripVbox.setStyle
@@ -530,6 +540,7 @@ public class SnakeView extends Application implements IView {
                 M_MenuReturnButton, M_RestartButton);
         // Play the timeline again
         M_Timeline.play();
+        M_WallTimeline.play();
     }
 
 
@@ -542,7 +553,9 @@ public class SnakeView extends Application implements IView {
         M_GameOver = false;
         // Reset the rate of the timeline.
         M_Timeline.setRate(1);
+        // Stop the timelines.
         M_Timeline.stop();
+        M_WallTimeline.stop();
         // Set the timer to -1 so that the timeline loop doesnt do anything.
         M_TimerLength = -1;
         // Remove the game over labels from the screen.
@@ -558,10 +571,16 @@ public class SnakeView extends Application implements IView {
         // Create a new food and draw it.
         M_SnakeFood = new SnakeFood();
         M_SnakeFood.drawFruit(m_FoodCanvas);
+        // Draw a new wall if option is active.
+        if(m_Controller.m_Model.getWallMode() == 1) {
+            m_SnakeWall.newWall();
+            m_SnakeWall.drawWall(m_WallCanvas);
+        }
         // Play the music on a loop.
         m_SnakeMusic.setLooping(true);
         // Start the timeline again.
         M_Timeline.play();
+        M_WallTimeline.play();
     }
 
     private void setMenuScene(){
@@ -639,6 +658,9 @@ public class SnakeView extends Application implements IView {
         // Add to pane
         menuPane.getChildren().add(exitButton);
         exitButton.setTranslateY(450);
+        // Reset the background image to default for the map select screen.
+        M_BackgroundImage = SnakeImageUtil.getImage
+                ("grass-background");
 
         // Set the scene and show the page.
         M_PrimaryStage.setScene(menuScene);
@@ -677,10 +699,13 @@ public class SnakeView extends Application implements IView {
         // Create a seperate canvas for the food.
         m_FoodCanvas = new Canvas(m_Controller.m_Model.getWidth(),
                 m_Controller.m_Model.getHeight());
+        // Create a new canvas for the wall.
+        m_WallCanvas = new Canvas(m_Controller.m_Model.getWidth(),
+                m_Controller.m_Model.getHeight());
 
         // Add both of the canvases to the screen
-        M_SnakePane.getChildren().add(m_FoodCanvas);
-        M_SnakePane.getChildren().add(m_SnakeCanvas);
+        M_SnakePane.getChildren().addAll(m_FoodCanvas, m_SnakeCanvas,
+                m_WallCanvas);
 
 
         M_ScoreLabel = new Label("Score: 0");
@@ -689,7 +714,7 @@ public class SnakeView extends Application implements IView {
         M_ScoreLabel.getStyleClass().add("label-with-padding");
 
         // Set alignment of the label within the StackPane
-        StackPane.setAlignment(M_ScoreLabel, javafx.geometry.Pos.TOP_CENTER);
+        StackPane.setAlignment(M_ScoreLabel, Pos.TOP_CENTER);
 
         // Add the label to the StackPane
         M_SnakePane.getChildren().add(M_ScoreLabel);
@@ -699,6 +724,20 @@ public class SnakeView extends Application implements IView {
         // Create a new food and draw it.
         M_SnakeFood = new SnakeFood();
         M_SnakeFood.drawFruit(m_FoodCanvas);
+        // Create a wall and draw it on the wall canvas
+        m_SnakeWall = new SnakeWall();
+
+        M_WallTimeline = new Timeline(new KeyFrame(Duration.seconds(5),
+                event -> {
+                    // Generate and draw a new wall every 5 seconds.
+                    // Draw a new wall if option is active.
+                    if(m_Controller.m_Model.getWallMode() == 1) {
+                        m_SnakeWall.newWall();
+                        m_SnakeWall.drawWall(m_WallCanvas);
+                    }
+                }));
+        M_WallTimeline.setCycleCount(Animation.INDEFINITE);
+        M_WallTimeline.play();
 
         // Define the timeline that controlls how the snake moves.
         M_Timeline = new Timeline(new KeyFrame(Duration.millis(150),
@@ -820,6 +859,26 @@ public class SnakeView extends Application implements IView {
             }
             // Otherwise disable the contrast mode
             else{ m_Controller.m_Model.setColourMode(0);}
+
+        });
+
+        // Create a checkbox for walls
+        CheckBox wallCheckBox = new CheckBox("Use Walls");
+        // Set the box to be ticked if the walls have been set already
+        if(m_Controller.m_Model.getWallMode() == 1) {
+            wallCheckBox.setSelected(true);
+        }
+        // Add CSS
+        wallCheckBox.getStyleClass().add("checkbox-styling");
+
+        // Set a handler for the checkbox
+        wallCheckBox.setOnAction(event -> {
+            if(wallCheckBox.isSelected()) {
+                // Enable the wall mode
+                m_Controller.m_Model.setWallMode(1);
+            }
+            // Otherwise disable the wall mode
+            else{ m_Controller.m_Model.setWallMode(0);}
         });
 
 
@@ -845,7 +904,7 @@ public class SnakeView extends Application implements IView {
         // Add to the pane.
         settingsPane.getChildren().addAll(volumeLevelLabel, volumeSlider,
                 snakeLengthLabel, snakeLengthSlider, menuButton,
-                colourCheckBox);
+                colourCheckBox, wallCheckBox);
 
         volumeLevelLabel.setTranslateY(-110);
         volumeSlider.setTranslateY(-75);
@@ -855,6 +914,9 @@ public class SnakeView extends Application implements IView {
 
         menuButton.setTranslateY(175);
         colourCheckBox.setTranslateY(100);
+        wallCheckBox.setTranslateY(100);
+        colourCheckBox.setTranslateX(-100);
+        wallCheckBox.setTranslateX(100);
 
         // Set the scene and show the page.
         M_PrimaryStage.setScene(settingsScene);
