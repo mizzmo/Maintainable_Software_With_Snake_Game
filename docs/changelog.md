@@ -223,3 +223,6 @@
 - Added the effect to the fruit in drawFruit in SnakeFood.
 - Fixed issue where the effect would stop the screen being cleared.
 - Updated checkbox so that it will appear already checked if the colour mode has already been set.
+
+### 14/12/23
+- Updated POM File
