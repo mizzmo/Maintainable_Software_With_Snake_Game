@@ -125,9 +125,6 @@ public class SnakeModel implements IModel {
 
     public int getWallMode() {return this.m_WallMode;}
 
-    public void setWallMode(int wallMode) {this.m_WallMode = wallMode;
-        System.out.printf("Wall Mode %d\n", wallMode);}
-
-
+    public void setWallMode(int wallMode) {this.m_WallMode = wallMode;}
 
 }

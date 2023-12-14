@@ -39,15 +39,15 @@ public class MainMenuScene {
         M_View.m_SnakeMusic.playMusic();
 
         // Set the volume
-        M_View.m_SnakeMusic.setVolume(M_View.M_MusicVolume);
+        M_View.m_SnakeMusic.setVolume(M_View.m_MusicVolume);
         // Set the music to loop
         M_View.m_SnakeMusic.setLooping(true);
 
         // Initialise the menu scene and stack pane.
         Scene menuScene = M_View.initialiseMenuScreen("Snake!");
-        StackPane menuPane = M_View.M_DefaultPane;
+        StackPane menuPane = M_View.m_DefaultPane;
 
-        Label titleLabel = M_View.M_DefaultLabel;
+        Label titleLabel = M_View.m_DefaultLabel;
         titleLabel.getStyleClass().add("snake-title-label");
         titleLabel.setTranslateY(100);
 
@@ -104,11 +104,11 @@ public class MainMenuScene {
         menuPane.getChildren().add(exitButton);
         exitButton.setTranslateY(450);
         // Reset the background image to default for the map select screen.
-        M_View.M_BackgroundImage = SnakeImageUtil.getImage
+        M_View.m_BackgroundImage = SnakeImageUtil.getImage
                 ("grass-background");
 
         // Set the scene and show the page.
-        M_View.M_PrimaryStage.setScene(menuScene);
-        M_View.M_PrimaryStage.show();
+        M_View.m_PrimaryStage.setScene(menuScene);
+        M_View.m_PrimaryStage.show();
     }
 }

@@ -31,8 +31,8 @@ public class LeaderboardScene {
         // Initialise the leaderboard scene and stack pane.
         Scene leaderboardScene = M_View.initialiseMenuScreen
                 ("Leaderboard!");
-        StackPane leaderboardPane = M_View.M_DefaultPane;
-        Label leaderboardLabel = M_View.M_DefaultLabel;
+        StackPane leaderboardPane = M_View.m_DefaultPane;
+        Label leaderboardLabel = M_View.m_DefaultLabel;
         // Create a button that returns to the main menu.
         Button menuButton = new Button("Back");
         // Set what happens when button is clicked.
@@ -128,8 +128,8 @@ public class LeaderboardScene {
         menuButton.setTranslateY(250);
         leaderboardLabel.setTranslateY(25);
 
-        M_View.M_PrimaryStage.setScene(leaderboardScene);
-        M_View.M_PrimaryStage.show();
+        M_View.m_PrimaryStage.setScene(leaderboardScene);
+        M_View.m_PrimaryStage.show();
     }
 
 }

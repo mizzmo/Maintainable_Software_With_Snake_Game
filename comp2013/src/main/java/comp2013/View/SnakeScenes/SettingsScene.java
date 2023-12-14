@@ -24,15 +24,15 @@ public class SettingsScene {
     public void setSettingsScene(){
         // Initialise the menu scene and stack pane.
         Scene settingsScene = M_View.initialiseMenuScreen("Settings");
-        StackPane settingsPane = M_View.M_DefaultPane;
+        StackPane settingsPane = M_View.m_DefaultPane;
 
         // Create a label to display the slider value
         Label volumeLevelLabel = new Label("Volume: "
-                + (int)(M_View.M_MusicVolume * 100) + "%");
+                + (int)(M_View.m_MusicVolume * 100) + "%");
 
         // Create a horizontal slider
         Slider volumeSlider = new Slider(0, 100,
-                M_View.M_MusicVolume * 100); // min, max, initial value
+                M_View.m_MusicVolume * 100); // min, max, initial value
         volumeSlider.setShowTickMarks(true);
 
         // Add a listener to respond to changes in the slider value and
@@ -42,7 +42,7 @@ public class SettingsScene {
                     volumeLevelLabel.setText(String.format
                             ("Volume: %.0f%%", newValue));
                     // Update the local variable so that all music is synced
-                    M_View.M_MusicVolume = (double) newValue / 100;
+                    M_View.m_MusicVolume = (double) newValue / 100;
                     // Update the music object itself
                     M_View.m_SnakeMusic.setVolume(((double)newValue / 100));
 
@@ -173,7 +173,7 @@ public class SettingsScene {
         wallCheckBox.setTranslateX(100);
 
         // Set the scene and show the page.
-        M_View.M_PrimaryStage.setScene(settingsScene);
-        M_View.M_PrimaryStage.show();
+        M_View.m_PrimaryStage.setScene(settingsScene);
+        M_View.m_PrimaryStage.show();
     }
 }

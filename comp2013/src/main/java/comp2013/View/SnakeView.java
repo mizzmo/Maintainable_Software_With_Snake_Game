@@ -3,93 +3,79 @@ package comp2013.View;
 import comp2013.Controller.SnakeController;
 import comp2013.Model.SnakeBody;
 import comp2013.Model.SnakeObject;
-import comp2013.View.SnakeScenes.GameScene;
 import comp2013.View.SnakeScenes.MainMenuScene;
-import comp2013.View.SnakeScenes.MapSelectScene;
-import comp2013.View.SnakeScenes.SettingsScene;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import javafx.util.Duration;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.paint.Color;
 import javafx.scene.effect.ColorAdjust;
 
 import java.io.*;
 import java.util.List;
 
 public class SnakeView extends Application implements IView {
+    // Public
     // Store references to the controller
     public SnakeController m_Controller;
-    public Stage M_PrimaryStage;
+    public Stage m_PrimaryStage;
     public SnakeMusic m_SnakeMusic;
-
     public SnakeWall m_SnakeWall;
-    public StackPane M_SnakePane;
+    public StackPane m_SnakePane;
     public Canvas m_SnakeCanvas, m_FoodCanvas, m_WallCanvas;
+    public Image m_BackgroundImage;
+    public SnakeFood m_SnakeFood;
+    public Label m_ScoreLabel;
+    public Label m_DefaultLabel;
+    public Timeline m_Timeline;
+    public Timeline m_WallTimeline;
+    public double m_MusicVolume = 0.2;
+    public StackPane m_DefaultPane;
+    public Timeline m_FoodTimeline;
+    public ColorAdjust m_ColorAdjust;
+    public MainMenuScene m_MainMenuScene;
+
+    // Private
     private Image M_SnakeHeadImg;
     private Image M_SnakeBodyImg;
-    public Image M_BackgroundImage;
-    public SnakeFood M_SnakeFood;
-    public Label M_ScoreLabel;
     private Label M_CountDownLabel;
     private Label M_GameOverLabel;
-    public Label M_DefaultLabel;
     private Label M_PausedLabel;
     private Label M_PauseVolumeLabel;
     private Label M_PauseResumeLabel;
-    public Timeline M_Timeline;
-    public Timeline M_WallTimeline;
     private Button M_RestartButton, M_MenuReturnButton,
             M_EnterNameButton;
     private int M_TimerLength;
-    public double M_MusicVolume = 0.2;
-    public StackPane M_DefaultPane;
     private VBox M_DarkStripVbox;
     private TextField M_EnterNameField;
     private Timeline M_CountDownTimeline;
-    public Timeline M_FoodTimeline;
     private Slider M_PauseVolumeSlider;
     private boolean M_FirstEntry = true,
             M_GamePaused = false, M_GameOver = false;
 
-    public ColorAdjust M_ColorAdjust;
-
-    public MainMenuScene M_MainMenuScene;
-
-    public GameScene M_GameScene;
-
-    public MapSelectScene m_MapSelectScene;
-
-    public SettingsScene m_SettingsScene;
 
     public SnakeView() {
         // Constructor gets the instance of controller.
         m_Controller = SnakeController.getInstance();
         // Set the controllers view to be this.
         m_Controller.setView(this);
-        M_BackgroundImage = SnakeImageUtil.getImage
+        m_BackgroundImage = SnakeImageUtil.getImage
                 ("grass-background");
 
     }
-
     public void setController(SnakeController controller){
         this.m_Controller = controller;
     }
-
 
      // Refreshes the snake at its new location.
     @Override
@@ -100,7 +86,7 @@ public class SnakeView extends Application implements IView {
         if(m_Controller.m_Model.getScore() > 0){
             timeRate *= 1 + (double) m_Controller.m_Model.getScore() / 1000;
             // Update the speed of the Timeline
-            M_Timeline.setRate(timeRate);
+            m_Timeline.setRate(timeRate);
         }
 
         // Get the list of snake body parts
@@ -116,36 +102,36 @@ public class SnakeView extends Application implements IView {
                 gc.getCanvas().getHeight());
         // Add the effect back again
         if(m_Controller.m_Model.getColourMode() == 1) {
-            gc.setEffect(M_ColorAdjust);
+            gc.setEffect(m_ColorAdjust);
         }
         // If the food has been eaten, draw a new one to replace it.
-        if(M_SnakeFood.eaten()){
+        if(m_SnakeFood.eaten()){
             // Re-Roll the fruit.
-            M_SnakeFood.newFruit();
+            m_SnakeFood.newFruit();
             // Draw the new fruit.
-            M_SnakeFood.drawFruit(m_FoodCanvas);
+            m_SnakeFood.drawFruit(m_FoodCanvas);
             // Update the score
             this.drawScore();
             // Add a new segment
             addSegment = true;
         }
 
-        if ((M_SnakeFood.m_NegativeFruit || M_SnakeFood.m_BonusFruit) && M_FirstEntry) {
+        if ((m_SnakeFood.m_NegativeFruit || m_SnakeFood.m_BonusFruit) && M_FirstEntry) {
             // Create a new timeline that waits 5 seconds
-            M_FoodTimeline = new Timeline();
-            M_FoodTimeline.getKeyFrames().add(new KeyFrame(Duration.seconds(5),
+            m_FoodTimeline = new Timeline();
+            m_FoodTimeline.getKeyFrames().add(new KeyFrame(Duration.seconds(5),
                     event ->
                     {
                         if (m_Controller.m_Model.getAlive() == 1){
-                            M_SnakeFood.newFruit();
-                            M_SnakeFood.drawFruit(m_FoodCanvas);
+                            m_SnakeFood.newFruit();
+                            m_SnakeFood.drawFruit(m_FoodCanvas);
                         }
                         M_FirstEntry = true;
 
                     }));
             // Set cycle count to just 1 and play
-            M_FoodTimeline.setCycleCount(1);
-            M_FoodTimeline.play();
+            m_FoodTimeline.setCycleCount(1);
+            m_FoodTimeline.play();
             // Set to false so the loop isnt entered again
             M_FirstEntry = false;
         }
@@ -168,37 +154,37 @@ public class SnakeView extends Application implements IView {
 
     @Override
     public void start(Stage primaryStage)  {
-        this.M_PrimaryStage = primaryStage;
+        this.m_PrimaryStage = primaryStage;
 
         // Initialise main menu scene
-        M_MainMenuScene = new MainMenuScene(this);
+        m_MainMenuScene = new MainMenuScene(this);
 
 
         // Initialise the colour adjust
-        M_ColorAdjust = new ColorAdjust();
+        m_ColorAdjust = new ColorAdjust();
         // Initialise the snake wall
         m_SnakeWall = new SnakeWall();
         // Initialise the Accessablility Option
         // Adjust brightness
-        M_ColorAdjust.setBrightness(0.2);
+        m_ColorAdjust.setBrightness(0.2);
         // Adjust contrast
-        M_ColorAdjust.setContrast(1);
+        m_ColorAdjust.setContrast(1);
         // Adjust hue
-        M_ColorAdjust.setHue(-0.1);
+        m_ColorAdjust.setHue(-0.1);
         // Adjust saturation
-        M_ColorAdjust.setSaturation(1);
+        m_ColorAdjust.setSaturation(1);
 
         // Set title of screen.
-        M_PrimaryStage.setTitle("Snake!");
+        m_PrimaryStage.setTitle("Snake!");
         // Set the icon of the window.
         Image icon = SnakeImageUtil.getImage("snakeIcon");
-        M_PrimaryStage.getIcons().add(icon);
+        m_PrimaryStage.getIcons().add(icon);
 
         // Set the event handler for the window-closing event
-        M_PrimaryStage.setOnCloseRequest(event -> {
+        m_PrimaryStage.setOnCloseRequest(event -> {
             Platform.exit();});
 
-        M_MainMenuScene.setMenuScene();
+        m_MainMenuScene.setMenuScene();
 
     }
 
@@ -222,7 +208,7 @@ public class SnakeView extends Application implements IView {
         // Just build the head.
         GraphicsContext gc = m_SnakeCanvas.getGraphicsContext2D();
         if(m_Controller.m_Model.getColourMode() == 1){
-            gc.setEffect(M_ColorAdjust);
+            gc.setEffect(m_ColorAdjust);
         }
         gc.drawImage(M_SnakeHeadImg, canvasCenterHorizontal,
                 canvasCenterVertical, 32,32);
@@ -263,7 +249,7 @@ public class SnakeView extends Application implements IView {
 
     @Override
     public void drawScore(){
-        M_ScoreLabel.setText
+        m_ScoreLabel.setText
                 ("Score: " + m_Controller.m_Model.getScore());
     }
 
@@ -301,8 +287,8 @@ public class SnakeView extends Application implements IView {
         GraphicsContext gc;
         M_GameOver = true;
         // Stop the timeline so the snake no longer moves.
-        M_WallTimeline.stop();
-        M_Timeline.stop();
+        m_WallTimeline.stop();
+        m_Timeline.stop();
         // Remove the food from the screen
         gc = m_FoodCanvas.getGraphicsContext2D();
         gc.clearRect(0, 0, gc.getCanvas().getWidth(),
@@ -323,7 +309,7 @@ public class SnakeView extends Application implements IView {
         StackPane.setAlignment(M_GameOverLabel,
                 javafx.geometry.Pos.TOP_CENTER);
 
-        M_SnakePane.getChildren().add(M_GameOverLabel);
+        m_SnakePane.getChildren().add(M_GameOverLabel);
         M_GameOverLabel.setTranslateY(175);
         // Create a button that skips the countdown timer and
         // restarts the game.
@@ -338,9 +324,9 @@ public class SnakeView extends Application implements IView {
         // Set what happens when button is clicked.
         M_MenuReturnButton.setOnAction(event -> {
             // Stop the timeline
-            M_Timeline.stop();
+            m_Timeline.stop();
             // Go to the menu
-            M_MainMenuScene.setMenuScene();
+            m_MainMenuScene.setMenuScene();
         });
         // Create a new Text Field that the user can type in
         M_EnterNameField = new TextField();
@@ -383,7 +369,7 @@ public class SnakeView extends Application implements IView {
         M_RestartButton.getStyleClass().add("snake-button");
         M_MenuReturnButton.getStyleClass().add("snake-button");
         // Add new buttons to the screen.
-        M_SnakePane.getChildren().addAll(M_RestartButton, M_MenuReturnButton,
+        m_SnakePane.getChildren().addAll(M_RestartButton, M_MenuReturnButton,
                 M_EnterNameField, M_EnterNameButton);
         // Set the position of the buttons.
         M_RestartButton.setTranslateY(425);
@@ -397,15 +383,15 @@ public class SnakeView extends Application implements IView {
         M_EnterNameField.setTranslateX(0);
 
         // Change the location of the label, move it to the middle of the screen.
-        M_ScoreLabel.setTranslateY(325);
+        m_ScoreLabel.setTranslateY(325);
         // Update the text.
-        M_ScoreLabel.setText("Final Score: " + m_Controller.m_Model.getScore());
+        m_ScoreLabel.setText("Final Score: " + m_Controller.m_Model.getScore());
 
         M_CountDownLabel = new Label("Restart in: 10");
         M_CountDownLabel.getStyleClass().add("label-with-padding");
         // Set alignment of the label within the StackPane
         StackPane.setAlignment(M_CountDownLabel, javafx.geometry.Pos.TOP_CENTER);
-        M_SnakePane.getChildren().add(M_CountDownLabel);
+        m_SnakePane.getChildren().add(M_CountDownLabel);
         M_CountDownLabel.setTranslateY(370);
         // Start the countdown timer.
         this.updateTimer();
@@ -453,9 +439,9 @@ public class SnakeView extends Application implements IView {
             // Set the game to paused
             M_GamePaused = true;
             // Stop the timeline so the snake no longer moves.
-            M_Timeline.stop();
+            m_Timeline.stop();
             // Stop new walls generating.
-            M_WallTimeline.stop();
+            m_WallTimeline.stop();
             // Create a new vbox that acts as a transparent strip.
             M_DarkStripVbox = new VBox(10);
             M_DarkStripVbox.setStyle
@@ -473,9 +459,9 @@ public class SnakeView extends Application implements IView {
             M_PausedLabel.setStyle("-fx-text-fill: white;" +
                     " -fx-font-size: 38; -fx-underline: true");
 
-            M_PauseVolumeLabel = new Label(String.format("Volume: %.0f%%", M_MusicVolume * 100));
+            M_PauseVolumeLabel = new Label(String.format("Volume: %.0f%%", m_MusicVolume * 100));
             M_PauseVolumeSlider = new Slider(0, 100,
-                    this.M_MusicVolume * 100); // min, max, initial value
+                    this.m_MusicVolume * 100); // min, max, initial value
             M_PauseVolumeSlider.setShowTickMarks(true);
 
             // Add a listener to respond to changes in the slider value and
@@ -485,7 +471,7 @@ public class SnakeView extends Application implements IView {
                         M_PauseVolumeLabel.setText(String.format
                                 ("Volume: %.0f%%", newValue));
                         // Update the local variable so that all music is synced
-                        this.M_MusicVolume = (double) newValue / 100;
+                        this.m_MusicVolume = (double) newValue / 100;
                         // Update the music object itself
                         m_SnakeMusic.setVolume(((double)newValue / 100));
 
@@ -512,7 +498,7 @@ public class SnakeView extends Application implements IView {
             // Set what happens when button is clicked.
             M_MenuReturnButton.setOnAction(event -> {
                 // Go to the menu
-                M_MainMenuScene.setMenuScene();
+                m_MainMenuScene.setMenuScene();
             });
 
             // Restart the game.
@@ -531,7 +517,7 @@ public class SnakeView extends Application implements IView {
             M_RestartButton.getStyleClass().add("snake-button");
             M_MenuReturnButton.getStyleClass().add("snake-button");
 
-            M_SnakePane.getChildren().addAll(M_DarkStripVbox, M_PausedLabel,
+            m_SnakePane.getChildren().addAll(M_DarkStripVbox, M_PausedLabel,
                     M_PauseVolumeLabel, M_PauseVolumeSlider, M_PauseResumeLabel,
                     M_MenuReturnButton, M_RestartButton);
             // Set the position
@@ -553,12 +539,12 @@ public class SnakeView extends Application implements IView {
     @Override
     public void unpauseGame(){
         M_GamePaused = false;
-        M_SnakePane.getChildren().removeAll(M_DarkStripVbox, M_PausedLabel,
+        m_SnakePane.getChildren().removeAll(M_DarkStripVbox, M_PausedLabel,
                 M_PauseVolumeLabel, M_PauseVolumeSlider, M_PauseResumeLabel,
                 M_MenuReturnButton, M_RestartButton);
         // Play the timeline again
-        M_Timeline.play();
-        M_WallTimeline.play();
+        m_Timeline.play();
+        m_WallTimeline.play();
     }
 
 
@@ -570,25 +556,25 @@ public class SnakeView extends Application implements IView {
         }
         M_GameOver = false;
         // Reset the rate of the timeline.
-        M_Timeline.setRate(1);
+        m_Timeline.setRate(1);
         // Stop the timelines.
-        M_Timeline.stop();
-        M_WallTimeline.stop();
+        m_Timeline.stop();
+        m_WallTimeline.stop();
         // Set the timer to -1 so that the timeline loop doesnt do anything.
         M_TimerLength = -1;
         // Remove the game over labels from the screen.
-        M_SnakePane.getChildren().removeAll(M_CountDownLabel,M_GameOverLabel,
+        m_SnakePane.getChildren().removeAll(M_CountDownLabel,M_GameOverLabel,
                 M_RestartButton, M_MenuReturnButton, M_EnterNameField,
                 M_EnterNameButton);
         // Put the score back to its place.
-        M_ScoreLabel.setTranslateY(0);
+        m_ScoreLabel.setTranslateY(0);
         // Update its text back to default.
-        M_ScoreLabel.setText("Score: " + m_Controller.m_Model.getScore());
+        m_ScoreLabel.setText("Score: " + m_Controller.m_Model.getScore());
         // Build the snake again.
         this.buildSnake();
         // Create a new food and draw it.
-        M_SnakeFood = new SnakeFood();
-        M_SnakeFood.drawFruit(m_FoodCanvas);
+        m_SnakeFood = new SnakeFood();
+        m_SnakeFood.drawFruit(m_FoodCanvas);
         // Draw a new wall if option is active.
         if(m_Controller.m_Model.getWallMode() == 1) {
             m_SnakeWall.newWall();
@@ -597,8 +583,8 @@ public class SnakeView extends Application implements IView {
         // Play the music on a loop.
         m_SnakeMusic.setLooping(true);
         // Start the timeline again.
-        M_Timeline.play();
-        M_WallTimeline.play();
+        m_Timeline.play();
+        m_WallTimeline.play();
     }
     /**
      * Initialises a default menu screen.
@@ -607,9 +593,9 @@ public class SnakeView extends Application implements IView {
      */
     public Scene initialiseMenuScreen(String title){
         // Initialise the menu scene and stack pane.
-        M_DefaultPane = new StackPane();
+        m_DefaultPane = new StackPane();
         Scene defaultScene = new Scene
-                (M_DefaultPane, m_Controller.m_Model.getWidth(),
+                (m_DefaultPane, m_Controller.m_Model.getWidth(),
                 m_Controller.m_Model.getHeight());
         // Add the CSS to the scene.
         defaultScene.getStylesheets().add(getClass().getResource
@@ -626,7 +612,7 @@ public class SnakeView extends Application implements IView {
         imageView.setFitWidth((int)
                 (m_Controller.m_Model.getWidth()));
         // Add the background to the pane.
-        M_DefaultPane.getChildren().add(imageView);
+        m_DefaultPane.getChildren().add(imageView);
         // Create a transparent VBox that goes over the top of the jungle
         // image so that it isnt so glaring.
         VBox darkBox = new VBox(10);
@@ -634,18 +620,18 @@ public class SnakeView extends Application implements IView {
         darkBox.setStyle
                 ("-fx-background-color: rgba(0, 0, 0, 0.6);");
 
-        M_DefaultPane.getChildren().add(darkBox);
+        m_DefaultPane.getChildren().add(darkBox);
         // New label with the specified text.
-        M_DefaultLabel = new Label(title);
+        m_DefaultLabel = new Label(title);
         // Add the style to the text.
-        M_DefaultLabel.getStyleClass().add
+        m_DefaultLabel.getStyleClass().add
                 ("label-with-padding");
         // Set the text to be white.
-        M_DefaultLabel.setStyle("-fx-text-fill: white;");
+        m_DefaultLabel.setStyle("-fx-text-fill: white;");
         // Set the position of the label
-        StackPane.setAlignment(M_DefaultLabel, Pos.TOP_CENTER);
-        M_DefaultPane.getChildren().add(M_DefaultLabel);
-        M_DefaultLabel.setTranslateY(50);
+        StackPane.setAlignment(m_DefaultLabel, Pos.TOP_CENTER);
+        m_DefaultPane.getChildren().add(m_DefaultLabel);
+        m_DefaultLabel.setTranslateY(50);
         // Return the initialised scene to be used.
         return defaultScene;
     }

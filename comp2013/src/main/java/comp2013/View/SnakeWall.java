@@ -63,7 +63,7 @@ public class SnakeWall {
                     gc.getCanvas().getHeight());
             // Add the effect back again
             if (M_Controller.m_Model.getColourMode() == 1) {
-                gc.setEffect(M_Controller.m_View.M_ColorAdjust);
+                gc.setEffect(M_Controller.m_View.m_ColorAdjust);
             }
             // Draw a 3D appearing rectangle on the screen.
             gc.setFill(Color.DARKRED);

@@ -54,9 +54,9 @@ public class SnakeFood
 				else{M_Controller.m_Model.setScore(M_Controller.m_Model.getScore() + 100);}
 				this.m_Eaten = true;
 				// If the timeline in view is not finished
-				if(M_Controller.m_View.M_FoodTimeline != null && M_Controller.m_View.M_FoodTimeline.getCurrentTime().toSeconds() <= 5){
+				if(M_Controller.m_View.m_FoodTimeline != null && M_Controller.m_View.m_FoodTimeline.getCurrentTime().toSeconds() <= 5){
 					// Stop the timeline to prevent it resetting the new fruit
-					M_Controller.m_View.M_FoodTimeline.stop();
+					M_Controller.m_View.m_FoodTimeline.stop();
 				}
 				return true;
 			}
@@ -77,7 +77,7 @@ public class SnakeFood
 				gc.getCanvas().getHeight());
 		// Add the effect back again
 		if(M_Controller.m_Model.getColourMode() == 1) {
-			gc.setEffect(M_Controller.m_View.M_ColorAdjust);
+			gc.setEffect(M_Controller.m_View.m_ColorAdjust);
 		}
 		// Draw the fruit
 		gc.drawImage(this.M_Image, this.M_X, this.M_Y);
@@ -94,21 +94,21 @@ public class SnakeFood
 		// If a special fruit, set the boolean to true.
 		if(randomInt == 17){
 			// Play the timeline again if it is stopped
-			if(M_Controller.m_View.M_FoodTimeline != null) {
-				M_Controller.m_View.M_FoodTimeline.play();
+			if(M_Controller.m_View.m_FoodTimeline != null) {
+				M_Controller.m_View.m_FoodTimeline.play();
 			}
 			m_NegativeFruit = true;
 		}
 		else if(randomInt == 18)
 		{
-			if(M_Controller.m_View.M_FoodTimeline != null) {
-				M_Controller.m_View.M_FoodTimeline.play();
+			if(M_Controller.m_View.m_FoodTimeline != null) {
+				M_Controller.m_View.m_FoodTimeline.play();
 			}
 			m_BonusFruit = true;
 		}
 		// Otherwise stop the timeline for regular fruit
-		else{ if(M_Controller.m_View.M_FoodTimeline != null) {
-			M_Controller.m_View.M_FoodTimeline.stop();}
+		else{ if(M_Controller.m_View.m_FoodTimeline != null) {
+			M_Controller.m_View.m_FoodTimeline.stop();}
 		}
 		// Carries out the same as the constructor, but can be called by other functions.
 		this.M_Image = SnakeImageUtil.getImage(String.valueOf(randomInt));

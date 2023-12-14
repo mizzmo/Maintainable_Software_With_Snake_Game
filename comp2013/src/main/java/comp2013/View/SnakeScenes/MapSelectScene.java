@@ -29,7 +29,7 @@ public class MapSelectScene {
     public void setSelectScene(){
         // Initialise the menu scene and stack pane.
         Scene mapSelectScene = M_View.initialiseMenuScreen("Map Select");
-        StackPane mapSelectPane = M_View.M_DefaultPane;
+        StackPane mapSelectPane = M_View.m_DefaultPane;
 
         // Create a button that returns to the main menu.
         Button menuButton = new Button("Back");
@@ -96,7 +96,7 @@ public class MapSelectScene {
         mapSelectCloud.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                M_View.M_BackgroundImage = SnakeImageUtil.getImage
+                M_View.m_BackgroundImage = SnakeImageUtil.getImage
                         ("cloud-background");
                 selectOutline.setTranslateX(-275);
                 selectLabel.setTranslateX(-275);
@@ -115,7 +115,7 @@ public class MapSelectScene {
         mapSelectGrass.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                M_View.M_BackgroundImage = SnakeImageUtil.getImage
+                M_View.m_BackgroundImage = SnakeImageUtil.getImage
                         ("grass-background");
                 selectOutline.setTranslateX(0);
                 selectLabel.setTranslateX(0);
@@ -134,7 +134,7 @@ public class MapSelectScene {
         mapSelectOcean.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                M_View.M_BackgroundImage = SnakeImageUtil.getImage
+                M_View.m_BackgroundImage = SnakeImageUtil.getImage
                         ("ocean-background");
                 selectOutline.setTranslateX(275);
                 selectLabel.setTranslateX(275);
@@ -160,7 +160,7 @@ public class MapSelectScene {
 
 
         // Set the scene and show the page.
-        M_View.M_PrimaryStage.setScene(mapSelectScene);
-        M_View.M_PrimaryStage.show();
+        M_View.m_PrimaryStage.setScene(mapSelectScene);
+        M_View.m_PrimaryStage.show();
     }
 }
