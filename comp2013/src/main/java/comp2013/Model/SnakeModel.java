@@ -20,6 +20,8 @@ public class SnakeModel implements IModel {
     // Sets the game to different colour modes.
     private int m_ColourMode;
 
+    private int m_WallMode;
+
     // Initialise the model.
     public SnakeModel(int width, int height) {
         m_Instance = this;
@@ -30,6 +32,7 @@ public class SnakeModel implements IModel {
         this.m_InitialLength = 3;
         this.m_Alive = 1;
         this.m_ColourMode = 0;
+        this.m_WallMode = 1;
     }
     /**
      * Returns an instance of the Model.
@@ -119,6 +122,10 @@ public class SnakeModel implements IModel {
     // Get the colour mode
     @Override
     public int getColourMode(){return this.m_ColourMode;}
+
+    public int getWallMode() {return m_WallMode;}
+
+    public void setWallMode(int m_WallMode) {this.m_WallMode = m_WallMode;}
 
 
 

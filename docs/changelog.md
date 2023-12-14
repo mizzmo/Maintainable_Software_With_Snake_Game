@@ -234,5 +234,9 @@
 - Added private variable M_SnakeWall to View to store the snakeWall object.
 - Added a new canvas to View "m_WallCanvas", implemented the first wall drawing in view.
 - Added new method to SnakeWall, "newWall" which generates new coordinates for the wall.
+- Added a check to drawWall which checks if the wall is about to be built ontop of the snake.
 - Added timeline to setGameScene which builds a new wall every 5 seconds.
 - Added checks to Controller which check every time the snake moves, if it has hit the wall or not.
+- Added checkbox to settings to toggle if you want to use walls or not.
+- Added variable to model "m_WallMode".
+- Added getters and setters for WallMode variable.

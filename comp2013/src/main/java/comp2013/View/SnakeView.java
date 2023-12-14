@@ -283,12 +283,17 @@ public class SnakeView extends Application implements IView {
         GraphicsContext gc;
         M_GameOver = true;
         // Stop the timeline so the snake no longer moves.
+        M_WallTimeline.stop();
         M_Timeline.stop();
         // Remove the food from the screen
         gc = m_FoodCanvas.getGraphicsContext2D();
         gc.clearRect(0, 0, gc.getCanvas().getWidth(),
                 gc.getCanvas().getHeight());
         // Remove the Snake from the screen.
+        gc = m_SnakeCanvas.getGraphicsContext2D();
+        gc.clearRect(0, 0, gc.getCanvas().getWidth(),
+                gc.getCanvas().getHeight());
+        // Clear any walls from the screen
         gc = m_SnakeCanvas.getGraphicsContext2D();
         gc.clearRect(0, 0, gc.getCanvas().getWidth(),
                 gc.getCanvas().getHeight());
@@ -566,6 +571,9 @@ public class SnakeView extends Application implements IView {
         // Create a new food and draw it.
         M_SnakeFood = new SnakeFood();
         M_SnakeFood.drawFruit(m_FoodCanvas);
+        // Draw a new wall.
+        m_SnakeWall.newWall();
+        m_SnakeWall.drawWall(m_WallCanvas);
         // Play the music on a loop.
         m_SnakeMusic.setLooping(true);
         // Start the timeline again.
@@ -713,7 +721,6 @@ public class SnakeView extends Application implements IView {
         M_SnakeFood.drawFruit(m_FoodCanvas);
         // Create a wall and draw it on the wall canvas
         m_SnakeWall = new SnakeWall();
-        m_SnakeWall.drawWall(m_WallCanvas);
 
         M_WallTimeline = new Timeline(new KeyFrame(Duration.seconds(5),
                 event -> {
@@ -841,6 +848,25 @@ public class SnakeView extends Application implements IView {
         colourCheckBox.setOnAction(event -> {
             if(colourCheckBox.isSelected()) {
                 // Enable the contrast mode
+                m_Controller.m_Model.setWallMode(1);
+            }
+            // Otherwise disable the contrast mode
+            else{ m_Controller.m_Model.setWallMode(0);}
+        });
+
+        // Create a checkbox for walls
+        CheckBox wallCheckBox = new CheckBox("Use Walls");
+        // Set the box to be ticked if the walls have been set already
+        if(m_Controller.m_Model.getWallMode() == 1) {
+            wallCheckBox.setSelected(true);
+        }
+        // Add CSS
+        wallCheckBox.getStyleClass().add("checkbox-styling");
+
+        // Set a handler for the checkbox
+        wallCheckBox.setOnAction(event -> {
+            if(wallCheckBox.isSelected()) {
+                // Enable the contrast mode
                 m_Controller.m_Model.setColourMode(1);
             }
             // Otherwise disable the contrast mode
@@ -870,7 +896,7 @@ public class SnakeView extends Application implements IView {
         // Add to the pane.
         settingsPane.getChildren().addAll(volumeLevelLabel, volumeSlider,
                 snakeLengthLabel, snakeLengthSlider, menuButton,
-                colourCheckBox);
+                colourCheckBox, wallCheckBox);
 
         volumeLevelLabel.setTranslateY(-110);
         volumeSlider.setTranslateY(-75);
@@ -880,6 +906,9 @@ public class SnakeView extends Application implements IView {
 
         menuButton.setTranslateY(175);
         colourCheckBox.setTranslateY(100);
+        wallCheckBox.setTranslateY(100);
+        colourCheckBox.setTranslateX(-100);
+        wallCheckBox.setTranslateX(100);
 
         // Set the scene and show the page.
         M_PrimaryStage.setScene(settingsScene);
