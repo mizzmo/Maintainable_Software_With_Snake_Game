@@ -3,6 +3,7 @@ package comp2013.View;
 import comp2013.Controller.SnakeController;
 import comp2013.Model.SnakeBody;
 import comp2013.Model.SnakeObject;
+import comp2013.View.SnakeScenes.MainMenuScene;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -31,25 +32,30 @@ import java.util.List;
 public class SnakeView extends Application implements IView {
     // Store references to the controller
     public SnakeController m_Controller;
-    private Stage M_PrimaryStage;
+    public Stage M_PrimaryStage;
     public SnakeMusic m_SnakeMusic;
 
     public SnakeWall m_SnakeWall;
     private StackPane M_SnakePane;
     public Canvas m_SnakeCanvas, m_FoodCanvas, m_WallCanvas;
-    private Image M_SnakeHeadImg, M_SnakeBodyImg, M_BackgroundImage;
+    private Image M_SnakeHeadImg;
+    private Image M_SnakeBodyImg;
+    public Image M_BackgroundImage;
     private SnakeFood M_SnakeFood;
-    private Label M_ScoreLabel, M_CountDownLabel,
-            M_GameOverLabel, M_DefaultLabel,
-            M_PausedLabel, M_PauseVolumeLabel,
-            M_PauseResumeLabel;
+    private Label M_ScoreLabel;
+    private Label M_CountDownLabel;
+    private Label M_GameOverLabel;
+    public Label M_DefaultLabel;
+    private Label M_PausedLabel;
+    private Label M_PauseVolumeLabel;
+    private Label M_PauseResumeLabel;
     private Timeline M_Timeline, M_WallTimeline;
     private Button M_RestartButton, M_MenuReturnButton,
             M_EnterNameButton;
     private int M_TimerLength;
     private static SnakeView m_Instance;
-    private double M_MusicVolume = 0.2;
-    private StackPane M_DefaultPane;
+    public double M_MusicVolume = 0.2;
+    public StackPane M_DefaultPane;
     private VBox M_DarkStripVbox;
     private TextField M_EnterNameField;
     private Timeline M_CountDownTimeline;
@@ -59,6 +65,8 @@ public class SnakeView extends Application implements IView {
             M_GamePaused = false, M_GameOver = false;
 
     public ColorAdjust M_ColorAdjust;
+
+    private MainMenuScene M_MainMenuScene;
 
     public SnakeView() {
         // Constructor gets the instance of controller.
@@ -158,6 +166,7 @@ public class SnakeView extends Application implements IView {
     @Override
     public void start(Stage primaryStage) throws Exception {
         this.M_PrimaryStage = primaryStage;
+        M_MainMenuScene = new MainMenuScene(this);
         M_ColorAdjust = new ColorAdjust();
         m_SnakeWall = new SnakeWall();
         // Initialise the Accessablility Option
@@ -180,7 +189,7 @@ public class SnakeView extends Application implements IView {
         M_PrimaryStage.setOnCloseRequest(event -> {
             Platform.exit();});
 
-        this.setMenuScene();
+        M_MainMenuScene.setMenuScene();
 
     }
 
@@ -322,7 +331,7 @@ public class SnakeView extends Application implements IView {
             // Stop the timeline
             M_Timeline.stop();
             // Go to the menu
-            this.setMenuScene();
+            M_MainMenuScene.setMenuScene();
         });
         // Create a new Text Field that the user can type in
         M_EnterNameField = new TextField();
@@ -494,7 +503,7 @@ public class SnakeView extends Application implements IView {
             // Set what happens when button is clicked.
             M_MenuReturnButton.setOnAction(event -> {
                 // Go to the menu
-                this.setMenuScene();
+                M_MainMenuScene.setMenuScene();
             });
 
             // Restart the game.
@@ -583,89 +592,7 @@ public class SnakeView extends Application implements IView {
         M_WallTimeline.play();
     }
 
-    private void setMenuScene(){
-        // Stops music if there is any, and plays a new one.
-        if(m_SnakeMusic != null) {
-            m_SnakeMusic.stopMusic();
-        }
 
-        m_SnakeMusic = new SnakeMusic(SnakeMusicUtil.getMedia
-                ("retroFunk"));
-        m_SnakeMusic.playMusic();
-
-        // Set the volume
-        m_SnakeMusic.setVolume(this.M_MusicVolume);
-        // Set the music to loop
-        m_SnakeMusic.setLooping(true);
-
-        // Initialise the menu scene and stack pane.
-        Scene menuScene = this.initialiseMenuScreen("Snake!");
-        StackPane menuPane = this.M_DefaultPane;
-
-        Label titleLabel = this.M_DefaultLabel;
-        titleLabel.getStyleClass().add("snake-title-label");
-        titleLabel.setTranslateY(100);
-
-        // Button to start the game.
-        Button startButton = new Button("Start Game");
-        startButton.setOnAction(event -> {
-            this.setSelectScene();
-        });
-        // Add styling and set location
-        startButton.getStyleClass().add("snake-button");
-        startButton.getStyleClass().add("menu-button-size");
-        StackPane.setAlignment(startButton, Pos.TOP_CENTER);
-        // Add to pane
-        menuPane.getChildren().add(startButton);
-        startButton.setTranslateY(225);
-
-        // Create a settings button to access the games settings.
-        Button settingsButton = new Button("Settings");
-        settingsButton.setOnAction(event -> {
-            this.setSettingsScene();
-        });
-        // Add styling and set location
-        settingsButton.getStyleClass().add("snake-button");
-        settingsButton.getStyleClass().add("menu-button-size");
-        StackPane.setAlignment(settingsButton, Pos.TOP_CENTER);
-        // Add to pane
-        menuPane.getChildren().add(settingsButton);
-        settingsButton.setTranslateY(375);
-
-        // Create a leaderboard button that takes you to
-        // the high score page.
-        Button leaderboardButton = new Button("Leaderboard");
-        leaderboardButton.setOnAction(event -> {
-            this.setLeaderboardScene();
-        });
-        // Add styling and set location
-        leaderboardButton.getStyleClass().add("snake-button");
-        leaderboardButton.getStyleClass().add("menu-button-size");
-        StackPane.setAlignment(leaderboardButton, Pos.TOP_CENTER);
-        // Add to pane
-        menuPane.getChildren().add(leaderboardButton);
-        leaderboardButton.setTranslateY(300);
-
-        // Create a exit button that exits the game.
-        Button exitButton = new Button("Exit");
-        exitButton.setOnAction(event -> {
-            Platform.exit();
-        });
-        // Add styling and set location
-        exitButton.getStyleClass().add("snake-button");
-        exitButton.getStyleClass().add("menu-button-size");
-        StackPane.setAlignment(exitButton, Pos.TOP_CENTER);
-        // Add to pane
-        menuPane.getChildren().add(exitButton);
-        exitButton.setTranslateY(450);
-        // Reset the background image to default for the map select screen.
-        M_BackgroundImage = SnakeImageUtil.getImage
-                ("grass-background");
-
-        // Set the scene and show the page.
-        M_PrimaryStage.setScene(menuScene);
-        M_PrimaryStage.show();
-    }
     private void setGameScene(){
         // Stop any music that is already playing.
         if(m_SnakeMusic != null) {
@@ -767,7 +694,7 @@ public class SnakeView extends Application implements IView {
         M_PrimaryStage.show();
     }
 
-    private void setSettingsScene(){
+    public void setSettingsScene(){
         // Initialise the menu scene and stack pane.
         Scene settingsScene = this.initialiseMenuScreen("Settings");
         StackPane settingsPane = this.M_DefaultPane;
@@ -887,7 +814,7 @@ public class SnakeView extends Application implements IView {
         // Set what happens when button is clicked.
         menuButton.setOnAction(event -> {
             // Go to the menu
-            this.setMenuScene();
+            M_MainMenuScene.setMenuScene();
         });
         // Add styling and set location
         menuButton.getStyleClass().add("snake-button");
@@ -922,7 +849,7 @@ public class SnakeView extends Application implements IView {
         M_PrimaryStage.setScene(settingsScene);
         M_PrimaryStage.show();
     }
-    private void setSelectScene(){
+    public void setSelectScene(){
         // Initialise the menu scene and stack pane.
         Scene mapSelectScene = this.initialiseMenuScreen("Map Select");
         StackPane mapSelectPane = this.M_DefaultPane;
@@ -932,7 +859,7 @@ public class SnakeView extends Application implements IView {
         // Set what happens when button is clicked.
         menuButton.setOnAction(event -> {
             // Go to the menu
-            this.setMenuScene();
+            M_MainMenuScene.setMenuScene();
         });
         // Add styling and set location
         menuButton.getStyleClass().add("snake-button");
@@ -1060,7 +987,7 @@ public class SnakeView extends Application implements IView {
         M_PrimaryStage.show();
     }
 
-    private void setLeaderboardScene(){
+    public void setLeaderboardScene(){
         // Initialise the leaderboard scene and stack pane.
         Scene leaderboardScene = this.initialiseMenuScreen
                 ("Leaderboard!");
@@ -1071,7 +998,7 @@ public class SnakeView extends Application implements IView {
         // Set what happens when button is clicked.
         menuButton.setOnAction(event -> {
             // Go to the menu
-            this.setMenuScene();
+            M_MainMenuScene.setMenuScene();
         });
         // Add styling and set location
         menuButton.getStyleClass().add("snake-button");
@@ -1170,7 +1097,7 @@ public class SnakeView extends Application implements IView {
      * @param title Title you want at the top of the screen.
      * @return Initialised Screen.
      */
-    private Scene initialiseMenuScreen(String title){
+    public Scene initialiseMenuScreen(String title){
         // Initialise the menu scene and stack pane.
         M_DefaultPane = new StackPane();
         Scene defaultScene = new Scene

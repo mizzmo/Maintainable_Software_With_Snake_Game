@@ -244,3 +244,5 @@
 - Fixed issue where the map wouldnt change back to default after going back to the main menu.
 - Added code to implemet the checkbox to disable the walls if not checked.
 - Update code that removes the wall after a game over.
+- Added new classes for each scene in a new directory "SnakeScenes".
+- Implemented MainMenuScene in its new class.
