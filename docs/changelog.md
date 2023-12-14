@@ -225,4 +225,8 @@
 - Updated checkbox so that it will appear already checked if the colour mode has already been set.
 
 ### 14/12/23
-- Updated POM File
+- Updated POM File.
+- Added new class "SnakeWall".
+- Added contructor to SnakeWall.
+- Added new method to SnakeWall "checkHitWall" that checks if the snake has hit the wall.
+- Added method to SnakeWall, "drawWall" to draw the wall to the screen.
