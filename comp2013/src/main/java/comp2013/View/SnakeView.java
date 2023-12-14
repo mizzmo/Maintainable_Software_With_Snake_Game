@@ -294,7 +294,7 @@ public class SnakeView extends Application implements IView {
         gc.clearRect(0, 0, gc.getCanvas().getWidth(),
                 gc.getCanvas().getHeight());
         // Clear any walls from the screen
-        gc = m_SnakeCanvas.getGraphicsContext2D();
+        gc = m_WallCanvas.getGraphicsContext2D();
         gc.clearRect(0, 0, gc.getCanvas().getWidth(),
                 gc.getCanvas().getHeight());
 

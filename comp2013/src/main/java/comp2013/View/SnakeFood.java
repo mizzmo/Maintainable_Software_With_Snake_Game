@@ -93,11 +93,22 @@ public class SnakeFood
 		int randomInt = new Random().nextInt(19);
 		// If a special fruit, set the boolean to true.
 		if(randomInt == 17){
+			// Play the timeline again if it is stopped
+			if(M_Controller.m_View.M_FoodTimeline != null) {
+				M_Controller.m_View.M_FoodTimeline.play();
+			}
 			m_NegativeFruit = true;
 		}
 		else if(randomInt == 18)
 		{
+			if(M_Controller.m_View.M_FoodTimeline != null) {
+				M_Controller.m_View.M_FoodTimeline.play();
+			}
 			m_BonusFruit = true;
+		}
+		// Otherwise stop the timeline for regular fruit
+		else{ if(M_Controller.m_View.M_FoodTimeline != null) {
+			M_Controller.m_View.M_FoodTimeline.stop();}
 		}
 		// Carries out the same as the constructor, but can be called by other functions.
 		this.M_Image = SnakeImageUtil.getImage(String.valueOf(randomInt));
