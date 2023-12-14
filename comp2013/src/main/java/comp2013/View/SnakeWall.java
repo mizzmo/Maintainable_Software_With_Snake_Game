@@ -93,5 +93,7 @@ public class SnakeWall {
                 (M_Controller.m_Model.getWidth()*0.7));
         this.M_Y = (int) (Math.random() *
                 (M_Controller.m_Model.getHeight()*0.7));
+        // If this new wall is ontop of the snake, make a new wall.
+        if (checkHitWall()) { this.newWall();}
     }
 }

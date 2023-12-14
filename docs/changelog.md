@@ -240,3 +240,6 @@
 - Added checkbox to settings to toggle if you want to use walls or not.
 - Added variable to model "m_WallMode".
 - Added getters and setters for WallMode variable.
+- Added a check to newWall to stop the wall spawning ontop of the snake.
+- Fixed issue where the map wouldnt change back to default after going back to the main menu.
+- Added code to implemet the checkbox to disable the walls if not checked.
