@@ -230,3 +230,4 @@
 - Added contructor to SnakeWall.
 - Added new method to SnakeWall "checkHitWall" that checks if the snake has hit the wall.
 - Added method to SnakeWall, "drawWall" to draw the wall to the screen.
+- Added method "rotateWall" to SnakeWall, that will change the direction the wall is layed on.

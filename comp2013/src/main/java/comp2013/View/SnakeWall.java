@@ -45,6 +45,12 @@ public class SnakeWall {
      * @param canvas Canvas to draw the wall onto.
      */
     public void drawWall(Canvas canvas){
+        // Generate a random number to determine which direction the wall will lay.
+        int i = new Random().nextInt(2);
+        // If the random number is 0, change the direction of the wall.
+        if(i == 0){
+            rotateWall();
+        }
         GraphicsContext gc = canvas.getGraphicsContext2D();
         gc.setEffect(null);
         // Draw the clear rectangle
@@ -57,4 +63,12 @@ public class SnakeWall {
         gc.setFill(Color.RED);
         gc.fillRect(this.M_X, this.M_X, this.M_Width, this.M_Height);
     };
+
+    /**
+     * Changes the wall from a horizontal wall to a vertical wall.
+     */
+    private void rotateWall(){
+        this.M_Width = 32;
+        this.M_Height = 128;
+    }
 }
