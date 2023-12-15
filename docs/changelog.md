@@ -256,3 +256,15 @@
 ### 15/12/23
 - Add leaderboardObject Class
 - Updated the LeaderboardScene Class so that it uses the leaderboardobject class to order the scores.
+- Updated module-info to include Junit testing.
+- Update POM File to use JUnit 4.
+- Added tests for SnakeBody.
+- Added code so that you cant resize the game window.
+- Added tests for SnakeModel
+- Added tests for SnakeObject.
+- Removed unused methods from snakeObject, increase/reduceSpeed.
+- Added tests for Controller.
+- Added tests for SnakeFood.
+- Unable to test GUI elements as JavaFX has to be initialised.
+- Added tests for SnakeWall and SnakeMusic Util
+- Updated SnakeWall rotateWall so that it can change the orientation of the wall again, ie vert to hori and vice versa.
