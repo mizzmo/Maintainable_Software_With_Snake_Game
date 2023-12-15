@@ -12,7 +12,7 @@ public class SnakeWall {
 
     private SnakeController M_Controller = SnakeController.getInstance();
 
-    SnakeWall(){
+    public SnakeWall(){
         // Get the width and height of the image.
         this.M_Width = 128;
         this.M_Height = 32;
@@ -32,7 +32,7 @@ public class SnakeWall {
             int snakeBodyX = snakePart.getX();
             int snakeBodyY = snakePart.getY();
             // Checks if the wall is intersecting with any part of the snake
-            boolean isIntersecting = SnakeFood.areImagesIntersecting
+            boolean isIntersecting = SnakeFood.imageIntersect
                     (snakeBodyX, snakeBodyY, 32, 32,
                     this.M_X, this.M_Y, this.M_Width, this.M_Height);
             // If intersecting, return true.
@@ -63,7 +63,7 @@ public class SnakeWall {
                     gc.getCanvas().getHeight());
             // Add the effect back again
             if (M_Controller.m_Model.getColourMode() == 1) {
-                gc.setEffect(M_Controller.m_View.M_ColorAdjust);
+                gc.setEffect(M_Controller.m_View.m_ColorAdjust);
             }
             // Draw a 3D appearing rectangle on the screen.
             gc.setFill(Color.DARKRED);

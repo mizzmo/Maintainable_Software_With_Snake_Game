@@ -37,7 +37,7 @@ public class SnakeFood
 			int snakeBodyX = snakePart.getX();
 			int snakeBodyY = snakePart.getY();
 			// Checks if the fruit is intersecting with any part of the snake
-			boolean isIntersecting = areImagesIntersecting(snakeBodyX, snakeBodyY, 25, 25,
+			boolean isIntersecting = imageIntersect(snakeBodyX, snakeBodyY, 25, 25,
 					this.M_X, this.M_Y, 32, 32);
 			// If intersecting, return true.
 			if(isIntersecting){
@@ -54,9 +54,9 @@ public class SnakeFood
 				else{M_Controller.m_Model.setScore(M_Controller.m_Model.getScore() + 100);}
 				this.m_Eaten = true;
 				// If the timeline in view is not finished
-				if(M_Controller.m_View.M_FoodTimeline != null && M_Controller.m_View.M_FoodTimeline.getCurrentTime().toSeconds() <= 5){
+				if(M_Controller.m_View.m_FoodTimeline != null && M_Controller.m_View.m_FoodTimeline.getCurrentTime().toSeconds() <= 5){
 					// Stop the timeline to prevent it resetting the new fruit
-					M_Controller.m_View.M_FoodTimeline.stop();
+					M_Controller.m_View.m_FoodTimeline.stop();
 				}
 				return true;
 			}
@@ -77,7 +77,7 @@ public class SnakeFood
 				gc.getCanvas().getHeight());
 		// Add the effect back again
 		if(M_Controller.m_Model.getColourMode() == 1) {
-			gc.setEffect(M_Controller.m_View.M_ColorAdjust);
+			gc.setEffect(M_Controller.m_View.m_ColorAdjust);
 		}
 		// Draw the fruit
 		gc.drawImage(this.M_Image, this.M_X, this.M_Y);
@@ -94,21 +94,21 @@ public class SnakeFood
 		// If a special fruit, set the boolean to true.
 		if(randomInt == 17){
 			// Play the timeline again if it is stopped
-			if(M_Controller.m_View.M_FoodTimeline != null) {
-				M_Controller.m_View.M_FoodTimeline.play();
+			if(M_Controller.m_View.m_FoodTimeline != null) {
+				M_Controller.m_View.m_FoodTimeline.play();
 			}
 			m_NegativeFruit = true;
 		}
 		else if(randomInt == 18)
 		{
-			if(M_Controller.m_View.M_FoodTimeline != null) {
-				M_Controller.m_View.M_FoodTimeline.play();
+			if(M_Controller.m_View.m_FoodTimeline != null) {
+				M_Controller.m_View.m_FoodTimeline.play();
 			}
 			m_BonusFruit = true;
 		}
 		// Otherwise stop the timeline for regular fruit
-		else{ if(M_Controller.m_View.M_FoodTimeline != null) {
-			M_Controller.m_View.M_FoodTimeline.stop();}
+		else{ if(M_Controller.m_View.m_FoodTimeline != null) {
+			M_Controller.m_View.m_FoodTimeline.stop();}
 		}
 		// Carries out the same as the constructor, but can be called by other functions.
 		this.M_Image = SnakeImageUtil.getImage(String.valueOf(randomInt));
@@ -132,8 +132,8 @@ public class SnakeFood
 	 * @param h2 second image height
 	 * @return Returns true if the image are intersecting, false otherwise.
 	 */
-	public static boolean areImagesIntersecting(double x1, double y1, double w1, double h1,
-										  double x2, double y2, double w2, double h2) {
+	public static boolean imageIntersect(double x1, double y1, double w1, double h1,
+										 double x2, double y2, double w2, double h2) {
 		return (x1 < x2 + w2 && x1 + w1 > x2 && y1 < y2 + h2 && y1 + h1 > y2);
 	}
 }

@@ -85,5 +85,18 @@ public interface IModel {
      */
     void setColourMode(int colourMode);
 
+    /**
+     * Returns the wall mode currently in use
+     * @return Int value of wall mode. 1 : In use. 0 : Not in use.
+     */
+    int getWallMode();
+
+    /**
+     * Set the wall mode to be used
+     * @param wallMode Int value of the wall mode
+     *                 1 : Use Walls, 0 : Dont use walls.
+     */
+    void setWallMode(int wallMode);
+
 
 }
