@@ -85,3 +85,25 @@ as some scenes stretch over muliple classes.
   - The volume scrollbar works as you can hear and see the volume change as you move it around.
 - Do the scrollbars stay where they are when you exit and reenter the settings menu?
   - The scrollbars stay where you leave them when you exit and reenter the settings screen.
+
+### Map Select Tests
+- Is there a background?
+  - There is a jungle background.
+- Is there a title?
+  - There is a title in the top middle of the screen.
+- Are there images of the possible options to pick from?
+  - There are three images on the screen, one has a white ring around it to indicate it is currently selected.
+- Are there two buttons to click?
+  - There are two buttons, back and start game. You can click both.
+- Is there a label that tells you which map you have chosen?
+  - There is a label above the selected image that tell you the name and a message saying you have selected it.
+- Can you click the images?
+  - You can click the images to change the selection.
+- Does the selection change when you click the images?
+  - The white box and message follows which box you click, so you can tell what is selected.
+- Does the correct map appear when start the game.
+  - The selected map appeared when i started the game, this worked for all images.
+- Does the back button work?
+  - The back button takes you back to the main menu.
+- Does the start game button work?
+  - The start game button takes you to the game page and starts the game.
