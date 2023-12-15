@@ -196,19 +196,36 @@ as some scenes stretch over muliple classes.
   - The fruit can still be eaten after unpausing.
 ### Game Over Tests. 
 - Is there a game over message?
+  - There is a large message saying game over in the middle of the screen. It is red with a transparent black background.
 - Does the snake dissapear?
+  - The snake and its body parts dissapear.
 - Does the fruit dissapear?
+  - The fruit dissapears.
 - Does the wall dissapaer?
+  - The wall dissapears.
 - Is there a final score label?
+  - There is a label that shows the final score.
 - Is there a countdown to restart?
+  - There is a countdown label below the final score label that counts down from 10.
 - Does the game restart when the time is up?
+  - The game restarts when the timer hits 0
 - Is there a restart button?
+  - There is a restart button.
 - Is there a main menu button?
+  - There is a main menu button.
 - Does the restart button work?
+  - The game restarts and bypasses the timer when you click restart.
 - Does the main menu button work?
+  - The main menu button takes you back to the main menu.
 - Can you enter your username?
+  - There is a text box where you are prompted to enter a username.
 - Is there a confirm button?
+  - There is a confirm button to the right of the text box.
 - Does the confirm button work?
+  - The confirm button can be clicked and shows a message saying you have submitted. It stops you from typing anything in the text box.
 - Is there a message telling you you have submitted your username?
+  - Yes, it appears in the text box.
 - Can you type another username after clicking confirm?
+  - No, you arent allowd to enter a second usename.
 - Is the username added to the leaderboard?
+  - Yes, the username and your score appears in the ordered list on the leaderboard.
