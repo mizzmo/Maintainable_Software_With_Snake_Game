@@ -1,6 +1,7 @@
 package comp2013.View.SnakeScenes;
 
 import comp2013.Controller.SnakeController;
+import comp2013.Model.LeaderboardObject;
 import comp2013.View.SnakeView;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -15,6 +16,9 @@ import javafx.scene.shape.Rectangle;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class LeaderboardScene {
     private MainMenuScene M_MainMenuScene;
@@ -81,33 +85,31 @@ public class LeaderboardScene {
                 (double) M_Controller.m_Model.getHeight() / 1.5);
 
 
-        try (BufferedReader reader = new BufferedReader
-                (new FileReader("comp2013/output/highScores.txt"))) {
+        List<LeaderboardObject> leaderboardObjects = new ArrayList<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader
+                ("comp2013/output/highScores.txt"))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                // Splits the data based on the comma.
                 String[] splitReading = line.split(",");
-                // Print the data to the VBox without any whitespace
-                // Also truncate the length of the string so that
-                // only 30 chars can be used.
-                String username;
-                // If the length is more than the maximum
-                if(splitReading[0].trim().length() > 30) {
-                    // Truncate
-                    username = splitReading[0].trim().substring(0, 30);
-                }
-                // Else just store it trimmed as is.
-                else{ username = splitReading[0].trim();}
-                // Add it to a label and add that to the scoreboard
-                Label leaderboardItem = new Label
-                        ( username + "        " + splitReading[1]);
-                // Add some styling
-                leaderboardItem.getStyleClass().add("leaderboard-item");
-                // Add to scoreboard
-                leaderboard.getChildren().add(leaderboardItem);
+                String username = splitReading[0].trim();
+                int score = Integer.parseInt(splitReading[1].trim());
+
+                leaderboardObjects.add(new LeaderboardObject(username, score));
             }
-        } catch (IOException e) {
+        } catch (IOException | NumberFormatException e) {
             e.printStackTrace();
+        }
+
+        // Sort the leaderboard items
+        Collections.sort(leaderboardObjects);
+
+        // Add sorted items to the VBox
+        for (LeaderboardObject item : leaderboardObjects) {
+            Label leaderboardItemLabel = new Label(item.getUsername()
+                    + "        " + item.getScore());
+            leaderboardItemLabel.getStyleClass().add("leaderboard-item");
+            leaderboard.getChildren().add(leaderboardItemLabel);
         }
 
         ScrollPane scrollingBoard = new ScrollPane(leaderboard);
