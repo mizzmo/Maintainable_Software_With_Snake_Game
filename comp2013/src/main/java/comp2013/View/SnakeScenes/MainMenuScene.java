@@ -11,7 +11,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 
-
+/**
+ * Sets the scene to the Main Menu Screen
+ */
 public class MainMenuScene {
     private SnakeView M_View;
 
@@ -20,6 +22,11 @@ public class MainMenuScene {
     private MapSelectScene M_MapSelectScreen;
 
     private LeaderboardScene M_LeaderboardScene;
+
+    /**
+     * Constructor to initialise class variables
+     * @param view View to use and draw to.
+     */
     public MainMenuScene(SnakeView view){
         M_View = view;
         M_SettingsScene = new SettingsScene(view, this);
@@ -27,7 +34,9 @@ public class MainMenuScene {
         M_LeaderboardScene = new LeaderboardScene(view, this);
     }
 
-
+    /**
+     * Sets the scene to the Main Menu Screen
+     */
     public void setMenuScene(){
         // Stops music if there is any, and plays a new one.
         if(M_View.m_SnakeMusic != null) {

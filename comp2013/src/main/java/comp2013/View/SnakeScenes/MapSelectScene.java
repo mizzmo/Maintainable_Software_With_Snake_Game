@@ -12,7 +12,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-
+/**
+ * Sets the scene to the Map Select Screen
+ */
 public class MapSelectScene {
 
     private SnakeView M_View;
@@ -20,12 +22,21 @@ public class MapSelectScene {
 
     private GameScene M_GameScene;
     private SnakeController M_Controller;
+
+    /**
+     * Constructor initialises the class variables
+     * @param view View to use and draw to
+     * @param menu Menu Scene.
+     */
     public MapSelectScene(SnakeView view, MainMenuScene menu){
         M_View = view;
         M_MainMenuScene = menu;
         M_Controller = M_View.m_Controller;
         M_GameScene = new GameScene(view);
     }
+    /**
+     * Sets the scene to the Main Menu Screen
+     */
     public void setSelectScene(){
         // Initialise the menu scene and stack pane.
         Scene mapSelectScene = M_View.initialiseMenuScreen("Map Select");

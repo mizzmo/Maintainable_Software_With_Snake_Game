@@ -20,17 +20,29 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Sets the scene to the leaderboard screen
+ */
 public class LeaderboardScene {
     private MainMenuScene M_MainMenuScene;
     private SnakeView M_View;
 
     private SnakeController M_Controller;
+
+    /**
+     * Constructor to set the class objects
+     * @param view View to draw the screen on
+     * @param menu Menu screen class
+     */
     public LeaderboardScene(SnakeView view, MainMenuScene menu) {
         M_View = view;
         M_MainMenuScene = menu;
         M_Controller = M_View.m_Controller;
     }
 
+    /**
+     * Changes the scene to the Leaderboard screen.
+     */
     public void setLeaderboardScene(){
         // Initialise the leaderboard scene and stack pane.
         Scene leaderboardScene = M_View.initialiseMenuScreen
