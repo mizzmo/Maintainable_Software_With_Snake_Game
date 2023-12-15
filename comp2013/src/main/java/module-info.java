@@ -9,4 +9,5 @@ module comp2013 {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.media;
+    requires junit;
 }
