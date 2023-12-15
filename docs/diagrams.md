@@ -13,3 +13,13 @@
 ### IntelliJ Automatic Class Diagram
 
 ![IntelliJ Class Diagram](../assets/generatedClassDiagram.png)
+
+## New Diagrams
+### Class Diagram
+![Updated Class Diagram](../assets/snakeClassDiagram.png)
+
+### Updated IntelliJ Automatic Class Diagram
+![InteliJ Updated Class Diagram](../assets/generatedUpdateClassDiagram.png)
+
+### Activity Diagram
+![Activity Diagram](../assets/snakeActivityDiagram.png)
