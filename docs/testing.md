@@ -1,3 +1,8 @@
+[Back to README](../README.md)\
+\
+\
+[<-- Changelog](changelog.md)
+
 ## Testing
 My first round of testing will be to check that all of the method getters and setters, 
 as well as all of the non-gui based methods work correctly using JUnit.
