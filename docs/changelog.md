@@ -259,3 +259,5 @@
 - Added tests for SnakeBody.
 - Added code so that you cant resize the game window.
 - Added tests for SnakeModel
+- Added tests for SnakeObject.
+- Removed unused methods from snakeObject, increase/reduceSpeed.
