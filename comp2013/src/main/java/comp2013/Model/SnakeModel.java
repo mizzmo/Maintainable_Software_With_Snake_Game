@@ -2,6 +2,9 @@ package comp2013.Model;
 
 import comp2013.Controller.SnakeController;
 
+/**
+ * Holds information about the game and updates as the game progresses.
+ */
 public class SnakeModel implements IModel {
 
     // Stores a reference to the controller.

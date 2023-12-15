@@ -3,6 +3,9 @@ package comp2013.Model;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Holds information about a snake. Is made up of SnakeBody parts.
+ */
 public class SnakeObject implements IMovable {
     // Keeps track of how fast the snake is moving.
     public int m_SnakeSpeed;
@@ -16,6 +19,11 @@ public class SnakeObject implements IMovable {
     // Linked list containing all of the snake body points.
     public List<SnakeBody> m_SnakeBody = new LinkedList<>();
 
+    /**
+     * Constructor to build the head of the snake
+     * @param x X coordinate for the snake head
+     * @param y Y coordinate for the snake head
+     */
     public SnakeObject(int x, int y){
         this.m_SnakeSpeed = 1 * SPEED_MODIFIER;
         // Set the initial direction

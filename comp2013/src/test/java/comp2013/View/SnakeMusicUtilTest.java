@@ -3,6 +3,9 @@ package comp2013.View;
 import junit.framework.TestCase;
 import org.junit.Test;
 
+/**
+ * Tests the SnakeMusicUtil Class.
+ */
 public class SnakeMusicUtilTest extends TestCase {
     /**
      * Test if getMedia returns the correct address.

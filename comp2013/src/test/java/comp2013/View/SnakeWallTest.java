@@ -5,11 +5,17 @@ import comp2013.Model.SnakeModel;
 import junit.framework.TestCase;
 import org.junit.Test;
 
+/**
+ * Tests the SnakeWall Class, non GUI tests.
+ */
 public class SnakeWallTest extends TestCase {
     private SnakeWall M_Wall;
     private SnakeController M_Controller;
-
     private SnakeModel M_Model;
+
+    /**
+     * Tests that the wall is rotated every time rotateWall is called.
+     */
     @Test
     public void testRotateWall() {
         // Create new controller and model

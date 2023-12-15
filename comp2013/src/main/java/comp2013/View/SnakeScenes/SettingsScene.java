@@ -8,11 +8,19 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.StackPane;
-
+/**
+ * Sets the scene to the Settings Screen
+ */
 public class SettingsScene {
     private MainMenuScene M_MainMenu;
     private SnakeView M_View;
     public SnakeController m_Controller;
+
+    /**
+     * Constructor to initialise the class variables
+     * @param view View to draw to
+     * @param menu Main menu screen
+     */
     public SettingsScene(SnakeView view, MainMenuScene menu){
         M_View = view;
         m_Controller = M_View.m_Controller;
@@ -20,7 +28,9 @@ public class SettingsScene {
 
 
     }
-
+    /**
+     * Sets the scene to the Main Menu Screen
+     */
     public void setSettingsScene(){
         // Initialise the menu scene and stack pane.
         Scene settingsScene = M_View.initialiseMenuScreen("Settings");

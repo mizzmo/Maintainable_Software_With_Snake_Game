@@ -6,7 +6,9 @@ import comp2013.Model.SnakeObject;
 import comp2013.View.SnakeView;
 import javafx.scene.input.KeyCode;
 
-
+/**
+ * Controls the game and aspects about the snake.
+ */
 public class SnakeController implements IController {
     public SnakeModel m_Model;
     public SnakeView m_View;
@@ -21,6 +23,11 @@ public class SnakeController implements IController {
     //      can be initialised, so in order to give it a controller, it needs to be
     //      done like this.
     public static SnakeController m_Instance;
+
+    /**
+     * Constructor to initialise all the objects that the
+     * controller uses throughout the game.
+     */
     public SnakeController(){
         // Create an instance of controller.
         m_Instance = this;

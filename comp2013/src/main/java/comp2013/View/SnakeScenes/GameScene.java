@@ -13,15 +13,27 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
+/**
+ * Sets the scene to be the main snake game
+ */
 public class GameScene {
 
     private SnakeView M_View;
     
     private SnakeController M_Controller;
+
+    /**
+     * Constructor to set the View and Controller
+     * @param view View to set to.
+     */
     public GameScene(SnakeView view){
         M_View = view;
         M_Controller = M_View.m_Controller;
     }
+
+    /**
+     * Sets the scene to the Game Scene
+     */
     public void setGameScene(){
         // Stop any music that is already playing.
         if(M_View.m_SnakeMusic != null) {

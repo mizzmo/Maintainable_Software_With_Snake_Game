@@ -8,6 +8,9 @@ import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Tests the SnakeController Class
+ */
 public class SnakeControllerTest extends TestCase {
     private SnakeController M_Controller;
     private SnakeModel M_Model;

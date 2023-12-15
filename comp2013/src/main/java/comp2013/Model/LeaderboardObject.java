@@ -1,5 +1,8 @@
 package comp2013.Model;
 
+/**
+ * Contains information about each leaderboard item.
+ */
 public class LeaderboardObject implements Comparable<LeaderboardObject> {
     /**
      * The username associated with this leaderboard item.

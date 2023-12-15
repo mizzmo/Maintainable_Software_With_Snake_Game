@@ -9,17 +9,33 @@ import javafx.stage.Stage;
 public class SnakeMain extends Application {
     static SnakeModel M_Model;
      static SnakeController M_Controller;
+
+    /**
+     * Initialise a new Model and Controller.
+     */
     // Initialise the Model, View and Controller.
     private static void initialise() {
         M_Model = new SnakeModel(900, 600);
         M_Controller = new SnakeController();
     }
+
+    /**
+     * Start the game by initialsing model and controller and
+     * starting JavaFX.
+     * @param args Command Line arguments.
+     */
     public static void main(String[] args) {
         // Initialise the game.
         initialise();
         // Launch the JavaFX.
         launch(SnakeView.class, args);
     }
+
+    /**
+     * Redundant method for this class. Usually called by application to start javaFX.
+     * @param stage
+     * @throws Exception
+     */
     //This method is only needed to satisfy the Application Class.
     // The actual start method is in the SnakeView class
     @Override
