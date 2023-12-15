@@ -9,7 +9,7 @@ For this project I plan to enforce some basic coding conventions to ensure that 
 and easier to understand at the present.
 - Limit on method length; **Methods should be totally visible on a single page** without scrolling. (*Excluding Main.*)
 - Methods should use **no more than 5 levels of indentation.**
-- Line length needs to be **less than 66 characters long.**
+- Line length needs to be **less than 80 characters long.**
 - All **Class Variables should start with "m_"** to signify that they are a member of a class.
 - Any constants should be **written in all capital letters**.
 - Have use of **Getters and Setters** to access member variables.

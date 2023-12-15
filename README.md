@@ -12,6 +12,7 @@ Contact: *psyts20@nottingham.ac.uk*
  - [Instructions.](docs/instructions.md)
  - [Development Notes.](docs/devNotes.md)
  - [Changelog.](docs/changelog.md)
+ - [Testing Methods and User Tests](docs/testing.md)
  - [Code.](comp2013/src/main/java/)
  
 <a name="introduction"></a>
