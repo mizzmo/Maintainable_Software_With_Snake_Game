@@ -44,9 +44,9 @@ public class SnakeView extends Application implements IView {
     public Timeline m_FoodTimeline;
     public ColorAdjust m_ColorAdjust;
     public MainMenuScene m_MainMenuScene;
+    public Image m_SnakeHeadImg;
 
     // Private
-    private Image M_SnakeHeadImg;
     private Image M_SnakeBodyImg;
     private Label M_CountDownLabel;
     private Label M_GameOverLabel;
@@ -137,7 +137,7 @@ public class SnakeView extends Application implements IView {
         }
 
         // Draw the head at its new coordinates and rotation.
-        gc.drawImage(M_SnakeHeadImg, snakeBody.getFirst().getX(),
+        gc.drawImage(m_SnakeHeadImg, snakeBody.getFirst().getX(),
                 snakeBody.getFirst().getY(), 32, 32);
         // Draw the rest of the body.
         for (int i = 1; i < m_Controller.m_Model.getLength(); i++) {
@@ -213,7 +213,7 @@ public class SnakeView extends Application implements IView {
         if(m_Controller.m_Model.getColourMode() == 1){
             gc.setEffect(m_ColorAdjust);
         }
-        gc.drawImage(M_SnakeHeadImg, canvasCenterHorizontal,
+        gc.drawImage(m_SnakeHeadImg, canvasCenterHorizontal,
                 canvasCenterVertical, 32,32);
 
         snakeBody = m_Controller.m_Snake.m_SnakeBody;
@@ -262,22 +262,22 @@ public class SnakeView extends Application implements IView {
         // image accordingly.
         switch (this.m_Controller.m_Snake.getDirection()) {
             case SnakeObject.UP: {
-                M_SnakeHeadImg = SnakeImageUtil.getImage
+                m_SnakeHeadImg = SnakeImageUtil.getImage
                         ("snakeHeadUp");
             }
             break;
             case SnakeObject.DOWN: {
-                M_SnakeHeadImg = SnakeImageUtil.getImage
+                m_SnakeHeadImg = SnakeImageUtil.getImage
                         ("snakeHeadDown");
             }
             break;
             case SnakeObject.LEFT: {
-                M_SnakeHeadImg = SnakeImageUtil.getImage
+                m_SnakeHeadImg = SnakeImageUtil.getImage
                         ("snakeHeadLeft");
             }
             break;
             case SnakeObject.RIGHT: {
-                M_SnakeHeadImg = SnakeImageUtil.getImage
+                m_SnakeHeadImg = SnakeImageUtil.getImage
                         ("snakeHeadRight");
             }
             break;

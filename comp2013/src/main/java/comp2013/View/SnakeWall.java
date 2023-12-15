@@ -8,14 +8,17 @@ import javafx.scene.paint.Color;
 import java.util.Random;
 
 public class SnakeWall {
-    private int M_X, M_Y, M_Width, M_Height;
+    private int M_X;
+    private int M_Y;
+    public int m_Width;
+    public int m_Height;
 
     private SnakeController M_Controller = SnakeController.getInstance();
 
     public SnakeWall(){
         // Get the width and height of the image.
-        this.M_Width = 128;
-        this.M_Height = 32;
+        this.m_Width = 128;
+        this.m_Height = 32;
         // Set a random location on the screen
         this.M_X = (int) (Math.random() *
                 (M_Controller.m_Model.getWidth()*0.7));
@@ -34,7 +37,7 @@ public class SnakeWall {
             // Checks if the wall is intersecting with any part of the snake
             boolean isIntersecting = SnakeFood.imageIntersect
                     (snakeBodyX, snakeBodyY, 32, 32,
-                    this.M_X, this.M_Y, this.M_Width, this.M_Height);
+                    this.M_X, this.M_Y, this.m_Width, this.m_Height);
             // If intersecting, return true.
             if(isIntersecting){
                 return true;
@@ -67,11 +70,11 @@ public class SnakeWall {
             }
             // Draw a 3D appearing rectangle on the screen.
             gc.setFill(Color.DARKRED);
-            gc.fillRect(this.M_X, this.M_Y, this.M_Width + 4,
-                    this.M_Height + 4);
+            gc.fillRect(this.M_X, this.M_Y, this.m_Width + 4,
+                    this.m_Height + 4);
             gc.setFill(Color.RED);
-            gc.fillRect(this.M_X, this.M_Y, this.M_Width,
-                    this.M_Height);
+            gc.fillRect(this.M_X, this.M_Y, this.m_Width,
+                    this.m_Height);
         }
         // If the wall does overlap the snake, move it somewhere else.
         else{ this.newWall(); }
@@ -80,9 +83,17 @@ public class SnakeWall {
     /**
      * Changes the wall from a horizontal wall to a vertical wall.
      */
-    private void rotateWall(){
-        this.M_Width = 32;
-        this.M_Height = 128;
+    public void rotateWall(){
+        // If the wall is horrizontal, change to vertical
+        if(m_Width == 128) {
+            this.m_Width = 32;
+            this.m_Height = 128;
+        }
+        // If its vertical, change to horizontal
+        else{
+            this.m_Width = 128;
+            this.m_Height = 32;
+        }
     }
 
     /**

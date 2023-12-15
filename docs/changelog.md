@@ -263,3 +263,6 @@
 - Removed unused methods from snakeObject, increase/reduceSpeed.
 - Added tests for Controller.
 - Added tests for SnakeFood.
+- Unable to test GUI elements as JavaFX has to be initialised.
+- Added tests for SnakeWall and SnakeMusic Util
+- Updated SnakeWall rotateWall so that it can change the orientation of the wall again, ie vert to hori and vice versa.
