@@ -21,7 +21,7 @@ Next I need to run some user tests to check that the GUI elements all work corre
 <br>
 I will do this by scene, rather than by class to make it easier to structure my tests, 
 as some scenes stretch over muliple classes.
-
+## User Tests
 ### Main Menu Tests.
 - Does the background correctly load?
     - There is a jungle background on the menu screen.
