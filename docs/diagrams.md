@@ -20,3 +20,6 @@
 
 ### Updated IntelliJ Automatic Class Diagram
 ![InteliJ Updated Class Diagram](../assets/generatedUpdateClassDiagram.png)
+
+### Activity Diagram
+![Activity Diagram](../assets/snakeActivityDiagram.png)
