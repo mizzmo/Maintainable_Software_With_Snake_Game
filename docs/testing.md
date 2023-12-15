@@ -110,29 +110,57 @@ as some scenes stretch over muliple classes.
 
 ### Game Scene Tests.
 - Does a background appear when you start the game? 
+  - The background appears and matches the one you selected in the select screen.
 - Does a wall appear if you have walls enabled?
+  - A red wall appears randomly on the screen.
+- Does the wall appear ontop of the snake?
+  - The wall never appears ontop of the snake.
 - Does music play?
+  - New music is played.
 - Does the music loop?
+  - The music seems to loop infinitely.
 - Is there a score label?
+  - There is a score label in the top middle of the screen that shows the current score.
 - Does the snake appear in the middle of the screen?
+  - The snake appears in the middle of the screen at the length the user set it to be.
 - Can you move the snake?
+  - You can move the snake around the screen, and not back onto itself, ie if you're moving up, you can immediately move down.
 - Can you move the snake with WSAD?
+  - You can conrtol the snake with WSAD.
 - Can you move the snake with arrow keys?
+  - You can control the snake with arrowkeys.
 - Does the snake body follow where the head moves?
+  - The bodyparts follow the path of the head of the snake.
 - Does a fruit appear somewhere on the screen?
+  - A random fruit appears in a random position on the screen.
 - Can you eat the fruit as the snake?
-- Does the fruit dissapear and another appear when you eat it?
+  - You can eat the fruit.
+- Does the fruit disappear and another appear when you eat it?
+  - The fruit dissapears when you go over and eat it. A new one reappears somewhere else.
 - Does the score increase when you eat a fruit?
+  - The score increases by 100 when you eat a regular fruit, by 500 when you eat a golden apple and by -100 when you eat a rotten apple.
 - Does the snake grow by 1 when you eat a fruit?
+  - The snake grows by 1 no matter which fruit you eat.
 - Does the snake get faster when you eat a fruit?
+  - The snake gets faster every fruit you eat.
+- Do rotten and golden fruits dissapear after 5 seconds?
+  - The special fruits dissapear after 5 seconds and a new fruit appears somewhere else.
 - Does the game end when you hit a wall?
+  - The game is over when you run into a red wall.
 - Does the game end when you hit yourself?
+  - The game ends when you turn into one of your own body parts.
 - Does the game end when you go out of bounds?
+  - The game ends when you try to go off of the screen.
 - Do the walls change position and orientation every 5 seconds.
+  - The walls change position every 5 seconds, they randomly chose an orientation every time they change position.
 - Can you still hit the walls when they move?
+  - You can still hit the wall and end the game after it moves.
 - Do bonus fruits occasionally appear?
+  - Bonus fruits appear, and less frequetly than regular fruits.
 - Does the score increase more with a golden apple?
+  - The score increases by 500 when you eat a golden apple.
 - Does the score decrease with a rotten apple?
+  - The score decreases by 100  when you eat a rotten apple.
 ### Pause Menu Tests.
 - Does the pause menu appear when you press ESC?
 - Does the pause menu disappear when you press ESC again?
