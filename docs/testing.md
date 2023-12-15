@@ -107,3 +107,64 @@ as some scenes stretch over muliple classes.
   - The back button takes you back to the main menu.
 - Does the start game button work?
   - The start game button takes you to the game page and starts the game.
+
+### Game Scene Tests.
+- Does a background appear when you start the game? 
+- Does a wall appear if you have walls enabled?
+- Does music play?
+- Does the music loop?
+- Is there a score label?
+- Does the snake appear in the middle of the screen?
+- Can you move the snake?
+- Can you move the snake with WSAD?
+- Can you move the snake with arrow keys?
+- Does the snake body follow where the head moves?
+- Does a fruit appear somewhere on the screen?
+- Can you eat the fruit as the snake?
+- Does the fruit dissapear and another appear when you eat it?
+- Does the score increase when you eat a fruit?
+- Does the snake grow by 1 when you eat a fruit?
+- Does the snake get faster when you eat a fruit?
+- Does the game end when you hit a wall?
+- Does the game end when you hit yourself?
+- Does the game end when you go out of bounds?
+- Do the walls change position and orientation every 5 seconds.
+- Can you still hit the walls when they move?
+- Do bonus fruits occasionally appear?
+- Does the score increase more with a golden apple?
+- Does the score decrease with a rotten apple?
+### Pause Menu Tests.
+- Does the pause menu appear when you press ESC?
+- Does the pause menu disappear when you press ESC again?
+- Is there a title?
+- Is there a volume slider on the screen?
+- Is there a maim menu button?
+- Does the main menu button work?
+- Is there a restart button?
+- Does the restart button work?
+- Is there a label telling you how to unpause?
+- Is there a dark strip behind the pause menu?
+- Does the snake stop moving?
+- Does the fruit stay where it is?
+- Do the walls stop moving?
+- Do the walls start moving again when you unpause?
+- Does the snake keep moving after unpausing?
+- Can the fruit still be eaten after unpausing?
+### Game Over Tests. 
+- Is there a game over message?
+- Does the snake dissapear?
+- Does the fruit dissapear?
+- Does the wall dissapaer?
+- Is there a final score label?
+- Is there a countdown to restart?
+- Does the game restart when the time is up?
+- Is there a restart button?
+- Is there a main menu button?
+- Does the restart button work?
+- Does the main menu button work?
+- Can you enter your username?
+- Is there a confirm button?
+- Does the confirm button work?
+- Is there a message telling you you have submitted your username?
+- Can you type another username after clicking confirm?
+- Is the username added to the leaderboard?
