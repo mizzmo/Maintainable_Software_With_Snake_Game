@@ -252,3 +252,8 @@
 - Implemented MapSelect Secne in its new class.
 - Refactored the View Class to follow the coding conventions.
 - Adding all class test classes and methods to be implemented.
+
+### 15/12/23
+- Updated module-info to include Junit testing.
+- Update POM File to use JUnit 4.
+- Added tests for SnakeBody.
