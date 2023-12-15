@@ -183,6 +183,9 @@ public class SnakeView extends Application implements IView {
         // Set the event handler for the window-closing event
         m_PrimaryStage.setOnCloseRequest(event -> {
             Platform.exit();});
+        // Make it so you cant resize the window.
+        m_PrimaryStage.setResizable(false);
+
 
         m_MainMenuScene.setMenuScene();
 

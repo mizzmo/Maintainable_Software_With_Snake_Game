@@ -27,6 +27,8 @@ public class SnakeController implements IController {
         // Set the model.
         this.m_Model = SnakeModel.getInstance();
         m_Model.setController(this);
+        m_Model.setHeight(600);
+        m_Model.setWidth(900);
 
         // Create a new snake and pass it the values for the center of the screen.
         m_Snake = new SnakeObject(m_Model.getWidth()/2, m_Model.getHeight()/2);

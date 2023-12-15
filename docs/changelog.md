@@ -257,3 +257,5 @@
 - Updated module-info to include Junit testing.
 - Update POM File to use JUnit 4.
 - Added tests for SnakeBody.
+- Added code so that you cant resize the game window.
+- Added tests for SnakeModel
