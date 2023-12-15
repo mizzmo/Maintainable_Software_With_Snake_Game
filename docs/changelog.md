@@ -254,6 +254,8 @@
 - Adding all class test classes and methods to be implemented.
 
 ### 15/12/23
+- Add leaderboardObject Class
+- Updated the LeaderboardScene Class so that it uses the leaderboardobject class to order the scores.
 - Updated module-info to include Junit testing.
 - Update POM File to use JUnit 4.
 - Added tests for SnakeBody.
