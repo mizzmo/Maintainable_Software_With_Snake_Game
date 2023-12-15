@@ -229,3 +229,17 @@ as some scenes stretch over muliple classes.
   - No, you arent allowd to enter a second usename.
 - Is the username added to the leaderboard?
   - Yes, the username and your score appears in the ordered list on the leaderboard.
+
+### Restart Game Tests
+- Does the snake reappear in the center of the screen?
+  - The snake goes back to the center of the screen.
+- Does the score go back to 0?
+  - The score is reset to 0.
+- Does the snake length return back to its original?
+  - The snakes length goes back to default, or if the user has set a specific length, it goes to that.
+- Does a wall appear in a new position?
+  - Yes, a new wall appears in a random location and works as normal.
+- Does a new fruit appear in a random location?
+  - Yes, a new fruit appears in a random location and works as normal.
+- Does the background still appear correctly?
+  - Yes, the same background is used again and still appears normally.
