@@ -163,21 +163,37 @@ as some scenes stretch over muliple classes.
   - The score decreases by 100  when you eat a rotten apple.
 ### Pause Menu Tests.
 - Does the pause menu appear when you press ESC?
+  - The pause menu appears when you press escape.
 - Does the pause menu disappear when you press ESC again?
+  - The pause menu dissapears when you press escape.
 - Is there a title?
+  - There is a title in the top middle of the screen.
 - Is there a volume slider on the screen?
+  - There is a volume slider below the title with a label showing the volume.
 - Is there a maim menu button?
+  - There is a main menu button below the volume slider.
 - Does the main menu button work?
+  - The button takes you back to the main menu.
 - Is there a restart button?
+  - There is a restart button below the main menu button.
 - Does the restart button work?
+  - The restart button closes the pause menu and restarts the game.
 - Is there a label telling you how to unpause?
+  - There is a label with instructions to press ESC again to unpause.
 - Is there a dark strip behind the pause menu?
+  - There is a dark strip that makes up the pause menu.
 - Does the snake stop moving?
+  - The snake stops moving in the pause menu.
 - Does the fruit stay where it is?
+  - The fruit doesnt move in the pause menu.
 - Do the walls stop moving?
+  - The walls dont move in the pause menu.
 - Do the walls start moving again when you unpause?
+  - The walls move again after 5 seconds when you exit the pause menu.
 - Does the snake keep moving after unpausing?
+  - The snake starts moving again when you unpause.
 - Can the fruit still be eaten after unpausing?
+  - The fruit can still be eaten after unpausing.
 ### Game Over Tests. 
 - Is there a game over message?
 - Does the snake dissapear?
