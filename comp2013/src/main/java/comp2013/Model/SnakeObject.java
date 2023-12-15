@@ -42,17 +42,7 @@ public class SnakeObject implements IMovable {
     @Override
     public int getPreviousDirection(){ return this.m_PreviousDirection; }
     //Increase the speed of the snake.
-    @Override
-    public void increaseSpeed() {
-        this.m_SnakeSpeed++;
-    }
 
-    // Decrease the speed of the snake.
-
-    @Override
-    public void reduceSpeed() {
-        this.m_SnakeSpeed--;
-    }
 
 
 }

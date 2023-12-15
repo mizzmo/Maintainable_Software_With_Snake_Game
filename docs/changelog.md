@@ -11,7 +11,7 @@
 - Added JavaDoc to Project.
 - Removed Commented Out Code.
 - Reworked some code comments.
-### 15/11/23 
+### 15/11/23
 - Renamed some folders.
 - Rearranged Files. Introduced resources and java folder.
 - Moved Classes to java folder.
@@ -38,7 +38,7 @@
 - Added some private variables in Model.
 - Impmemented part of Initialise method in Model.
 - Started to implement InitialiseDisplay method in view.
-- Changed variable names so that they follow the coding convetntions. 
+- Changed variable names so that they follow the coding convetntions.
 
 ### 6/12/23
 - Changed comments on SnakeView from JavaDoc to Regular Comments, as JavaDoc is inherited from the Interface Class.
@@ -49,7 +49,7 @@
 - Reworked SnakeView initialiseDisplay to respect MVC, view now has no interaction with model.
 - Added constructors to View, Controller and Model.
 - Added a new Class, SnakeMain, that intialised all of the MVC.
-- Started to convert the program to JavaFX. 
+- Started to convert the program to JavaFX.
 - Set up JavaFX.
 - Fixed an issue where the controller was not initialised in the View beacuse of a issue with how JavaFX handles its instance of View.
 - Added an Icon to the JavaFx.
@@ -138,7 +138,7 @@
 - Added method to View, setGameScene.
 - Moved the snake game scene from start to setGameScene.
 - Reworked how start operates.
-- Added UI elements to the menu. 
+- Added UI elements to the menu.
 - Added a settings button and a exit button.
 - Added CSS to customise button size.
 - Added new class SnakeMusicUtil to handle music files going forward.
@@ -219,7 +219,7 @@
 - Created new checkbox for Colour Mode in Settings.
 - Added CSS to the checkbox. Applied to Checkbox.
 - Removed the FXML file as it wasnt used.
-- Added the effect to the snake in SnakeView. 
+- Added the effect to the snake in SnakeView.
 - Added the effect to the fruit in drawFruit in SnakeFood.
 - Fixed issue where the effect would stop the screen being cleared.
 - Updated checkbox so that it will appear already checked if the colour mode has already been set.

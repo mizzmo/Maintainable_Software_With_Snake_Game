@@ -5,23 +5,12 @@ package comp2013.Model;
  */
 public interface IMovable
 {
-	public int m_Direction = 0;
 
 	/**
 	 * Returns the previous direction the snake was moving.
 	 * @return Value of the previous direction.
 	 */
 	int getPreviousDirection();
-
-	/**
-	 * Increase the speed of the snake.
-	 */
-	void increaseSpeed();
-
-	/**
-	 * Decrease the speed of the snake.
-	 */
-	void reduceSpeed();
 
 
 	/**

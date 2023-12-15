@@ -13,8 +13,6 @@ public class SnakeModel implements IModel {
     private int m_Width, m_Height, m_Score, m_Length, m_Alive;
     // Stores the initial length of the snake set in the settings.
     public int m_InitialLength;
-    // Stores status on whether game is finished.
-    private boolean m_Finished;
     // Gets and instance of the Model
     private static SnakeModel m_Instance;
     // Sets the game to different colour modes.

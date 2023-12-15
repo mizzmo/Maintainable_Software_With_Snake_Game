@@ -1,7 +1,5 @@
-Bingo,222
-Bongo,555
-Bish,444
-Bash,111
-Bosh,54
-NewSprites,2700
-Toby,3000
+Bongo,222
+Bingo,111
+Bish,333
+Bosh,555
+Bash,444
