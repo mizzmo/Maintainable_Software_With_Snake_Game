@@ -1,2 +1,6 @@
 module:comp2013
-main
+comp2013
+comp2013.Controller
+comp2013.Model
+comp2013.View
+comp2013.View.SnakeScenes
