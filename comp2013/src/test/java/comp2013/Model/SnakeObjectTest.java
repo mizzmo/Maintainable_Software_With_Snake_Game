@@ -3,6 +3,9 @@ package comp2013.Model;
 import junit.framework.TestCase;
 import org.junit.Test;
 
+/**
+ * Tests the SnakeObject Class.
+ */
 public class SnakeObjectTest extends TestCase {
     private SnakeObject M_SnakeObject;
 

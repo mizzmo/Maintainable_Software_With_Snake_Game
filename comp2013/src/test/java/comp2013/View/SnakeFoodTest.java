@@ -9,6 +9,9 @@ import org.junit.Test;
 
 import java.awt.*;
 
+/**
+ * Tests the SnakeFood Class, non GUI Tests
+ */
 public class SnakeFoodTest extends TestCase {
     /**
      * Test to see if the image intersection method works

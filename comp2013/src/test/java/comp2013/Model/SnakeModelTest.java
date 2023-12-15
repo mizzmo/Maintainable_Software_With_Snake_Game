@@ -4,6 +4,9 @@ import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Tests the SnakeModel Class
+ */
 public class SnakeModelTest extends TestCase {
     private SnakeModel M_Model;
     @Before
