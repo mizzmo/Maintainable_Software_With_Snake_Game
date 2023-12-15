@@ -262,3 +262,4 @@
 - Added tests for SnakeObject.
 - Removed unused methods from snakeObject, increase/reduceSpeed.
 - Added tests for Controller.
+- Added tests for SnakeFood.
