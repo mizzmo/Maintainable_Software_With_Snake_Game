@@ -58,4 +58,30 @@ as some scenes stretch over muliple classes.
 - Is the leaderboard scrollable?
   - The leaderboard can be scrolled down to see entries at the bottom.
 
-
+### Settings Tests
+- Does the background appear?
+  - A jungle background appears.
+- Does the title appear?
+  - There is a title in the top middle of the screen.
+- Is there a volume scroll bar?
+  - There is a volume scrollbar in the middle of the screen with a message displaying its volume.
+- Is there a snake size scroll bar?
+  - There is a snake size scroll bar in the middle of the screen that displays the current snake size.
+- Are there two checkboxes?
+  - There are two checkboxes, one for high contrast mode and one for walls.
+- Is there a back button?
+  - There is a back button at the bottom of the screeen.
+- Does the back button work?
+  - The back button takes you back to the main menu.
+- Can you click the checkboxes?
+  - You can click both checkboxes.
+- Do the checkboxes work?
+  - The checkboxes seem to work when you click them, high contrast mode is turned on when you go into game, and the walls are turned off when you uncheck them. The opposite is also true.
+- Do the checkboxes stay checked when you exit and reeneter the settings menu?
+  - When you exit and reenter the settings, the checkboxes stay checked to where you put them.
+- Does the snake size scrollbar work?
+  - The snake scrollbar seems to work, the value updates above it, and when you enter the game, the snakes size has changed to whatever you set it as.
+- Does the volume scrollbar work?
+  - The volume scrollbar works as you can hear and see the volume change as you move it around.
+- Do the scrollbars stay where they are when you exit and reenter the settings menu?
+  - The scrollbars stay where you leave them when you exit and reenter the settings screen.
