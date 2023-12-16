@@ -1,7 +1,9 @@
 package comp2013.View;
 
 /**
+ *
  * Utility to play music using JavaFX MediaPlayer.
+ * @author Toby Surtees
  */
 public interface IMusic {
 

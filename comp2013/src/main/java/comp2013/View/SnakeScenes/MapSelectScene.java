@@ -13,7 +13,9 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 /**
+ *
  * Sets the scene to the Map Select Screen
+ * @author Toby Surtees
  */
 public class MapSelectScene {
 

@@ -1,7 +1,9 @@
 package comp2013.Model;
 
 /**
+ *
  * Class that contains information about a snake body point.
+ * @author Toby Surtees
  */
 public class SnakeBody{
     // Stores the x and y values for the snake part.

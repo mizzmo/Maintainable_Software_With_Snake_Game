@@ -22,4 +22,7 @@
 ![InteliJ Updated Class Diagram](../assets/generatedUpdateClassDiagram.png)
 
 ### Activity Diagram
+I decided to make a activity diagram as the program has alot of menus and I felt it was
+appropriate to have a diagram to refer to when using the program, to see what causes what.
+This makes it easier to use the program and to see what links to what, and what causes what.
 ![Activity Diagram](../assets/snakeActivityDiagram.png)

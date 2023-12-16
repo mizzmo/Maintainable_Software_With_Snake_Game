@@ -7,7 +7,9 @@ import comp2013.View.SnakeView;
 import javafx.scene.input.KeyCode;
 
 /**
+ *
  * Controls the game and aspects about the snake.
+ * @author Toby Surtees-modified
  */
 public class SnakeController implements IController {
     public SnakeModel m_Model;

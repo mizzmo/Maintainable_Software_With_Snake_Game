@@ -12,7 +12,9 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 
 /**
+ *
  * Sets the scene to the Main Menu Screen
+ * @author Toby Surtees
  */
 public class MainMenuScene {
     private SnakeView M_View;

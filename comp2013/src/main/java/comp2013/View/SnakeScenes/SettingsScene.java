@@ -9,7 +9,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.StackPane;
 /**
+ *
  * Sets the scene to the Settings Screen
+ * @author Toby Surtees
  */
 public class SettingsScene {
     private MainMenuScene M_MainMenu;

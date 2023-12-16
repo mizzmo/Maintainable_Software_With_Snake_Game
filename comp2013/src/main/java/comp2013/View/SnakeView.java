@@ -24,6 +24,11 @@ import javafx.scene.effect.ColorAdjust;
 import java.io.*;
 import java.util.List;
 
+/**
+ *
+ * Controls the GUI Views of the program
+ * @author Toby Surtees-modified
+ */
 public class SnakeView extends Application implements IView {
     // Public
     // Store references to the controller
