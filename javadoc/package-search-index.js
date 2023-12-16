@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"m":"comp2013","l":"example"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"m":"comp2013","l":"comp2013"},{"m":"comp2013","l":"comp2013.Controller"},{"m":"comp2013","l":"comp2013.Model"},{"m":"comp2013","l":"comp2013.View"},{"m":"comp2013","l":"comp2013.View.SnakeScenes"}];updateSearchResults();

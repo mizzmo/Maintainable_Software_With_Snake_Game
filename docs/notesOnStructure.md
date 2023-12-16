@@ -88,7 +88,7 @@
 
 ### MyThread Class - (No Methods)
 - Has 1 use in "Play".
-- "MyThread" seems to run the parent class and infinitely repaint the window every 30 miliseconds.\
+- "MyThread" seems to run the parent class and infinitely repaint the window every 30 miliseconds.
 **Relationships:**
 - Extends Thread - "IS-A" - *Inheritance* - Not Applicable as is a Library.
 - Is a member of MyFrame - *Composition*
@@ -109,7 +109,7 @@
 - Has a method "draw" which calls "outofBounds" and "eatBody". This method draws the body and the head and then calls "move". This is used once in "MySnake" class and once in the "Food" class.
 - Has a method "eatBody". I think this method is for detecting whether the body has hit itself. This is used once in the same class.
 - Has a method "drawBody" which draws each point in the snake onto the screen. This is used once in the same class.
-- Has a method "outofBounds" which detects if you are out of bounds on the screen. This is used once in the same class.\
+- Has a method "outofBounds" which detects if you are out of bounds on the screen. This is used once in the same class.
 **Relationships:**
 - Extends SnakeObject - "IS-A" - *Inheritance*
 - Implements movable - *Realisation / Implementation*
@@ -151,7 +151,7 @@
 - Method "keyPressed" calls "keyPressed" in super class "MyFrame" and class "MySnake".
 - Method "paint" draws the background and food onto the screen.
 - Method "drawScore" draws the score onto the screen. Has one use in the same class.
-- Method "main" loads the frame and plays music.\
+- Method "main" loads the frame and plays music.
 **Relationships:**
 - Extends MyFrame - "IS-A" - *Inheritance*
 - Creates MySnake Object - "HAS-A" - *Aggregation*
@@ -164,6 +164,6 @@
 ### Snake Class - (2 Methods)
 - Declares a serial variable with no uses.
 - Has method "move" that returns the value x with no uses.
-- Has method "stop" with no uses. Sets moving = 0.\
+- Has method "stop" with no uses. Sets moving = 0.
 **Relationships:**
 - None
