@@ -3,8 +3,9 @@ package comp2013.View;
 import java.util.HashMap;
 import java.util.Map;
 /**
- * @author Toby Surtees
+ *
  * Contains a hashmap that holds all of the music file locations for the game.
+ * @author Toby Surtees
  */
 public class SnakeMusicUtil {
 

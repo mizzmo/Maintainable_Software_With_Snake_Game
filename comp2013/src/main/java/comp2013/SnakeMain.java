@@ -6,6 +6,10 @@ import comp2013.View.SnakeView;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+/**
+ * Main class, launches the game.
+ * @author Toby Surtees
+ */
 public class SnakeMain extends Application {
     static SnakeModel M_Model;
      static SnakeController M_Controller;

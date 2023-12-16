@@ -6,8 +6,9 @@ import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 
 /**
- * @author Toby Surtees-modified
+ *
  * Some basic music functionality that works with JavaFX Media Player
+ * @author Toby Surtees-modified
  */
 public class SnakeMusic implements IMusic
 {

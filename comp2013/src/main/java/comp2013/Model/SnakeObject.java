@@ -4,8 +4,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * @author Toby Surtees-modified
+ *
  * Holds information about a snake. Is made up of SnakeBody parts.
+ * @author Toby Surtees-modified
  */
 public class SnakeObject implements IMovable {
     // Keeps track of how fast the snake is moving.

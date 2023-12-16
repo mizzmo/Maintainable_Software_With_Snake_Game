@@ -8,9 +8,9 @@ import javafx.scene.paint.Color;
 import java.util.Random;
 
 /**
- * @author Toby Surtees
  * Controlls the wall feature of the game
  * Stores information about and draws the walls
+ * @author Toby Surtees
  */
 public class SnakeWall {
     private int M_X;

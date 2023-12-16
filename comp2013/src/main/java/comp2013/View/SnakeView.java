@@ -25,8 +25,9 @@ import java.io.*;
 import java.util.List;
 
 /**
- * @author Toby Surtees-modified
+ *
  * Controls the GUI Views of the program
+ * @author Toby Surtees-modified
  */
 public class SnakeView extends Application implements IView {
     // Public
