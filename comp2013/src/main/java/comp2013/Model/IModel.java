@@ -37,7 +37,7 @@ public interface IModel {
 
     /**
      * Set the length of the snake to a specific value.
-     * @param m_Length
+     * @param m_Length New snake length
      */
     void setLength(int m_Length);
 
@@ -96,7 +96,7 @@ public interface IModel {
     /**
      * Set the wall mode to be used
      * @param wallMode Int value of the wall mode
-     *                 1 : Use Walls, 0 : Dont use walls.
+     *                 1 : Use Walls, 0 : Don't use walls.
      */
     void setWallMode(int wallMode);
 

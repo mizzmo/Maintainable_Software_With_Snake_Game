@@ -112,8 +112,8 @@ public class LeaderboardScene {
 
         // Add sorted items to the VBox
         for (LeaderboardObject item : leaderboardObjects) {
-            Label leaderboardItemLabel = new Label(item.getUsername()
-                    + "        " + item.getScore());
+            Label leaderboardItemLabel = new Label(item.username()
+                    + "        " + item.score());
             leaderboardItemLabel.getStyleClass().add("leaderboard-item");
             leaderboard.getChildren().add(leaderboardItemLabel);
         }

@@ -18,7 +18,7 @@ public class SnakeObject implements IMovable {
     // Added to the speed to determine how far the snake moves per tick
     public static final int SPEED_MODIFIER = 25;
 
-    // Linked list containing all of the snake body points.
+    // Linked list containing all the snake body points.
     public List<SnakeBody> m_SnakeBody = new LinkedList<>();
 
     /**
@@ -27,7 +27,7 @@ public class SnakeObject implements IMovable {
      * @param y Y coordinate for the snake head
      */
     public SnakeObject(int x, int y){
-        this.m_SnakeSpeed = 1 * SPEED_MODIFIER;
+        this.m_SnakeSpeed = SPEED_MODIFIER;
         // Set the initial direction
         this.m_PreviousDirection = RIGHT;
         this.m_Direction = RIGHT;
