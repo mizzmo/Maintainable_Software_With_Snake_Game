@@ -3,6 +3,3 @@ Bingo,111
 Bish,333
 Bosh,555
 Bash,444
-TestRecord,100
-TestRecordScore,0
-TestRecordScore2,0
