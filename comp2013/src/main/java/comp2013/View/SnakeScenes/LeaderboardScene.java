@@ -26,10 +26,10 @@ import java.util.List;
  * @author Toby Surtees
  */
 public class LeaderboardScene {
-    private MainMenuScene M_MainMenuScene;
-    private SnakeView M_View;
+    private final MainMenuScene M_MainMenuScene;
+    private final SnakeView M_View;
 
-    private SnakeController M_Controller;
+    private final SnakeController M_Controller;
 
     /**
      * Constructor to set the class objects
@@ -61,15 +61,15 @@ public class LeaderboardScene {
         // Add styling and set location
         menuButton.getStyleClass().add("snake-button");
         // Set the size of the
-        menuButton.setMinHeight((int)
-                (M_Controller.m_Model.getHeight() / 9));
-        menuButton.setMinWidth((int)
-                (M_Controller.m_Model.getWidth() / 7));
+        menuButton.setMinHeight(
+                ((double) M_Controller.m_Model.getHeight() / 9));
+        menuButton.setMinWidth(
+                ((double) M_Controller.m_Model.getWidth() / 7));
 
-        menuButton.setMaxHeight((int)
-                (M_Controller.m_Model.getHeight() / 9));
-        menuButton.setMaxWidth((int)
-                (M_Controller.m_Model.getWidth() / 7));
+        menuButton.setMaxHeight(
+                ((double) M_Controller.m_Model.getHeight() / 9));
+        menuButton.setMaxWidth(
+                ((double) M_Controller.m_Model.getWidth() / 7));
         // Create a header label
         Label boardHeader = new Label
                 ("Name          Score");
@@ -88,15 +88,7 @@ public class LeaderboardScene {
         leaderboard.setStyle("-fx-background-color: white;");
 
         // Create a Rectangle with stroke for the VBox
-        Rectangle scrollPaneBorder = new Rectangle();
-        scrollPaneBorder.setStroke(Color.BLACK); // Set the stroke color
-        scrollPaneBorder.setFill(null); // Make the fill transparent
-        scrollPaneBorder.setStrokeWidth(5); // Set the stroke width
-        // Set the size of the rectangle
-        scrollPaneBorder.setWidth(
-                (double) M_Controller.m_Model.getWidth() / 2);
-        scrollPaneBorder.setHeight(
-                (double) M_Controller.m_Model.getHeight() / 1.5);
+        Rectangle scrollPaneBorder = getRectangle();
 
 
         List<LeaderboardObject> leaderboardObjects = new ArrayList<>();
@@ -126,6 +118,24 @@ public class LeaderboardScene {
             leaderboard.getChildren().add(leaderboardItemLabel);
         }
 
+        ScrollPane scrollingBoard = getScrollPane(leaderboard);
+        leaderboardPane.getChildren().addAll(scrollingBoard,
+                menuButton, scrollPaneBorder);
+
+
+        menuButton.setTranslateY(250);
+        leaderboardLabel.setTranslateY(25);
+
+        M_View.m_PrimaryStage.setScene(leaderboardScene);
+        M_View.m_PrimaryStage.show();
+    }
+
+    /**
+     * Code to get the scrolling pane
+     * @param leaderboard Bbox to put the pane into
+     * @return Returns the  initialised ScrollPane
+     */
+    private ScrollPane getScrollPane(VBox leaderboard) {
         ScrollPane scrollingBoard = new ScrollPane(leaderboard);
         // Set the background of the ScrollPane to be transparent
         scrollingBoard.setStyle("-fx-background-color: white;");
@@ -137,15 +147,24 @@ public class LeaderboardScene {
         scrollingBoard.setMaxSize
                 ((double) M_Controller.m_Model.getWidth() / 2,
                         (double) M_Controller.m_Model.getHeight() / 1.5);
-        leaderboardPane.getChildren().addAll(scrollingBoard,
-                menuButton, scrollPaneBorder);
+        return scrollingBoard;
+    }
 
-
-        menuButton.setTranslateY(250);
-        leaderboardLabel.setTranslateY(25);
-
-        M_View.m_PrimaryStage.setScene(leaderboardScene);
-        M_View.m_PrimaryStage.show();
+    /**
+     * Gets the rectangle to put around the scroll pane
+     * @return Returns initialised rectangle
+     */
+    private Rectangle getRectangle() {
+        Rectangle scrollPaneBorder = new Rectangle();
+        scrollPaneBorder.setStroke(Color.BLACK); // Set the stroke color
+        scrollPaneBorder.setFill(null); // Make the fill transparent
+        scrollPaneBorder.setStrokeWidth(5); // Set the stroke width
+        // Set the size of the rectangle
+        scrollPaneBorder.setWidth(
+                (double) M_Controller.m_Model.getWidth() / 2);
+        scrollPaneBorder.setHeight(
+                (double) M_Controller.m_Model.getHeight() / 1.5);
+        return scrollPaneBorder;
     }
 
 }

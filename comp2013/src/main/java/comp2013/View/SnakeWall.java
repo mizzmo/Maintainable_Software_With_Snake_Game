@@ -8,7 +8,7 @@ import javafx.scene.paint.Color;
 import java.util.Random;
 
 /**
- * Controlls the wall feature of the game
+ * Controls the wall feature of the game
  * Stores information about and draws the walls
  * @author Toby Surtees
  */
@@ -18,7 +18,7 @@ public class SnakeWall {
     public int m_Width;
     public int m_Height;
 
-    private SnakeController M_Controller = SnakeController.getInstance();
+    private final SnakeController M_Controller = SnakeController.getInstance();
 
     public SnakeWall(){
         // Get the width and height of the image.
@@ -56,7 +56,7 @@ public class SnakeWall {
      * @param canvas Canvas to draw the wall onto.
      */
     public void drawWall(Canvas canvas) {
-        // If the wall doesnt overlap the snake.
+        // If the wall doesn't overlap the snake.
         if (!checkHitWall()){
                 // Generate a random number to determine which direction the wall will lay.
                 int i = new Random().nextInt(2);
@@ -83,18 +83,18 @@ public class SnakeWall {
         }
         // If the wall does overlap the snake, move it somewhere else.
         else{ this.newWall(); }
-    };
+    }
 
     /**
      * Changes the wall from a horizontal wall to a vertical wall.
      */
     public void rotateWall(){
-        // If the wall is horrizontal, change to vertical
+        // If the wall is horizontal, change to vertical
         if(m_Width == 128) {
             this.m_Width = 32;
             this.m_Height = 128;
         }
-        // If its vertical, change to horizontal
+        // If It's vertical, change to horizontal
         else{
             this.m_Width = 128;
             this.m_Height = 32;
@@ -109,7 +109,7 @@ public class SnakeWall {
                 (M_Controller.m_Model.getWidth()*0.7));
         this.M_Y = (int) (Math.random() *
                 (M_Controller.m_Model.getHeight()*0.7));
-        // If this new wall is ontop of the snake, make a new wall.
+        // If this new wall is onto of the snake, make a new wall.
         if (checkHitWall()) { this.newWall();}
     }
 }

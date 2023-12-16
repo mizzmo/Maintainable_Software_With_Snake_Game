@@ -20,9 +20,9 @@ import javafx.util.Duration;
  */
 public class GameScene {
 
-    private SnakeView M_View;
+    private final SnakeView M_View;
     
-    private SnakeController M_Controller;
+    private final SnakeController M_Controller;
 
     /**
      * Constructor to set the View and Controller
@@ -58,15 +58,15 @@ public class GameScene {
         // Set the background of the image.
         imageView.setImage(M_View.m_BackgroundImage);
         // Set the size of the image view.
-        imageView.setFitHeight((int)(M_Controller.m_Model.getHeight()));
-        imageView.setFitWidth((int)(M_Controller.m_Model.getWidth()));
+        imageView.setFitHeight((M_Controller.m_Model.getHeight()));
+        imageView.setFitWidth((M_Controller.m_Model.getWidth()));
         // Add the background to the pane.
         M_View.m_SnakePane.getChildren().add(imageView);
 
         // Create a canvas that will be used to draw on the snake.
         M_View.m_SnakeCanvas = new Canvas(M_Controller.m_Model.getWidth(),
                 M_Controller.m_Model.getHeight());
-        // Create a seperate canvas for the food.
+        // Create a separate canvas for the food.
         M_View.m_FoodCanvas = new Canvas(M_Controller.m_Model.getWidth(),
                 M_Controller.m_Model.getHeight());
         // Create a new canvas for the wall.
@@ -108,7 +108,7 @@ public class GameScene {
         M_View.m_WallTimeline.setCycleCount(Animation.INDEFINITE);
         M_View.m_WallTimeline.play();
 
-        // Define the timeline that controlls how the snake moves.
+        // Define the timeline that controls how the snake moves.
         M_View.m_Timeline = new Timeline(new KeyFrame(Duration.millis(150),
                 event -> {
                     M_View.refreshSnake();

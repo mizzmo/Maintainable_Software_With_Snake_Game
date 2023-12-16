@@ -4,19 +4,19 @@ import java.util.HashMap;
 import java.util.Map;
 /**
  *
- * Contains a hashmap that holds all of the music file locations for the game.
+ * Contains a hashmap that holds all the music file locations for the game.
  * @author Toby Surtees
  */
 public class SnakeMusicUtil {
 
     /**
-     * Hash map that contains all of the music locations that will be used during the game.
+     * Hash map that contains all the music locations that will be used during the game.
      */
     public static Map<String, String> m_SnakeMusic = new HashMap<>();
 
     /**
      *  Returns the music at the given index in the hash map.
-     * @param musicID Music ID that corrisponds to the music you want to use.
+     * @param musicID Music ID that corresponds to the music you want to use.
      * @return Music file at the location in the hash map.
      */
     public static String getMedia(String musicID){

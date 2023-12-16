@@ -15,7 +15,7 @@ import java.util.Random;
  */
 public class SnakeFood
 {
-	private SnakeController M_Controller = SnakeController.getInstance();
+	private final SnakeController M_Controller = SnakeController.getInstance();
 	public boolean m_BonusFruit =false, m_NegativeFruit =false;
 	public boolean m_Eaten;
 	private Image M_Image;
@@ -87,7 +87,7 @@ public class SnakeFood
 		// Draw the fruit
 		gc.drawImage(this.M_Image, this.M_X, this.M_Y);
 		this.m_Eaten = false;
-	};
+	}
 
 	/**
 	 * Change the fruit to a different type with a new location.
@@ -120,15 +120,15 @@ public class SnakeFood
 		this.m_Eaten = false;
 		this.M_Width = M_Image.getWidth();
 		this.M_Height = M_Image.getHeight();
-		// Sets a x and y coordinate for the fruit that is at least 500 pixels away from the wall.
+		// Sets an x and y coordinate for the fruit that is at least 500 pixels away from the wall.
 		this.M_X = (int) (Math.random() * (M_Controller.m_Model.getWidth()*0.9 - M_Width));
 		this.M_Y = (int) (Math.random() * (M_Controller.m_Model.getHeight()*0.9 - M_Height));
 	}
 
 	/**
-	 * Detects if images are interesecting
+	 * Detects if images are interesting
 	 * @param x1 first X coordinate
-	 * @param y1 first Y coordinaTe
+	 * @param y1 first Y coordinateTe
 	 * @param w1 first image width
 	 * @param h1 first image height
 	 * @param x2 second X coordinate
