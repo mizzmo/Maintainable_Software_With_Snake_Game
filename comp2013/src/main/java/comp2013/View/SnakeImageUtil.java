@@ -7,14 +7,14 @@ import java.util.Map;
 
 /**
  *
- * Contains a hashmap that holds all of the image files for the game.
+ * Contains a hashmap that holds all the image files for the game.
  * @author Toby Surtees-modified
  */
 public class SnakeImageUtil
 {
 	/**
 	 *  Returns the image at the given index in the hash map.
-	 * @param imageID Image ID that corrisponds to the image you want to use.
+	 * @param imageID Image ID that corresponds to the image you want to use.
 	 * @return Image at the location in the hash map.
 	 */
 	public static Image getImage(String imageID){
@@ -23,7 +23,7 @@ public class SnakeImageUtil
 	}
 
 	/**
-	 * Hash map that contains all of the images that will be used during the game.
+	 * Hash map that contains all the images that will be used during the game.
 	 */
 	public static Map<String, Image> m_SnakeImages = new HashMap<>();
 

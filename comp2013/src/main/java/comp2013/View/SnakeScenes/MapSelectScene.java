@@ -19,11 +19,11 @@ import javafx.scene.shape.Rectangle;
  */
 public class MapSelectScene {
 
-    private SnakeView M_View;
-    private MainMenuScene M_MainMenuScene;
+    private final SnakeView M_View;
+    private final MainMenuScene M_MainMenuScene;
 
-    private GameScene M_GameScene;
-    private SnakeController M_Controller;
+    private final GameScene M_GameScene;
+    private final SnakeController M_Controller;
 
     /**
      * Constructor initialises the class variables
@@ -54,13 +54,13 @@ public class MapSelectScene {
         // Add styling and set location
         menuButton.getStyleClass().add("snake-button");
         // Set the size of the
-        menuButton.setMinHeight((int)
-                (M_Controller.m_Model.getHeight() / 9));
-        menuButton.setMinWidth((int)
-                (M_Controller.m_Model.getWidth() / 7));
+        menuButton.setMinHeight(
+                ((double) M_Controller.m_Model.getHeight() / 9));
+        menuButton.setMinWidth(
+                ((double) M_Controller.m_Model.getWidth() / 7));
 
-        menuButton.setMaxHeight((int)(M_Controller.m_Model.getHeight() / 9));
-        menuButton.setMaxWidth((int)(M_Controller.m_Model.getWidth() / 7));
+        menuButton.setMaxHeight(((double) M_Controller.m_Model.getHeight() / 9));
+        menuButton.setMaxWidth(((double) M_Controller.m_Model.getWidth() / 7));
 
         // Create a button that returns to the main menu.
         Button startButton = new Button("Start Game!");
@@ -74,15 +74,15 @@ public class MapSelectScene {
         // Add styling and set location
         startButton.getStyleClass().add("snake-button");
         // Set the size of the
-        startButton.setMinHeight((int)
-                (M_Controller.m_Model.getHeight() / 9));
-        startButton.setMinWidth((int)
-                (M_Controller.m_Model.getWidth() / 7));
+        startButton.setMinHeight(
+                ((double) M_Controller.m_Model.getHeight() / 9));
+        startButton.setMinWidth(
+                ((double) M_Controller.m_Model.getWidth() / 7));
 
-        startButton.setMaxHeight((int)
-                (M_Controller.m_Model.getHeight() / 9));
-        startButton.setMaxWidth((int)
-                (M_Controller.m_Model.getWidth() / 7));
+        startButton.setMaxHeight(
+                ((double) M_Controller.m_Model.getHeight() / 9));
+        startButton.setMaxWidth(
+                ((double) M_Controller.m_Model.getWidth() / 7));
 
         Label selectLabel = new Label("Selected: Grassy Plains");
         selectLabel.getStyleClass().add("label-with-padding");
@@ -90,8 +90,8 @@ public class MapSelectScene {
         // Create a Rectangle for an outline that is slightly
         // bigger than the image view.
         Rectangle selectOutline = new Rectangle(
-                (int)(M_Controller.m_Model.getWidth() / 4) + 20,
-                (int)(M_Controller.m_Model.getHeight() / 4) + 20
+                ((double) M_Controller.m_Model.getWidth() / 4) + 20,
+                ((double) M_Controller.m_Model.getHeight() / 4) + 20
         );
         selectOutline.setFill(null); // No fill
         selectOutline.setStroke(Color.WHITE); // Set the color of the outline
@@ -101,10 +101,10 @@ public class MapSelectScene {
         ImageView mapSelectCloud = new ImageView();
         M_View.setBackgroundImage(mapSelectCloud, "cloud-background");
         // Set the size of the image view.
-        mapSelectCloud.setFitHeight((int)
-                (M_Controller.m_Model.getHeight() / 4));
-        mapSelectCloud.setFitWidth((int)
-                (M_Controller.m_Model.getWidth() / 4));
+        mapSelectCloud.setFitHeight(
+                ((double) M_Controller.m_Model.getHeight() / 4));
+        mapSelectCloud.setFitWidth(
+                ((double) M_Controller.m_Model.getWidth() / 4));
         // Set an event handler for the click event
         mapSelectCloud.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -120,10 +120,10 @@ public class MapSelectScene {
         ImageView mapSelectGrass = new ImageView();
         M_View.setBackgroundImage(mapSelectGrass, "grass-background");
         // Set the size of the image view.
-        mapSelectGrass.setFitHeight((int)
-                (M_Controller.m_Model.getHeight() / 4));
-        mapSelectGrass.setFitWidth((int)
-                (M_Controller.m_Model.getWidth() / 4));
+        mapSelectGrass.setFitHeight(
+                ((double) M_Controller.m_Model.getHeight() / 4));
+        mapSelectGrass.setFitWidth(
+                ((double) M_Controller.m_Model.getWidth() / 4));
 
         mapSelectGrass.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -139,10 +139,10 @@ public class MapSelectScene {
         ImageView mapSelectOcean = new ImageView();
         M_View.setBackgroundImage(mapSelectOcean, "ocean-background");
         // Set the size of the image view.
-        mapSelectOcean.setFitHeight((int)
-                (M_Controller.m_Model.getHeight() / 4));
-        mapSelectOcean.setFitWidth((int)
-                (M_Controller.m_Model.getWidth() / 4));
+        mapSelectOcean.setFitHeight(
+                ((double) M_Controller.m_Model.getHeight() / 4));
+        mapSelectOcean.setFitWidth(
+                ((double) M_Controller.m_Model.getWidth() / 4));
 
         mapSelectOcean.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override

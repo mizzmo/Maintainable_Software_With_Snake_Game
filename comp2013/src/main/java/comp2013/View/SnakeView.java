@@ -85,7 +85,7 @@ public class SnakeView extends Application implements IView {
      // Refreshes the snake at its new location.
     @Override
     public void refreshSnake() {
-        // Sets the time interval to 200 miliseconds;
+        // Sets the time interval to 200 milliseconds;
         double timeRate = 1;
         // Time interval decreases as the user gets a higher score.
         if(m_Controller.m_Model.getScore() > 0){
@@ -98,17 +98,7 @@ public class SnakeView extends Application implements IView {
         List<SnakeBody> snakeBody = m_Controller.m_Snake.m_SnakeBody;
         // Tells the loop if it needs to add a new segment or not.
         boolean addSegment = false;
-        GraphicsContext gc = m_SnakeCanvas.getGraphicsContext2D();
-        // Clear the canvas by filling it with a transparent color
-        // Remove the effect, otherwise it applys to the clear rectangle
-        gc.setEffect(null);
-        // Draw the clear rectangle
-        gc.clearRect(0, 0, gc.getCanvas().getWidth(),
-                gc.getCanvas().getHeight());
-        // Add the effect back again
-        if(m_Controller.m_Model.getColourMode() == 1) {
-            gc.setEffect(m_ColorAdjust);
-        }
+        GraphicsContext gc = getGraphicsContext();
         // If the food has been eaten, draw a new one to replace it.
         if(m_SnakeFood.eaten()){
             // Re-Roll the fruit.
@@ -137,7 +127,7 @@ public class SnakeView extends Application implements IView {
             // Set cycle count to just 1 and play
             m_FoodTimeline.setCycleCount(1);
             m_FoodTimeline.play();
-            // Set to false so the loop isnt entered again
+            // Set to false so the loop isn't entered again
             M_FirstEntry = false;
         }
 
@@ -157,6 +147,25 @@ public class SnakeView extends Application implements IView {
         }
     }
 
+    /**
+     * Gets the graphics content of the snake canvas.
+     * @return Returns the graphics content object
+     */
+    private GraphicsContext getGraphicsContext() {
+        GraphicsContext gc = m_SnakeCanvas.getGraphicsContext2D();
+        // Clear the canvas by filling it with a transparent color
+        // Remove the effect, otherwise it apply to the clear rectangle
+        gc.setEffect(null);
+        // Draw the clear rectangle
+        gc.clearRect(0, 0, gc.getCanvas().getWidth(),
+                gc.getCanvas().getHeight());
+        // Add the effect back again
+        if(m_Controller.m_Model.getColourMode() == 1) {
+            gc.setEffect(m_ColorAdjust);
+        }
+        return gc;
+    }
+
     @Override
     public void start(Stage primaryStage)  {
         this.m_PrimaryStage = primaryStage;
@@ -169,7 +178,7 @@ public class SnakeView extends Application implements IView {
         m_ColorAdjust = new ColorAdjust();
         // Initialise the snake wall
         m_SnakeWall = new SnakeWall();
-        // Initialise the Accessablility Option
+        // Initialise the Accessibility Option
         // Adjust brightness
         m_ColorAdjust.setBrightness(0.2);
         // Adjust contrast
@@ -186,8 +195,7 @@ public class SnakeView extends Application implements IView {
         m_PrimaryStage.getIcons().add(icon);
 
         // Set the event handler for the window-closing event
-        m_PrimaryStage.setOnCloseRequest(event -> {
-            Platform.exit();});
+        m_PrimaryStage.setOnCloseRequest(event -> Platform.exit());
         // Make it so you cant resize the window.
         m_PrimaryStage.setResizable(false);
 
@@ -224,7 +232,7 @@ public class SnakeView extends Application implements IView {
         snakeBody = m_Controller.m_Snake.m_SnakeBody;
         // Get the head of the snake.
         snakeHead = snakeBody.getFirst();
-        //Set the cooridnates of the head.
+        //Set the coordinates of the head.
         snakeHead.setX(canvasCenterHorizontal);
         snakeHead.setY(canvasCenterVertical);
 
@@ -344,10 +352,10 @@ public class SnakeView extends Application implements IView {
         // Set the size of the text bar
         M_EnterNameField.setMinSize((int)
                         (m_Controller.m_Model.getWidth() / 2.8),
-                (int)(m_Controller.m_Model.getHeight() / 15));
+                ((double) m_Controller.m_Model.getHeight() / 15));
         M_EnterNameField.setMaxSize((int)
                         (m_Controller.m_Model.getWidth() / 2.8),
-                (int)(m_Controller.m_Model.getHeight() / 15));
+                ((double) m_Controller.m_Model.getHeight() / 15));
 
         // Add a button to save the entry to the text file.
         M_EnterNameButton = new Button("Confirm");
@@ -417,7 +425,7 @@ public class SnakeView extends Application implements IView {
     private void updateTimer() {
         // Countdown to restart
         M_TimerLength = 10;
-        // If the timeline doesnt exist, make it.
+        // If the timeline doesn't exist, make it.
         if(M_CountDownTimeline == null) {
             M_CountDownTimeline = new Timeline();
             M_CountDownTimeline.getKeyFrames().add(new KeyFrame(Duration.seconds(1), event -> {
@@ -461,7 +469,7 @@ public class SnakeView extends Application implements IView {
                     m_Controller.m_Model.getHeight());
 
             // Create a label for the pause screen
-            M_PausedLabel = new Label("Paused");;
+            M_PausedLabel = new Label("Paused");
             // Add styling
             M_PausedLabel.getStyleClass().add("label-with-padding");
             M_PausedLabel.setStyle("-fx-text-fill: white;" +
@@ -486,11 +494,11 @@ public class SnakeView extends Application implements IView {
                     });
 
             // Set the size of the slider.
-            M_PauseVolumeSlider.setMinHeight((int)(m_Controller.m_Model.getHeight() / 20));
-            M_PauseVolumeSlider.setMinWidth((int)(m_Controller.m_Model.getWidth() / 3));
+            M_PauseVolumeSlider.setMinHeight(((double) m_Controller.m_Model.getHeight() / 20));
+            M_PauseVolumeSlider.setMinWidth(((double) m_Controller.m_Model.getWidth() / 3));
 
-            M_PauseVolumeSlider.setMaxHeight((int)(m_Controller.m_Model.getHeight() / 20));
-            M_PauseVolumeSlider.setMaxWidth((int)(m_Controller.m_Model.getWidth() / 3));
+            M_PauseVolumeSlider.setMaxHeight(((double) m_Controller.m_Model.getHeight() / 20));
+            M_PauseVolumeSlider.setMaxWidth(((double) m_Controller.m_Model.getWidth() / 3));
             // Add styling
             M_PauseVolumeLabel.getStyleClass().add("label-with-padding");
             // Set the text to be white.
@@ -568,7 +576,7 @@ public class SnakeView extends Application implements IView {
         // Stop the timelines.
         m_Timeline.stop();
         m_WallTimeline.stop();
-        // Set the timer to -1 so that the timeline loop doesnt do anything.
+        // Set the timer to -1 so that the timeline loop doesn't do anything.
         M_TimerLength = -1;
         // Remove the game over labels from the screen.
         m_SnakePane.getChildren().removeAll(M_CountDownLabel,M_GameOverLabel,
@@ -615,14 +623,14 @@ public class SnakeView extends Application implements IView {
         this.setBackgroundImage
                 (imageView, "jungle-background");
 
-        imageView.setFitHeight((int)
+        imageView.setFitHeight(
                 (m_Controller.m_Model.getHeight()));
-        imageView.setFitWidth((int)
+        imageView.setFitWidth(
                 (m_Controller.m_Model.getWidth()));
         // Add the background to the pane.
         m_DefaultPane.getChildren().add(imageView);
         // Create a transparent VBox that goes over the top of the jungle
-        // image so that it isnt so glaring.
+        // image so that it isn't so glaring.
         VBox darkBox = new VBox(10);
         // Set the box background to be transparent black.
         darkBox.setStyle

@@ -10,23 +10,6 @@ import javafx.scene.input.KeyCode;
  */
 public interface IController {
     /**
-     * Move the snake Left.
-     */
-    static final int LEFT = 0;
-    /**
-     * Move the snake Right.
-     */
-    static final int RIGHT = 1;
-    /**
-     * Move the snake Up.
-     */
-    static final int UP = 2;
-    /**
-     * Move the snake Down.
-     */
-    static final int DOWN = 3;
-
-    /**
      * Checks if the snake has hit itself
      *
      * @return True if it has hit itself, False if not.

@@ -35,7 +35,7 @@ public interface IView {
     /**
      * Draws the current score of the game.
      */
-    public void drawScore();
+    void drawScore();
 
     /**
      * Swaps the snake-head image depending on the direction of travel
@@ -59,7 +59,7 @@ public interface IView {
     void pauseGame();
 
     /**
-     * Handles the clearing of the pause UI when the game is unpaused.
+     * Handles the clearing of the pause UI when the game is unpause.
      */
     void unpauseGame();
 }

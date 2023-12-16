@@ -24,7 +24,7 @@ public class SnakeMain extends Application {
     }
 
     /**
-     * Start the game by initialsing model and controller and
+     * Start the game by initialing model and controller and
      * starting JavaFX.
      * @param args Command Line arguments.
      */
@@ -37,8 +37,8 @@ public class SnakeMain extends Application {
 
     /**
      * Redundant method for this class. Usually called by application to start javaFX.
-     * @param stage
-     * @throws Exception
+     * @param stage Stage to use in the Game
+     * @throws Exception If anything wrong occurs from Application.
      */
     //This method is only needed to satisfy the Application Class.
     // The actual start method is in the SnakeView class

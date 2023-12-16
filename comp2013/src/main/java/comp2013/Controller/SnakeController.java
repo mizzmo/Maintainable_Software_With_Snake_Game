@@ -14,11 +14,6 @@ import javafx.scene.input.KeyCode;
 public class SnakeController implements IController {
     public SnakeModel m_Model;
     public SnakeView m_View;
-    // Stores constants for the key codes for WSAD and Arrow Keys.
-    private static final int W = 87, S = 83, A = 65, D = 68;
-    private static final int UP = 38, DOWN = 39, LEFT = 37, RIGHT = 40;
-
-    private float M_SpeedMultiplierX, M_SpeedMultiplierY;
     public SnakeObject m_Snake;
     // Holds an instance of the controller that is used in View to set the Controller
     // This is because JavaFX creates its own instance of view before the controller
@@ -99,19 +94,16 @@ public class SnakeController implements IController {
          // Determines what to add or take from the direction of the snake.
          float speedMultiplierY = 0;
          float speedMultiplierX = 0;
-         // Counts the amount of times move snake has been called.
-         // Stores the previous coordinate.
-         int prevX = 50, prevY = 50;
          // Changes the direction the snakes head is facing.
          m_View.changeHeadDirection();
          // Check that the snake is still alive.
          if(this.checkOutOfBounds()){
-             // If out of bounds, end this loop and handle the gameover.
+             // If out of bounds, end this loop and handle the game over.
              this.handleGameOver();
              return;
          }
          if(this.checkSelfCollide()){
-             // If out of hit itself, end this loop and handle the gameover.
+             // If out of hit itself, end this loop and handle the game over.
              this.handleGameOver();
              return;
          }
@@ -159,7 +151,7 @@ public class SnakeController implements IController {
     @Override
     public void addSegment(int x, int y, boolean newSegment){
         this.m_Snake.m_SnakeBody.add(new SnakeBody(x, y));
-        // If this is a new addition, add to the lengh
+        // If this is a new addition, add to the length
         // This is used after the snake is initialised to the starting length.
         if(newSegment) {
             this.m_Model.incrementLength();

@@ -14,8 +14,8 @@ import javafx.scene.layout.StackPane;
  * @author Toby Surtees
  */
 public class SettingsScene {
-    private MainMenuScene M_MainMenu;
-    private SnakeView M_View;
+    private final MainMenuScene M_MainMenu;
+    private final SnakeView M_View;
     public SnakeController m_Controller;
 
     /**
@@ -61,11 +61,11 @@ public class SettingsScene {
                 });
 
         // Set the size of the slider.
-        volumeSlider.setMinHeight((int)(m_Controller.m_Model.getHeight() / 20));
-        volumeSlider.setMinWidth((int)(m_Controller.m_Model.getWidth() / 2));
+        volumeSlider.setMinHeight(((double) m_Controller.m_Model.getHeight() / 20));
+        volumeSlider.setMinWidth(((double) m_Controller.m_Model.getWidth() / 2));
 
-        volumeSlider.setMaxHeight((int)(m_Controller.m_Model.getHeight() / 20));
-        volumeSlider.setMaxWidth((int)(m_Controller.m_Model.getWidth() / 2));
+        volumeSlider.setMaxHeight(((double) m_Controller.m_Model.getHeight() / 20));
+        volumeSlider.setMaxWidth(((double) m_Controller.m_Model.getWidth() / 2));
         // Add styling
         volumeLevelLabel.getStyleClass().add("label-with-padding");
         // Set the text to be white.
@@ -94,15 +94,15 @@ public class SettingsScene {
                 });
 
         // Set the size of the slider.
-        snakeLengthSlider.setMinHeight((int)
-                (m_Controller.m_Model.getHeight() / 20));
-        snakeLengthSlider.setMinWidth((int)
-                (m_Controller.m_Model.getWidth() / 2));
+        snakeLengthSlider.setMinHeight(
+                ((double) m_Controller.m_Model.getHeight() / 20));
+        snakeLengthSlider.setMinWidth(
+                ((double) m_Controller.m_Model.getWidth() / 2));
 
-        snakeLengthSlider.setMaxHeight((int)
-                (m_Controller.m_Model.getHeight() / 20));
-        snakeLengthSlider.setMaxWidth((int)
-                (m_Controller.m_Model.getWidth() / 2));
+        snakeLengthSlider.setMaxHeight(
+                ((double) m_Controller.m_Model.getHeight() / 20));
+        snakeLengthSlider.setMaxWidth(
+                ((double) m_Controller.m_Model.getWidth() / 2));
         // Add styling
         snakeLengthLabel.getStyleClass().add("label-with-padding");
         // Set the text to be white.
@@ -158,15 +158,15 @@ public class SettingsScene {
         // Add styling and set location
         menuButton.getStyleClass().add("snake-button");
         // Set the size of the
-        menuButton.setMinHeight((int)
-                (m_Controller.m_Model.getHeight() / 9));
-        menuButton.setMinWidth((int)
-                (m_Controller.m_Model.getWidth() / 7));
+        menuButton.setMinHeight(
+                ((double) m_Controller.m_Model.getHeight() / 9));
+        menuButton.setMinWidth(
+                ((double) m_Controller.m_Model.getWidth() / 7));
 
-        menuButton.setMaxHeight((int)
-                (m_Controller.m_Model.getHeight() / 9));
-        menuButton.setMaxWidth((int)
-                (m_Controller.m_Model.getWidth() / 7));
+        menuButton.setMaxHeight(
+                ((double) m_Controller.m_Model.getHeight() / 9));
+        menuButton.setMaxWidth(
+                ((double) m_Controller.m_Model.getWidth() / 7));
         // Add to the pane.
         settingsPane.getChildren().addAll(volumeLevelLabel, volumeSlider,
                 snakeLengthLabel, snakeLengthSlider, menuButton,

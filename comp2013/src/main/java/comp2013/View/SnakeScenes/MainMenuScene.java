@@ -17,13 +17,13 @@ import javafx.scene.layout.StackPane;
  * @author Toby Surtees
  */
 public class MainMenuScene {
-    private SnakeView M_View;
+    private final SnakeView M_View;
 
-    private SettingsScene M_SettingsScene;
+    private final SettingsScene M_SettingsScene;
 
-    private MapSelectScene M_MapSelectScreen;
+    private final MapSelectScene M_MapSelectScreen;
 
-    private LeaderboardScene M_LeaderboardScene;
+    private final LeaderboardScene M_LeaderboardScene;
 
     /**
      * Constructor to initialise class variables
@@ -102,7 +102,7 @@ public class MainMenuScene {
         menuPane.getChildren().add(leaderboardButton);
         leaderboardButton.setTranslateY(300);
 
-        // Create a exit button that exits the game.
+        // Create an exit button that exits the game.
         Button exitButton = new Button("Exit");
         exitButton.setOnAction(event -> {
             Platform.exit();
