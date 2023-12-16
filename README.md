@@ -32,11 +32,11 @@ How to run the game:
 #### How to play the game
 
 1. You will be greeted by a main menu, click start.
-    1.  	If you want to change any settings, click settings, then click back when you are done.
+    1. If you want to change any settings, click settings, then click back when you are done.
     2.  If you want to view the leaderboard, click leaderboard, then click back when you are done.
 2. Next you will see a map select screen, select the map you want to play on and click start game.
 3. Now you will be in the game, use WSAD or Arrow Keys to move the snake.
-    1. You must avoid the **REDWALLS**.
+    1. You must avoid the **RED WALLS**.
     2. You should try to **COLLECT FRUIT** to **EARN POINTS**.
     3. Golden apples grant bonus points.
     4. Rotten apples take away points.
