@@ -14,7 +14,6 @@ public class SnakeMusic implements IMusic
 {
 	private String M_FileName;
 	private Media M_MusicMedia;
-
 	private MediaPlayer M_MediaPlayer;
 	private double M_CurrentVolume;
 
@@ -42,10 +41,6 @@ public class SnakeMusic implements IMusic
 			this.M_MediaPlayer.setVolume(this.M_CurrentVolume);
 		}
 		else { this.M_FileName = null; }
-	}
-
-	public MediaPlayer getMediaPlayer() {
-		return M_MediaPlayer;
 	}
 
 	// Gets the File Path of the currently playing song.
