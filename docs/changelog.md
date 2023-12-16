@@ -270,3 +270,10 @@
 - Unable to test GUI elements as JavaFX has to be initialised.
 - Added tests for SnakeWall and SnakeMusic Util
 - Updated SnakeWall rotateWall so that it can change the orientation of the wall again, ie vert to hori and vice versa.
+
+### 16/12/23
+- Removed all unused methods.
+- Corrected all spelling.
+- Removed unused casts.
+- Converted LeadeboardObject to a record.
+- Split up some methods into multiple smaller methods.
