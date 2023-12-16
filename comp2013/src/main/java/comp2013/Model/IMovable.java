@@ -1,6 +1,7 @@
 package comp2013.Model;
 
 /**
+ * @author Toby Surtees-modified
  * Represents a movable snake object.
  */
 public interface IMovable

@@ -21,6 +21,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
+ * @author Toby Surtees
  * Sets the scene to the leaderboard screen
  */
 public class LeaderboardScene {

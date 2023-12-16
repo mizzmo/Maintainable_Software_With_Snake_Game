@@ -4,6 +4,7 @@ import comp2013.Controller.SnakeController;
 import javafx.scene.image.ImageView;
 
 /**
+ * @author Toby Surtees
  * The view is used to control visual aspects of the program.
  */
 public interface IView {

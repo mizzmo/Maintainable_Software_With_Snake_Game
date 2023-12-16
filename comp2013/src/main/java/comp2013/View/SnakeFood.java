@@ -8,6 +8,10 @@ import javafx.scene.canvas.Canvas;
 
 import java.util.Random;
 
+/**
+ * @author Toby Surtees-modified
+ * Stores information about and controls the food objects that appear in the game.
+ */
 public class SnakeFood
 {
 	private SnakeController M_Controller = SnakeController.getInstance();

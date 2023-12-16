@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 
 /**
+ * @author Toby Surtees
  * Sets the scene to the Main Menu Screen
  */
 public class MainMenuScene {

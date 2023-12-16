@@ -14,6 +14,7 @@ import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
 /**
+ * @author Toby Surtees
  * Sets the scene to be the main snake game
  */
 public class GameScene {

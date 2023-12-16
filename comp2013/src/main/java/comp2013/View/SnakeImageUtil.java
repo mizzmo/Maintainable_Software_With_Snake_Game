@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * @author Toby Surtees-modified
  * Contains a hashmap that holds all of the image files for the game.
  */
 public class SnakeImageUtil

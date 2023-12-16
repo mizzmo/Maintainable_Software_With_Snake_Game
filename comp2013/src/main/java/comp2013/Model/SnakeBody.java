@@ -1,6 +1,7 @@
 package comp2013.Model;
 
 /**
+ * @author Toby Surtees
  * Class that contains information about a snake body point.
  */
 public class SnakeBody{

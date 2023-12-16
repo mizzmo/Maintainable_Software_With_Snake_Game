@@ -1,6 +1,7 @@
 package comp2013.Model;
 
 /**
+ * @author Toby Surtees
  * Holds useful information about the program.
  */
 public interface IModel {

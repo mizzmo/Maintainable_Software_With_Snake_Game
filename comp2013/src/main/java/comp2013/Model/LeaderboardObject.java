@@ -1,6 +1,7 @@
 package comp2013.Model;
 
 /**
+ * @author Toby Surtees
  * Contains information about each leaderboard item.
  */
 public class LeaderboardObject implements Comparable<LeaderboardObject> {

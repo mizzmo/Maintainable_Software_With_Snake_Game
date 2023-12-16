@@ -7,6 +7,11 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import java.util.Random;
 
+/**
+ * @author Toby Surtees
+ * Controlls the wall feature of the game
+ * Stores information about and draws the walls
+ */
 public class SnakeWall {
     private int M_X;
     private int M_Y;

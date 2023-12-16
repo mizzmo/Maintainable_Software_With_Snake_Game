@@ -3,6 +3,7 @@ package comp2013.Controller;
 import javafx.scene.input.KeyCode;
 
 /**
+ * @author Toby Surtees
  * The main brains of the program, used to sync actions
  * from the View and Model.
  */
