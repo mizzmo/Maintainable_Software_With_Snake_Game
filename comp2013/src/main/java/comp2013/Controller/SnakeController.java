@@ -107,7 +107,8 @@ public class SnakeController implements IController {
              this.handleGameOver();
              return;
          }
-         if(m_View.m_SnakeWall.checkHitWall())
+         // If walls are enabled, check for them.
+         if(m_Model.getWallMode() == 1 && m_View.m_SnakeWall.checkHitWall())
          {
              this.handleGameOver();
              return;

@@ -3,3 +3,4 @@ Bingo,111
 Bish,333
 Bosh,555
 Bash,444
+m,600
