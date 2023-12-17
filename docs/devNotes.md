@@ -1,7 +1,7 @@
 [Back to README](../README.md)\
 \
 \
-[<-- Instructions](instructions.md)\
+[<-- Coding Conventions](codingConventions.md)\
 [ChangeLog -->](changelog.md)
 
 ### Converting to MVC Design Pattern.

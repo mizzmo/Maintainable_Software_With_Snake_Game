@@ -2,7 +2,7 @@
 \
 \
 [<-- Diagrams](diagrams.md)\
-[Instructions -->](instructions.md)
+[Development Notes -->](devNotes.md)
 
 ## Coding Conventions.
 For this project I plan to enforce some basic coding conventions to ensure that my project is more maintainable for the future

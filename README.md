@@ -9,7 +9,6 @@ Contact: *psyts20@nottingham.ac.uk*
  - [Initial Notes on Structure.](docs/notesOnStructure.md)
  - [Diagrams.](docs/diagrams.md)
  - [Coding Conventions.](docs/codingConventions.md)
- - [Instructions.](docs/instructions.md)
  - [Development Notes.](docs/devNotes.md)
  - [Changelog.](docs/changelog.md)
  - [Testing Methods & User Tests.](docs/testing.md)
