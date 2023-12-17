@@ -277,3 +277,6 @@
 - Removed unused casts.
 - Converted LeadeboardObject to a record.
 - Split up some methods into multiple smaller methods.
+
+### 17/12/23
+- Fixed a bug where the snake could still hit the walls if the walls are turned off.
