@@ -27,7 +27,7 @@ How to run the game:
 2) Launch IntelliJ, Click import and select the project folder.
 3) Navigate to the SnakeMain Class.
 4) Click the Green Arrow next to the class name to play the game.
-5) 
+5) If you get an error finding the highScore.txt, you will have to change the file path in leaderboardScene and SnakeView to the correct path for your computer, as this depends on where you stored the file on your system.
 #### How to play the game
 
 1. You will be greeted by a main menu, click start.
