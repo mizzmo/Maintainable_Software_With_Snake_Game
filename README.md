@@ -16,8 +16,8 @@ Contact: *tobysurtees@gmail.com*
  
 <a name="introduction"></a>
 ### Introduction.
-This project is a simple Snake game. The user controls a snake an the aim is to eat fruits
-which give you points. You can't hit yourself, the border walls, or the red walls, 
+This project is a simple Snake game. The user controls a snake where the aim is to eat fruit
+to gain points and grow the snakes length. You can't hit yourself, the border walls, or the red walls, 
 as this will end the game. The goal is high score.
 
 #### Installing and Running the project.
